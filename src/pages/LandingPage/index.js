@@ -4,13 +4,13 @@ import { Button } from '../../components/Button'
 import { Footer } from '../../components/Footer'
 const LandingPage = () => {
     return (
-        <div>
+        <section>
             <Navbar />
 
             {/* HEADER */}
             <section className='h-[100vh] w-full pt-[90px]'>
                 <div className='grid grid-cols-5 gap-6 h-full'>
-                    <div className='h-full w-full col-span-2 flex flex-col justify-center items-start gap-6 px-6'>
+                    <div className='h-full w-full col-span-2 flex flex-col justify-center items-start gap-6 px-16'>
                         <h3 className='text-2xl'>Selamat Datang di <span className='font-bold'>NAMAWEB</span></h3>
                         <p>
                             Platform edukasi yang menyediakan berbagai soal dan latihan try out secara gratis, praktis dan berkualitas dengan berbagai layanan dan program unggulan yang akan menjadi #TemanBelajar kamu dalam meraih impian.
@@ -42,12 +42,15 @@ const LandingPage = () => {
                     <h1 className='uppercase text-3xl font-bold text-primary'>jadwal try out terkini</h1>
                 </div>
                 <div className='grid grid-cols-4 gap-6 h-full'>
-                    <ItemJadwal icon={'/assets/img/smartphone.png'} title={'praktis'} subtitle={'mengerjakan try out dimana saja'} />
+                    <ItemJadwal jadwal={'01 Jan - 03 Jan 2024'} />
+                    <ItemJadwal jadwal={'01 Jan - 03 Jan 2024'} />
+                    <ItemJadwal jadwal={'01 Jan - 03 Jan 2024'} />
+                    <ItemJadwal jadwal={'01 Jan - 03 Jan 2024'} />
                 </div>
             </section>
 
             <Footer />
-        </div>
+        </section>
     )
 }
 
@@ -67,16 +70,17 @@ const ItemFitur = ({ icon, title, subtitle }) => {
     )
 }
 
-const ItemJadwal = ({ icon, title, subtitle }) => {
+const ItemJadwal = ({ jadwal }) => {
     return (
-        <div className='grid grid-cols-6 h-full '>
-            <div className='col-span-2 h-full flex items-center justify-center '>
-                <img src={icon} alt='' className='w-28' />
+        <div className='grid grid-cols-2 h-full gap-2'>
+            <div className='h-full flex items-center justify-center '>
+                <div className='bg-primary rounded-full h-[170px] w-[130px] p-4 text-white text-center flex items-center justify-center'>
+                    <span className='text-3xl uppercase font-bold'>try out 01</span>
+                </div>
             </div>
-            <div className='col-span-4 h-full flex items-start'>
+            <div className='h-full flex items-center w-[100px]'>
                 <div className='flex flex-col gap-2'>
-                    <h1 className='text-2xl uppercase font-bold text-textColorRed'>{title}</h1>
-                    <p className='capitalize text-primary text-base'>{subtitle}</p>
+                    <h1 className='text-2xl uppercase font-bold text-primary'>{jadwal}</h1>
                 </div>
             </div>
         </div>

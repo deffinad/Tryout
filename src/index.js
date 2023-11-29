@@ -4,6 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
+import Main from './pages/Main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -13,8 +14,8 @@ const router = createBrowserRouter([
     element: <LandingPage/>
   },
   {
-    path: "/sultan",
-    element: <h1>Sulthan</h1>,
+    path: "/home",
+    element: <Main/>,
   },
 ]);
 
