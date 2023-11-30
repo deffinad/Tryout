@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
 import { Navbar } from "../../../components/Navbar";
 import { Footer } from "../../../components/Footer";
@@ -8,6 +9,7 @@ import PasswordInput from "../../../components/PasswordInput";
 // import masukPng from './assets/img/masuk.png';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [uname, setUname] = useState('');
     const [password, setPassword] = useState('');
 
@@ -50,7 +52,7 @@ const LoginPage = () => {
                                     <div className="flex flex-1 justify-end">
                                         <h6 className="font-bold">Belum Punya Akun?</h6>
                                     </div>
-                                    <h6 style={{ cursor: 'pointer' }} className="font-bold text-blue-900 flex-1 hover:text-blue-700 hover:underline">Register</h6>
+                                    <h6 style={{ cursor: 'pointer' }} className="font-bold text-blue-900 flex-1 hover:text-blue-700 hover:underline" onClick={() => navigate('/daftar')}>Register</h6>
                                 </div>
                                 <div className="flex flex-1 flex-row gap-4">
                                     <div className="flex flex-1 justify-end">
