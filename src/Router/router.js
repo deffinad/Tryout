@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from '../App';
 import LoginPage from '../pages/Auth/Login';
 import RegisterPage from '../pages/Auth/Register';
 import LandingPage from '../pages/LandingPage';
+import Main from '../pages/Main';
 
 export const router = createBrowserRouter([
     {
@@ -16,5 +16,9 @@ export const router = createBrowserRouter([
     {
         path: "/daftar",
         element: <RegisterPage />,
+    },
+    {
+        path: "/home",
+        element: <Main />,
     },
 ]);

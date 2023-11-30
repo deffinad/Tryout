@@ -1,3 +1,5 @@
+import { FaCircleInfo, FaClipboard, FaFileInvoice, FaHouse, FaList } from "react-icons/fa6"
+
 const routesMain = [
     {
         id: 'main',
@@ -6,14 +8,14 @@ const routesMain = [
         children: [
             {
                 id: 'dashboard',
-                icon: '',
+                icon: <FaHouse style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Dashboard',
                 type: 'item',
                 url: ''
             },
             {
                 id: 'list-tryout',
-                icon: '',
+                icon: <FaList style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Daftar Try Out ',
                 type: 'collapse',
                 children: [
@@ -42,21 +44,21 @@ const routesMain = [
             },
             {
                 id: 'my-tryout',
-                icon: '',
+                icon: <FaClipboard style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Try Out Saya',
                 type: 'item',
                 url: ''
             },
             {
                 id: 'payment',
-                icon: '',
+                icon: <FaFileInvoice style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Payment',
                 type: 'item',
                 url: ''
             },
             {
                 id: 'panduan',
-                icon: '',
+                icon: <FaCircleInfo style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Panduan',
                 type: 'item',
                 url: ''

@@ -18,7 +18,7 @@ const Layout = () => {
         <section className='overflow-hidden z-0'>
             <Navbar toggle={toggleSidebar} setToggle={() => setToggleSidebar(!toggleSidebar)} />
             <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'translate-x-[250px]' : 'translate-x-0'} transition-all duration-500 overflow-auto`} style={{ width: widthContent }}>
-                <div className='h-[110vh] p-16'>
+                <div className='min-h-[100vh] p-16'>
                     Deffin
                 </div>
                 <Footer />
