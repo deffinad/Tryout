@@ -2,22 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import Main from './pages/Main';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './Router/router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LandingPage/>
-  },
-  {
-    path: "/home",
-    element: <Main/>,
-  },
-]);
 
 root.render(
   <React.StrictMode>
