@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from 'react'
+import { Navbar } from '../Navbar'
+import { Sidebar } from './Sidebar'
+import { Footer } from '../Footer'
+
+const Layout = () => {
+    const [toggleSidebar, setToggleSidebar] = useState(false)
+    const [widthContent, setWidthContent] = useState(window.innerWidth)
+    useEffect(() => {
+        if (toggleSidebar) {
+            setWidthContent(widthContent - 250)
+        } else {
+            setWidthContent(window.innerWidth)
+        }
+    }, [toggleSidebar])
+
+    return (
+        <section className='overflow-hidden z-0'>
+            <Navbar toggle={toggleSidebar} setToggle={() => setToggleSidebar(!toggleSidebar)} />
+            <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'translate-x-[250px]' : 'translate-x-0'} transition-all duration-500 overflow-auto`} style={{ width: widthContent }}>
+                <div className='h-[110vh] p-16'>
+                    Deffin
+                </div>
+                <Footer />
+            </div>
+
+            <Sidebar toggle={toggleSidebar} />
+        </section>
+    )
+}
+
+export default Layout
