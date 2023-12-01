@@ -7,7 +7,6 @@ import UjianKedinasan from './UjianKedinasan'
 
 const DaftarTryOut = () => {
     const { id } = useParams()
-    console.log(id)
     return (
         <Layout>
             {
