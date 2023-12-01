@@ -62,6 +62,7 @@ const RegisterPage = () => {
                                     onchange={(e) => setAsalSekolah(e.target.value)}
                                 />
                                 <InlineIconInput
+                                    type="date"
                                     name="tglLahir"
                                     value={tglLahir}
                                     placeholder="Tanggal Lahir"
@@ -75,12 +76,14 @@ const RegisterPage = () => {
                                     onChange={(e) => setJenisKelamin(e.target.value)}
                                 />
                                 <InlineIconInput
+                                    type="phone"
                                     name="noHp"
                                     value={noHp}
                                     placeholder="No. Hp"
                                     onchange={(e) => setNoHp(e.target.value)}
                                 />
                                 <InlineIconInput
+                                    type="email"
                                     value={email}
                                     placeholder="Email"
                                     onchange={(e) => setEmail(e.target.value)}
