@@ -7,7 +7,7 @@ import VerticalItem from './VerticalItem'
 export const Sidebar = ({toggle}) => {
   const [activeMenu, setActiveMenu] = useState({})
   return (
-    <aside className={`h-[100vh] w-[270px] z-10 bg-[#E5E5E5] fixed top-[90px] py-8 ${toggle ? 'translate-x-0' : '-translate-x-[270px]'} transition-all duration-500`}>
+    <aside className={`h-[100vh] w-[270px] z-10 bg-[#E5E5E5] fixed top-[90px] shadow-lg py-8 ${toggle ? 'translate-x-0' : '-translate-x-[270px]'} transition-all duration-500`}>
       {
         routesMain && routesMain.map(item => (
           <div key={item.id}>
