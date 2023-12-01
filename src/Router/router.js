@@ -28,7 +28,15 @@ export const router = createBrowserRouter([
         element: <DaftarTryOut />,
     },
     {
-        path: "/my-to/:id",
+        path: "/my-to/utbk",
+        element: <MyTryOut />,
+    },
+    {
+        path: "/my-to/utbk/:page",
+        element: <MyTryOut />,
+    },
+    {
+        path: "/my-to/utbk/detail/:id",
         element: <MyTryOut />,
     },
 ]);
