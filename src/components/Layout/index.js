@@ -3,12 +3,12 @@ import { Navbar } from '../Navbar'
 import { Sidebar } from './Sidebar'
 import { Footer } from '../Footer'
 
-const Layout = () => {
+const Layout = ({ children }) => {
     const [toggleSidebar, setToggleSidebar] = useState(false)
     const [widthContent, setWidthContent] = useState(window.innerWidth)
     useEffect(() => {
         if (toggleSidebar) {
-            setWidthContent(widthContent - 250)
+            setWidthContent(prev => prev - 250)
         } else {
             setWidthContent(window.innerWidth)
         }
@@ -19,7 +19,7 @@ const Layout = () => {
             <Navbar toggle={toggleSidebar} setToggle={() => setToggleSidebar(!toggleSidebar)} />
             <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'translate-x-[250px]' : 'translate-x-0'} transition-all duration-500 overflow-auto`} style={{ width: widthContent }}>
                 <div className='min-h-[100vh] p-16'>
-                    Deffin
+                    {children}
                 </div>
                 <Footer />
             </div>

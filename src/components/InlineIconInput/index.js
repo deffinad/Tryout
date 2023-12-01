@@ -17,7 +17,7 @@ const InlineIconInput = ({ name = '', value = '', type = 'text', onchange = () =
                 </span>
             }
             {iconSuffix !== '' &&
-                <span className="material-symbols-outlined absolute right-3 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
+                <span className="material-symbols-outlined absolute right-4 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
                     {iconSuffix}
                 </span>
             }

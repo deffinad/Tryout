@@ -1,12 +1,18 @@
-import React from "react";
-import { FaRegEye } from "react-icons/fa6";
+import React, { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const PasswordInput = ({ name = '', value = '', onchange = () => { }, iconPrefix = '', showHideButton = true, placeholder = 'Ketikkan Sesuatu' }) => {
+    const [showPass, setShowPass] = useState(false);
+
+    const handleShowPass = () => {
+        setShowPass(prev => !prev);
+    }
+
     return (
         <div class="relative flex items-center w-full">
             <input
                 name={name}
-                type="password"
+                type={!showPass ? "password" : "text"}
                 value={value}
                 onChange={onchange}
                 placeholder={placeholder}
@@ -18,8 +24,12 @@ const PasswordInput = ({ name = '', value = '', onchange = () => { }, iconPrefix
                 </span>
             }
             {showHideButton &&
-                <span className="material-symbols-outlined absolute right-3 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
-                    <FaRegEye size={18} style={{ cursor: 'pointer' }} />
+                <span className="material-symbols-outlined absolute right-4 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
+                    {!showPass ? (
+                        <FaRegEye size={18} style={{ cursor: 'pointer' }} onClick={handleShowPass} />
+                    ) : (
+                        <FaRegEyeSlash size={18} style={{ cursor: 'pointer' }} onClick={handleShowPass} />
+                    )}
                 </span>
             }
         </div>
