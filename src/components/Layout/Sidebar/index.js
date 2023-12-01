@@ -5,18 +5,18 @@ import VerticalCollapse from './VerticalCollapse'
 import VerticalItem from './VerticalItem'
 
 export const Sidebar = ({toggle}) => {
-  const [activeMenu, setActiveMenu] = useState(routesMain[0])
+  const [activeMenu, setActiveMenu] = useState({})
   return (
-    <div className={`h-[100vh] w-[250px] z-10 bg-[#E5E5E5] fixed top-[90px] py-8 ${toggle ? 'translate-x-0' : '-translate-x-[250px]'} transition-all duration-500`}>
+    <aside className={`h-[100vh] w-[270px] z-10 bg-[#E5E5E5] fixed top-[90px] py-8 ${toggle ? 'translate-x-0' : '-translate-x-[270px]'} transition-all duration-500`}>
       {
         routesMain && routesMain.map(item => (
           <div key={item.id}>
-            {item.type === 'group' && <VerticalGroup item={item} level={0}/>}
-            {item.type === 'collapse' && <VerticalCollapse item={item} level={0}/>}
+            {item.type === 'group' && <VerticalGroup item={item} level={0} active={activeMenu} setActive={setActiveMenu}/>}
+            {item.type === 'collapse' && <VerticalCollapse item={item} level={0} active={activeMenu} setActive={setActiveMenu}/>}
             {item.type === 'item' && <VerticalItem item={item} level={0} active={activeMenu} setActive={setActiveMenu}/>}
           </div>
         ))
       }
-    </div>
+    </aside>
   )
 }
