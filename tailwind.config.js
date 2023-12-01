@@ -10,7 +10,8 @@ module.exports = {
         secondary: "#F1D64B",
         textColor: '#FFFFFF',
         bgRed: '#B81D28',
-        textColorRed: '#B81D28'
+        textColorRed: '#B81D28',
+        textOrange: '#DD5E35',
       },
     },
   },
