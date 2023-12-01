@@ -1,7 +1,7 @@
 import React from 'react'
-import Layout from '../../components/Layout'
+import Layout from '../../../components/Layout'
 
-const MainDashboard = () => {
+const Dashboard = () => {
    return (
       <Layout>
          <h1 className='mb-5 text-2xl text-primary'>Hai, Username Selamat Datang Kembali!</h1>
@@ -53,4 +53,4 @@ const MainDashboard = () => {
    )
 }
 
-export default MainDashboard;
+export default Dashboard;

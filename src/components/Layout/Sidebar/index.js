@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import routesMain from '../../../pages/MainDashboard/routesConfig'
 import VerticalGroup from './VerticalGroup'
 import VerticalCollapse from './VerticalCollapse'
 import VerticalItem from './VerticalItem'
+import { routesMain } from '../../../pages/Main/routesConfig'
 
 export const Sidebar = ({toggle}) => {
   const [activeMenu, setActiveMenu] = useState({})

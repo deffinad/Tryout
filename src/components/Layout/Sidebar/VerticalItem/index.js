@@ -1,12 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const VerticalItem = ({ item, level, active, setActive }) => {
   let activeItem = active.id === item.id;
-
+  const navigation = useNavigate()
+  console.log(active)
   return (
     <button
       key={item.id}
-      onClick={() => setActive(item)}
+      onClick={() => {
+        navigation(item.pathUrl)
+        setActive(item)
+      }}
       className={`h-auto my-[0.25px] cursor-pointer px-[16px] py-4  relative transition-all duration-500 ${activeItem ? 'bg-secondary shadow-lg' : 'bg-transparent'} w-full flex flex-row items-center gap-3`}
     >
       {
