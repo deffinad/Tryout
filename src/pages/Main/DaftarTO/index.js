@@ -1,6 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import Layout from '../../../components/Layout'
+import Utbk from './UTBK'
+import Poltekses from './Poltekses'
+import UjianKedinasan from './UjianKedinasan'
 
 const DaftarTryOut = () => {
     const { id } = useParams()
@@ -8,9 +11,9 @@ const DaftarTryOut = () => {
     return (
         <Layout>
             {
-                id === 'utbk' ? <div>Daftar UTBK</div> :
-                    id === 'poltekses' ? <div>Daftar Poltekses</div> :
-                        id === 'kedinasan' ? <div>Daftar Ujian Kedinasan</div> : null
+                id === 'utbk' ? <Utbk/> :
+                    id === 'poltekses' ? <Poltekses/> :
+                        id === 'kedinasan' ? <UjianKedinasan/> : null
             }
         </Layout>
     )

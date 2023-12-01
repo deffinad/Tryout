@@ -20,21 +20,21 @@ export const routesMain = [
                 type: 'collapse',
                 children: [
                     {
-                        id: 'utbk-snbt',
+                        id: 'list-utbk-snbt',
                         icon: '',
                         title: 'UTBK - SNBT',
                         type: 'item',
                         pathUrl: '/daftar/utbk'
                     },
                     {
-                        id: 'poltekses',
+                        id: 'list-poltekses',
                         icon: '',
                         title: 'Poltekses',
                         type: 'item',
                         pathUrl: '/daftar/poltekses'
                     },
                     {
-                        id: 'ujian-kedinasan',
+                        id: 'list-ujian-kedinasan',
                         icon: '',
                         title: 'Ujian Kedinasan',
                         type: 'item',
@@ -46,8 +46,30 @@ export const routesMain = [
                 id: 'my-tryout',
                 icon: <FaClipboard style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Try Out Saya',
-                type: 'item',
-                pathUrl: ''
+                type: 'collapse',
+                children: [
+                      {
+                        id: 'my-utbk-snbt',
+                        icon: '',
+                        title: 'UTBK - SNBT',
+                        type: 'item',
+                        pathUrl: '/daftar/utbk'
+                    },
+                    {
+                        id: 'my-poltekses',
+                        icon: '',
+                        title: 'Poltekses',
+                        type: 'item',
+                        pathUrl: '/daftar/poltekses'
+                    },
+                    {
+                        id: 'my-ujian-kedinasan',
+                        icon: '',
+                        title: 'Ujian Kedinasan',
+                        type: 'item',
+                        pathUrl: '/daftar/kedinasan'
+                    },
+                ]
             },
             {
                 id: 'payment',

@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
         <section className='overflow-hidden z-0'>
             <Navbar toggle={toggleSidebar} setToggle={() => setToggleSidebar(!toggleSidebar)} />
             <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'ml-[270px]' : 'ml-[0]'} mr-0 transition-all duration-500 overflow-auto`}>
-                <div className='min-h-[100vh] p-16'>
+                <div className='min-h-[100vh] p-16 bg-gray-100'>
                     {children}
                 </div>
                 <Footer />
