@@ -4,6 +4,7 @@ import RegisterPage from '../pages/Auth/Register';
 import LandingPage from '../pages/LandingPage';
 import Dashboard from '../pages/Main/Dashboard';
 import DaftarTryOut from '../pages/Main/DaftarTO';
+import MyTryOut from '../pages/Main/MyTO';
 
 export const router = createBrowserRouter([
     {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
     {
         path: "/daftar/:id",
         element: <DaftarTryOut />,
+    },
+    {
+        path: "/my-to/:id",
+        element: <MyTryOut />,
     },
 ]);
