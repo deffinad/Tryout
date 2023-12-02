@@ -1,13 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaBagShopping, FaChevronRight, FaDoorOpen, FaGear } from "react-icons/fa6"
 
 
 const ProfileSaya = () => {
+    const navigate = useNavigate();
     return (
         <div className="flex flex-col">
             {/* profile photo */}
             <div className="flex flex-row justify-start gap-8 mb-10">
-                <img className="mb-3 rounded-full shadow-lg" src="/assets/img/avatar.png" alt="" />
+                <img className="mb-3 rounded-full shadow-lg w-56 h-56 ring-2 ring-gray-300" src="/assets/img/sample-photo-2.jpg" alt="" />
                 <div className="flex flex-col justify-center items-centers gap-2">
                     <h1 className="text-3xl font-semibold uppercase">Username</h1>
                     <h2 className="text-2xl font-medium uppercase">Asal Sekolah</h2>
@@ -17,7 +19,9 @@ const ProfileSaya = () => {
             <div className="bg-white shadow-md rounded-3xl p-5 mb-5">
                 <div className="border-b-2 border-blue-300 p-1 flex flex-row justify-between">
                     <h1 className="text-xl text-primary font-medium">Data Pribadi</h1>
-                    <h1 style={{ cursor: 'pointer' }} className="text-secondary text-xl font-semibold hover:text-yellow-400">Edit</h1>
+                    <h1 style={{ cursor: 'pointer' }} className="text-secondary text-xl font-semibold hover:text-yellow-400" onClick={()=>navigate('/profile-saya/edit/1')}>
+                        Edit
+                    </h1>
                 </div>
                 <div className="p-3 flex flex-col gap-5">
                     <RowsProfile

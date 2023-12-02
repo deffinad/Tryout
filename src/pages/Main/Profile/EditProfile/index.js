@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import DropdownInput from "../../../../components/DropdownInput";
 import InlineIconInput from "../../../../components/InlineIconInput";
+import { FaPen } from "react-icons/fa6";
 
 const EditProfile = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [noHp, setNoHp] = useState('');
-    const [uname, setUname] = useState('');
     const [email, setEmail] = useState('');
     const [provinsi, setProvinsi] = useState('');
     const [tglLahir, setTglLahir] = useState('');
     const [asalKota, setAsalKota] = useState('');
+    const [uname, setUname] = useState('Username');
     const [namaLengkap, setNamaLengkap] = useState('');
     const [asalSekolah, setAsalSekolah] = useState('');
     const [jenisKelamin, setJenisKelamin] = useState('');
@@ -34,16 +35,28 @@ const EditProfile = () => {
             'username': uname,
         }
 
-        console.log(payload);
+        console.log(payload)
+        navigate('/profile-saya')
     }
 
     return (
-        <div className="flex flex-col mt-10">
+        <div className="flex flex-col">
             {/* profile photo */}
             <div className="flex flex-row justify-start gap-8 mb-10">
-                <img className="mb-3 rounded-full shadow-lg" src="/assets/img/avatar.png" alt="" />
+                <div className="relative">
+                    <img className="mb-3 rounded-full ring-2 ring-gray-300 shadow-lg w-56 h-56" src="/assets/img/sample-photo-2.jpg" alt="" />
+                    <div style={{ cursor: 'pointer' }} className="absolute flex items-center w-10 h-10 justify-center bg-primary border-2 border-white rounded-full top-1 right-4 dark:border-gray-900 hover:bg-blue-700">
+                        <FaPen size={23} className="text-white" />
+                    </div>
+                </div>
                 <div className="flex flex-col justify-center items-centers gap-2">
-                    <h1 className="text-3xl font-semibold uppercase">Username</h1>
+                    {/* <h1 className="text-3xl font-semibold uppercase">Username</h1> */}
+                    <input
+                        type='text'
+                        value={uname}
+                        onChange={(e) => setUname(e.target.value)}
+                        className={`peer uppercase relative h-10 w-full rounded-md bg-inherit text-3xl font-semibold pr-4 outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:ring-2 focus:ring-blue-400 focus:drop-shadow-lg`}
+                    />
                     <h2 className="text-2xl font-medium uppercase">Asal Sekolah</h2>
                 </div>
             </div>
