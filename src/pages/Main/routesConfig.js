@@ -11,7 +11,7 @@ export const routesMain = [
                 icon: <FaHouse style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Dashboard',
                 type: 'item',
-                pathUrl: '/home'
+                pathUrl: '/beranda'
             },
             {
                 id: 'list-tryout',

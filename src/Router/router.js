@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         element: <RegisterPage />,
     },
     {
-        path: "/home",
+        path: "/beranda",
         element: <Dashboard />,
     },
     {
@@ -37,12 +37,15 @@ export const router = createBrowserRouter([
         element: <MyTryOut />,
     },
     {
-        path: "/to-saya/:menu/:page",
+        path: "/to-saya/:menu/lihat-nilai-keseluruhan",
         element: <MyTryOut />,
     },
     {
         path: "/to-saya/:menu/detail/:id",
         element: <MyTryOut />,
     },
-    
+    {
+        path: "/to-saya/:menu/beranda/:id",
+        element: <MyTryOut />,
+    },
 ]);

@@ -4,10 +4,12 @@ import { Button } from "../../../../components/Button";
 
 const LihatNilaiKeseluruhan = () => {
     const navigate = useNavigate();
-    const {menu} = useParams()
+    const { menu } = useParams()
 
     return (
         <Fragment>
+            <h1 className="text-2xl text-gray-700 font-semibold mb-8">Nilai Keseluruhan</h1>
+
             <div className="grid grid-cols-2 grid-rows-1 gap-4 py-5 border-b-4 border-blue-200">
                 <div className='grid grid-cols-4 grid-rows-1 gap-5'>
                     <div className='col-span-1'>
