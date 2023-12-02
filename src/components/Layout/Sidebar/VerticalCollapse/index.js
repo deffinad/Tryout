@@ -21,7 +21,7 @@ const VerticalCollapse = ({ item, level, active, setActive }) => {
             {item.title}
           </p>
 
-          <div onClick={setToggle} className={`transform ${toggle ? 'rotate-90' : 'rotate-0'} transition-transform duration-500 ease-in-out`}>
+          <div className={`transform ${toggle ? 'rotate-90' : 'rotate-0'} transition-transform duration-500 ease-in-out`}>
             <FaChevronRight className='text-base text-gray-700'/>
           </div>
         </div>

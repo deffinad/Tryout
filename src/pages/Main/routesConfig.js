@@ -76,7 +76,7 @@ export const routesMain = [
                 icon: <FaFileInvoice style={{width:'24px', height: '24px'}} className="text-primary"/>,
                 title: 'Payment',
                 type: 'item',
-                pathUrl: ''
+                pathUrl: '/pembayaran'
             },
             {
                 id: 'panduan',

@@ -4,6 +4,7 @@ import RegisterPage from '../pages/Auth/Register';
 import LandingPage from '../pages/LandingPage';
 import Dashboard from '../pages/Main/Dashboard';
 import DaftarTryOut from '../pages/Main/DaftarTO';
+import Pembayaran from '../pages/Main/Pembayaran';
 import MyTryOut from '../pages/Main/MyTO';
 import ProfilSaya from '../pages/Main/Profile';
 
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
     {
         path: "/daftar/:id",
         element: <DaftarTryOut />,
+    },
+    {
+        path: "/pembayaran",
+        element: <Pembayaran />,
     },
     {
         path: "/my-to/utbk",
