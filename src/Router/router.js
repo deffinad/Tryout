@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
         element: <RegisterPage />,
     },
     {
-        path: "/home",
+        path: "/beranda",
         element: <Dashboard />,
     },
     {
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
         element: <ProfilePage />,
     },
     {
-        path: "/daftar/:id",
+        path: "/list-to/:id",
         element: <DaftarTryOut />,
     },
     {
@@ -46,15 +46,19 @@ export const router = createBrowserRouter([
         element: <Pembayaran />,
     },
     {
-        path: "/my-to/utbk",
+        path: "/to-saya/:menu",
         element: <MyTryOut />,
     },
     {
-        path: "/my-to/utbk/:page",
+        path: "/to-saya/:menu/lihat-nilai-keseluruhan",
         element: <MyTryOut />,
     },
     {
-        path: "/my-to/utbk/detail/:id",
+        path: "/to-saya/:menu/detail/:id",
+        element: <MyTryOut />,
+    },
+    {
+        path: "/to-saya/:menu/beranda/:id",
         element: <MyTryOut />,
     },
 ]);

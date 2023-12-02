@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 
 const LihatNilaiKeseluruhan = () => {
-
     const navigate = useNavigate();
+    const { menu } = useParams()
 
     return (
         <Fragment>
+            <h1 className="text-2xl text-gray-700 font-semibold mb-8">Nilai Keseluruhan</h1>
+
             <div className="grid grid-cols-2 grid-rows-1 gap-4 py-5 border-b-4 border-blue-200">
                 <div className='grid grid-cols-4 grid-rows-1 gap-5'>
                     <div className='col-span-1'>
@@ -31,7 +33,7 @@ const LihatNilaiKeseluruhan = () => {
                     </div>
                     <div className='col-span-1'>
                         <div className="flex flex-col h-full justify-center gap-5">
-                            <Button size="sm" title={'Lihat Selengkapnya'} bgColor={'bg-primary'} textColor={'text-white'} onClick={() => navigate('/my-to/utbk/detail/1')} />
+                            <Button size="sm" title={'Lihat Selengkapnya'} bgColor={'bg-primary'} textColor={'text-white'} onClick={() => navigate(`/to-saya/${menu}/detail/1`)} />
                             <Button size="sm" title={'Pembahasan'} bgColor={'bg-bgRed'} textColor={'text-white'} hoverBgColor="hover:bg-red-900" />
                         </div>
                     </div>

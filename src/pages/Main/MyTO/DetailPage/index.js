@@ -1,9 +1,8 @@
 import React from "react";
-import Layout from "../../../../components/Layout";
 
 const DetailPage = () => {
     return (
-        <Layout>
+        <>
             {/* header */}
             <div className='grid grid-cols-2 grid-rows-1 gap-5'>
                 <div className="flex flex-col">
@@ -89,7 +88,7 @@ const DetailPage = () => {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </>
     )
 }
 

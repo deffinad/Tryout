@@ -1,32 +1,26 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 // import component
 import MainPage from "./MainPage";
 import Layout from "../../../components/Layout";
 import LihatNilaiKeseluruhan from "./LihatNilaiKeseluruhan";
 import DetailPage from "./DetailPage";
+import BerandaTOSaya from "./Beranda";
 
 const MyTryOut = () => {
 
-    const { page, id } = useParams();
-
+    const { menu, id } = useParams();
+    const { pathname } = useLocation()
     return (
-        <>
-            {!id &&
-                <>
-                    <Layout>
-                        <h1 className="text-2xl text-gray-700 font-semibold mb-8">MyTO Page</h1>
-                        {!page &&
-                            <MainPage />
-                        }
-                        {page === 'lihat-nilai-keseluruhan' &&
-                            <LihatNilaiKeseluruhan />
-                        }
-                    </Layout>
-                </>
+        <Layout>
+            {
+                pathname === `/to-saya/${menu}` ? <MainPage/> :
+                pathname === `/to-saya/${menu}/lihat-nilai-keseluruhan` ? <LihatNilaiKeseluruhan/> :
+                pathname === `/to-saya/${menu}/detail/${id}` ? <DetailPage/> :
+                pathname === `/to-saya/${menu}/beranda/${id}` ? <BerandaTOSaya/> :
+                null
             }
-            {id && <DetailPage />}
-        </>
+        </Layout>
     )
 }
 
