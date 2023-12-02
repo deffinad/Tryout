@@ -5,6 +5,7 @@ import LandingPage from '../pages/LandingPage';
 import Dashboard from '../pages/Main/Dashboard';
 import DaftarTryOut from '../pages/Main/DaftarTO';
 import MyTryOut from '../pages/Main/MyTO';
+import ProfilSaya from '../pages/Main/Profile';
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
     {
         path: "/home",
         element: <Dashboard />,
+    },
+    {
+        path: "/profile-saya",
+        element: <ProfilSaya />,
     },
     {
         path: "/daftar/:id",
