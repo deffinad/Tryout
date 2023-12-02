@@ -4,6 +4,7 @@ import RegisterPage from '../pages/Auth/Register';
 import LandingPage from '../pages/LandingPage';
 import Dashboard from '../pages/Main/Dashboard';
 import DaftarTryOut from '../pages/Main/DaftarTO';
+import Pembayaran from '../pages/Main/Pembayaran';
 
 export const router = createBrowserRouter([
     {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
     {
         path: "/daftar/:id",
         element: <DaftarTryOut />,
+    },
+    {
+        path: "/pembayaran",
+        element: <Pembayaran />,
     },
 ]);
