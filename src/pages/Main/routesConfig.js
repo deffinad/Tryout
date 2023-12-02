@@ -24,21 +24,21 @@ export const routesMain = [
                         icon: '',
                         title: 'UTBK - SNBT',
                         type: 'item',
-                        pathUrl: '/daftar/utbk'
+                        pathUrl: '/list-to/utbk'
                     },
                     {
                         id: 'list-poltekses',
                         icon: '',
                         title: 'Poltekses',
                         type: 'item',
-                        pathUrl: '/daftar/poltekses'
+                        pathUrl: '/list-to/poltekses'
                     },
                     {
                         id: 'list-ujian-kedinasan',
                         icon: '',
                         title: 'Ujian Kedinasan',
                         type: 'item',
-                        pathUrl: '/daftar/kedinasan'
+                        pathUrl: '/list-to/kedinasan'
                     },
                 ],
             },
@@ -53,21 +53,21 @@ export const routesMain = [
                         icon: '',
                         title: 'UTBK - SNBT',
                         type: 'item',
-                        pathUrl: '/my-to/utbk'
+                        pathUrl: '/to-saya/utbk'
                     },
                     {
                         id: 'my-poltekses',
                         icon: '',
                         title: 'Poltekses',
                         type: 'item',
-                        pathUrl: '/my-to/poltekses'
+                        pathUrl: '/to-saya/poltekses'
                     },
                     {
                         id: 'my-ujian-kedinasan',
                         icon: '',
                         title: 'Ujian Kedinasan',
                         type: 'item',
-                        pathUrl: '/my-to/kedinasan'
+                        pathUrl: '/to-saya/kedinasan'
                     },
                 ]
             },

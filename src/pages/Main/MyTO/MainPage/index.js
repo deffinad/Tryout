@@ -8,7 +8,7 @@ const MainPage = () => {
     return (
         <div>
             Halaman Utama TO Saya
-            <p onClick={() => navigate('/my-to/utbk/lihat-nilai-keseluruhan')}>Lihat Nilai Keseluruhan</p>
+            <p onClick={() => navigate('/to-saya/utbk/lihat-nilai-keseluruhan')}>Lihat Nilai Keseluruhan</p>
         </div>
     )
 }

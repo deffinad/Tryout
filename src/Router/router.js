@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
     },
     {
-        path: "/daftar/:id",
+        path: "/list-to/:id",
         element: <DaftarTryOut />,
     },
     {
@@ -33,15 +33,15 @@ export const router = createBrowserRouter([
         element: <Pembayaran />,
     },
     {
-        path: "/my-to/utbk",
+        path: "/to-saya/utbk",
         element: <MyTryOut />,
     },
     {
-        path: "/my-to/utbk/:page",
+        path: "/to-saya/utbk/:page",
         element: <MyTryOut />,
     },
     {
-        path: "/my-to/utbk/detail/:id",
+        path: "/to-saya/utbk/detail/:id",
         element: <MyTryOut />,
     },
 ]);

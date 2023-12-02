@@ -31,7 +31,7 @@ const LihatNilaiKeseluruhan = () => {
                     </div>
                     <div className='col-span-1'>
                         <div className="flex flex-col h-full justify-center gap-5">
-                            <Button size="sm" title={'Lihat Selengkapnya'} bgColor={'bg-primary'} textColor={'text-white'} onClick={() => navigate('/my-to/utbk/detail/1')} />
+                            <Button size="sm" title={'Lihat Selengkapnya'} bgColor={'bg-primary'} textColor={'text-white'} onClick={() => navigate('/to-saya/utbk/detail/1')} />
                             <Button size="sm" title={'Pembahasan'} bgColor={'bg-bgRed'} textColor={'text-white'} hoverBgColor="hover:bg-red-900" />
                         </div>
                     </div>
