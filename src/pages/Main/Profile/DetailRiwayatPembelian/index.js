@@ -21,7 +21,7 @@ const DetailRiwayatPembelian = () => {
                 <div className="px-6 py-4 rounded-3xl bg-gray-200 flex flex-col">
                     <div className="flex flex-row justify-center items-center pb-3 border-b-2 border-blue-300">
                         <div className="flex flex-row gap-2 items-center">
-                            <img src="/assets/img/pngwing.png" className="w-10" />
+                            <img src="/assets/img/pngwing.png" alt="" className="w-10" />
                             <h1 className="text-2xl font-semibold">Try Out SNBPT #1 2024/2025</h1>
                         </div>
                     </div>

@@ -36,7 +36,7 @@ const RiwayatPembelian = () => {
                 <div className="px-6 py-4 rounded-3xl bg-gray-200 flex flex-col">
                     <div className="flex flex-row justify-between pb-3 border-b-2 border-blue-300">
                         <div className="flex flex-row gap-2 items-center">
-                            <img src="/assets/img/pngwing.png" className="w-10" />
+                            <img src="/assets/img/pngwing.png" alt="" className="w-10" />
                             <h1 className="text-2xl font-semibold">Try Out SNBPT #1 2024/2025</h1>
                         </div>
                         <div className="grid grid-cols-2 grid-rows-2 gap-x-3">
