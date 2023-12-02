@@ -6,7 +6,7 @@ import Dashboard from '../pages/Main/Dashboard';
 import DaftarTryOut from '../pages/Main/DaftarTO';
 import Pembayaran from '../pages/Main/Pembayaran';
 import MyTryOut from '../pages/Main/MyTO';
-import ProfilSaya from '../pages/Main/Profile';
+import ProfilePage from '../pages/Main/Profile';
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +27,15 @@ export const router = createBrowserRouter([
     },
     {
         path: "/profile-saya",
-        element: <ProfilSaya />,
+        element: <ProfilePage />,
+    },
+    {
+        path: "/profile-saya/:page",
+        element: <ProfilePage />,
+    },
+    {
+        path: "/profile-saya/edit/:id",
+        element: <ProfilePage />,
     },
     {
         path: "/daftar/:id",
