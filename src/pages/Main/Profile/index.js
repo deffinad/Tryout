@@ -1,20 +1,28 @@
 import React from "react";
 import ProfileSaya from "./ProfileSaya";
 import EditProfile from "./EditProfile";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Layout from "../../../components/Layout";
+import RiwayatPembelian from "./RiwayatPembelian";
+import DetailRiwayatPembelian from "./DetailRiwayatPembelian";
+
 
 const ProfilePage = () => {
-
-    const { page, id } = useParams();
-
+    const { id } = useParams();
+    const { pathname } = useLocation();
     return (
         <Layout>
-            {!page && !id &&
+            {pathname === '/profile-saya' &&
                 <ProfileSaya />
             }
-            {id &&
+            {pathname === '/profile-saya/riwayat-pembelian' &&
+                <RiwayatPembelian />
+            }
+            {pathname === `/profile-saya/edit/${id}` &&
                 <EditProfile />
+            }
+            {pathname === `/profile-saya/riwayat-pembelian/detail/${id}` &&
+                <DetailRiwayatPembelian />
             }
         </Layout>
     )

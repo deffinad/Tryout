@@ -45,7 +45,7 @@ const ProfileSaya = () => {
                 </div>
             </div>
             {/* riwayat pembelian card */}
-            <div className="bg-white shadow-md rounded-3xl p-5 mb-5">
+            <div className="bg-white shadow-md hover:shadow-lg rounded-3xl p-5 mb-5 cursor-pointer" onClick={()=>navigate('/profile-saya/riwayat-pembelian')}>
                 <div className="flex flex-row justify-between items-center mx-2">
                     <div className="flex flex-row gap-3 justify-center items-center">
                         <FaBagShopping size={32} style={{ color: "#F1D64B" }} />
