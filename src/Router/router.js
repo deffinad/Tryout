@@ -5,6 +5,7 @@ import LandingPage from '../pages/LandingPage';
 import Dashboard from '../pages/Main/Dashboard';
 import DaftarTryOut from '../pages/Main/DaftarTO';
 import Pembayaran from '../pages/Main/Pembayaran';
+import MyTryOut from '../pages/Main/MyTO';
 
 export const router = createBrowserRouter([
     {
@@ -30,5 +31,17 @@ export const router = createBrowserRouter([
     {
         path: "/pembayaran",
         element: <Pembayaran />,
+    },
+    {
+        path: "/my-to/utbk",
+        element: <MyTryOut />,
+    },
+    {
+        path: "/my-to/utbk/:page",
+        element: <MyTryOut />,
+    },
+    {
+        path: "/my-to/utbk/detail/:id",
+        element: <MyTryOut />,
     },
 ]);

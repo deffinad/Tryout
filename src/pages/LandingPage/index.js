@@ -1,8 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Navbar } from '../../components/Navbar'
 import { Button } from '../../components/Button'
 import { Footer } from '../../components/Footer'
 const LandingPage = () => {
+    const navigate = useNavigate();
     return (
         <section>
             <Navbar />
@@ -16,7 +18,7 @@ const LandingPage = () => {
                             Platform edukasi yang menyediakan berbagai soal dan latihan try out secara gratis, praktis dan berkualitas dengan berbagai layanan dan program unggulan yang akan menjadi #TemanBelajar kamu dalam meraih impian.
                         </p>
 
-                        <Button title={'Daftar Sekarang'} />
+                        <Button onClick={() => navigate('/daftar')} title={'Daftar Sekarang'} />
                     </div>
                     <div className='h-full w-full col-span-3 flex items-end justify-center'>
                         <img alt='' src='/assets/img/landing-page.png' className='w-10/12' />

@@ -53,21 +53,21 @@ export const routesMain = [
                         icon: '',
                         title: 'UTBK - SNBT',
                         type: 'item',
-                        pathUrl: '/daftar/utbk'
+                        pathUrl: '/my-to/utbk'
                     },
                     {
                         id: 'my-poltekses',
                         icon: '',
                         title: 'Poltekses',
                         type: 'item',
-                        pathUrl: '/daftar/poltekses'
+                        pathUrl: '/my-to/poltekses'
                     },
                     {
                         id: 'my-ujian-kedinasan',
                         icon: '',
                         title: 'Ujian Kedinasan',
                         type: 'item',
-                        pathUrl: '/daftar/kedinasan'
+                        pathUrl: '/my-to/kedinasan'
                     },
                 ]
             },
