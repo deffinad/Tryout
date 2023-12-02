@@ -20,7 +20,7 @@ const Pembayaran = () => {
                     <ItemCardPembayaran />
                 </div>
 
-                <div className='w-full rounded-[50px] shadow-lg flex flex-col border-4 p-6 gap-4'>
+                <div className='w-full rounded-3xl shadow-lg flex flex-col p-6 gap-4'>
                     <h1 className='uppercase text-3xl font-semibold text-gray-700'>Metode Pembayaran</h1>
 
                     <div className='grid grid-cols-1 divide-y-4 gap-4 text-gray-70'>
