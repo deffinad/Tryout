@@ -16,12 +16,12 @@ const VerticalItem = ({ item, level, active, setActive }) => {
     >
       {
         item.icon && (
-          <div className='text-gray-700'>
+          <div >
             {item.icon}
           </div>
         )
       }
-      <p className={`${activeItem ? 'text-primary' : 'text-gray-700'} text-base capitalize ${activeItem ? 'font-semibold' : 'font-medium'}`}>
+      <p className={`${activeItem ? 'text-primary' : ''} text-base capitalize ${activeItem ? 'font-semibold' : 'font-medium'}`}>
         {item.title}
       </p>
     </button>

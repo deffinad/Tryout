@@ -61,4 +61,8 @@ export const router = createBrowserRouter([
         path: "/to-saya/:menu/beranda/:id",
         element: <MyTryOut />,
     },
+    {
+        path: "/to-saya/:menu/soal/:id",
+        element: <MyTryOut />,
+    },
 ]);

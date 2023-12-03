@@ -12,7 +12,7 @@ const Pembayaran = () => {
     return (
         <Layout>
             <section className='flex flex-col gap-8'>
-                <h1 className='text-2xl font-bold text-gray-700'>Pembayaran</h1>
+                <h1 className='text-2xl font-bold '>Pembayaran</h1>
 
                 {/* LIST PAKET */}
                 <div className='grid grid-cols-1 gap-4'>
@@ -20,8 +20,8 @@ const Pembayaran = () => {
                     <ItemCardPembayaran />
                 </div>
 
-                <div className='w-full rounded-3xl shadow-lg flex flex-col p-6 gap-4'>
-                    <h1 className='uppercase text-3xl font-semibold text-gray-700'>Metode Pembayaran</h1>
+                <div className='w-full rounded-3xl shadow-lg flex flex-col p-6 gap-4 bg-white'>
+                    <h1 className='uppercase text-3xl font-semibold '>Metode Pembayaran</h1>
 
                     <div className='grid grid-cols-1 divide-y-4 gap-4 text-gray-70'>
                         <button className='flex justify-between items-center pt-4' onClick={() => setActiveMetode({...activeMetode, eWallet:!activeMetode.eWallet})}>

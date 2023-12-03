@@ -5,7 +5,7 @@ const DropdownInput = ({ label = '', value = '', name = '', option = [], onChang
     return (
         <div>
             {label !== '' &&
-                <label for={name} class="block w-full pb-2 text-md font-medium text-gray-700 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
+                <label for={name} class="block w-full pb-2 text-md font-medium  transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
                     {label}
                 </label>
             }

@@ -6,6 +6,7 @@ import Layout from "../../../components/Layout";
 import LihatNilaiKeseluruhan from "./LihatNilaiKeseluruhan";
 import DetailPage from "./DetailPage";
 import BerandaTOSaya from "./Beranda";
+import { SoalTryOut } from "./Soal";
 
 const MyTryOut = () => {
 
@@ -18,6 +19,7 @@ const MyTryOut = () => {
                 pathname === `/to-saya/${menu}/lihat-nilai-keseluruhan` ? <LihatNilaiKeseluruhan/> :
                 pathname === `/to-saya/${menu}/detail/${id}` ? <DetailPage/> :
                 pathname === `/to-saya/${menu}/beranda/${id}` ? <BerandaTOSaya/> :
+                pathname === `/to-saya/${menu}/soal/${id}` ? <SoalTryOut/> :
                 null
             }
         </Layout>

@@ -11,18 +11,18 @@ const VerticalCollapse = ({ item, level, active, setActive }) => {
         className={`h-auto my-[0.25px] cursor-pointer px-[16px] py-4 relative transition-all w-full flex flex-row gap-3`}>
         {
           item.icon && (
-            <div className='text-gray-700'>
+            <div >
               {item.icon}
             </div>
           )
         }
         <div className='flex flex-1 justify-between items-center'>
-          <p className='text-gray-700 text-base capitalize font-medium'>
+          <p className=' text-base capitalize font-medium'>
             {item.title}
           </p>
 
           <div className={`transform ${toggle ? 'rotate-90' : 'rotate-0'} transition-transform duration-500 ease-in-out`}>
-            <FaChevronRight className='text-base text-gray-700'/>
+            <FaChevronRight className='text-base ' />
           </div>
         </div>
       </button>
