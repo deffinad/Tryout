@@ -8,8 +8,9 @@ const DetailRiwayatPembelian = () => {
     return (
         <div className="flex flex-col gap-6">
             {/* header page section */}
-            <header className="flex flex-row justify-between">
+            <header className="flex flex-row justify-start items-center gap-6">
                 <FaChevronLeft size={17} className="text-secondary font-semibold cursor-pointer" onClick={() => navigate(-1)} />
+                <p className="font-semibold text-primary text-lg">Kembali</p>
             </header>
             {/* content section page*/}
             <div className="flex flex-col gap-4">

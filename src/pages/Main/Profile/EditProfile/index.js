@@ -63,14 +63,24 @@ const EditProfile = () => {
             <div className="flex flex-col gap-3">
                 <div className="flex flex-row justify-between mb-1">
                     <h1 className="text-xl font-semibold">Data Pribadi</h1>
-                    <Button
-                        size="sm"
-                        hoverBgColor={'hover:bg-yellow-400'}
-                        title={'Simpan Perubahan'}
-                        bgColor={'bg-secondary'}
-                        textColor={'text-gray-900'}
-                        onClick={handleSaveEdit}
-                    />
+                    <div className="flex flex-row justify-between gap-4">
+                        <Button
+                            size="sm"
+                            hoverBgColor={'hover:bg-red-900'}
+                            title={'Batal'}
+                            bgColor={'bg-bgRed'}
+                            textColor={'text-white'}
+                            onClick={()=>navigate('/profile-saya')}
+                        />
+                        <Button
+                            size="sm"
+                            hoverBgColor={'hover:bg-yellow-400'}
+                            title={'Simpan Perubahan'}
+                            bgColor={'bg-secondary'}
+                            textColor={'text-gray-900'}
+                            onClick={handleSaveEdit}
+                        />
+                    </div>
                 </div>
                 <div className="bg-white shadow-lg rounded-3xl p-8 mb-5">
                     <div className="grid grid-cols-3 grid-rows-3 gap-10">

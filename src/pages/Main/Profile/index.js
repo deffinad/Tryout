@@ -5,6 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import RiwayatPembelian from "./RiwayatPembelian";
 import DetailRiwayatPembelian from "./DetailRiwayatPembelian";
+import Pengaturan from "./Pengaturan";
 
 
 const ProfilePage = () => {
@@ -23,6 +24,9 @@ const ProfilePage = () => {
             }
             {pathname === `/profile-saya/riwayat-pembelian/detail/${id}` &&
                 <DetailRiwayatPembelian />
+            }
+            {pathname === `/profile-saya/pengaturan` &&
+                <Pengaturan />
             }
         </Layout>
     )
