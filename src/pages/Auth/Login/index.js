@@ -16,6 +16,8 @@ const LoginPage = () => {
     const handleLogin = () => {
         console.log('uname', uname);
         console.log('password', password);
+
+        navigate('/beranda');
     }
 
     return (

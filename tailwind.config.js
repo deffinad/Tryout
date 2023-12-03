@@ -12,6 +12,7 @@ module.exports = {
         bgRed: '#B81D28',
         textColorRed: '#B81D28',
         textOrange: '#DD5E35',
+        bgWaiting: '#efd9bd',
       },
     },
   },

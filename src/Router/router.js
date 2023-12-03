@@ -30,11 +30,19 @@ export const router = createBrowserRouter([
         element: <ProfilePage />,
     },
     {
-        path: "/profile-saya/:page",
+        path: "/profile-saya/edit/:id",
         element: <ProfilePage />,
     },
     {
-        path: "/profile-saya/edit/:id",
+        path: "/profile-saya/riwayat-pembelian",
+        element: <ProfilePage />,
+    },
+    {
+        path: "/profile-saya/riwayat-pembelian/detail/:id",
+        element: <ProfilePage />,
+    },
+    {
+        path: "/profile-saya/pengaturan",
         element: <ProfilePage />,
     },
     {
