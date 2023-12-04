@@ -66,11 +66,15 @@ export const router = createBrowserRouter([
         element: <MyTryOut />,
     },
     {
-        path: "/to-saya/:menu/beranda/:id",
+        path: "/to-saya/:menu/beranda/:type/:id",
         element: <MyTryOut />,
     },
     {
         path: "/to-saya/:menu/soal/:id",
+        element: <MyTryOut />,
+    },
+    {
+        path: "/to-saya/:menu/pembahasan/:id",
         element: <MyTryOut />,
     },
 ]);

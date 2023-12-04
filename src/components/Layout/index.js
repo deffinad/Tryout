@@ -3,7 +3,7 @@ import { Navbar } from '../Navbar'
 import { Sidebar } from './Sidebar'
 import { Footer } from '../Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { initSidebar } from '../../Redux/actions/sidebar.actions'
+import { initSidebar } from '../../redux/actions/sidebar.actions'
 
 const Layout = ({ children }) => {
     const dispatch = useDispatch();
