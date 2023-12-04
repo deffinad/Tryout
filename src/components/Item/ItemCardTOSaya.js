@@ -2,9 +2,9 @@ import React from 'react'
 import { FaList } from 'react-icons/fa6'
 import { Button } from '../Button'
 
-const ItemCardTO = ({ type }) => {
+const ItemCardTOSaya = ({ type, onClick }) => {
     return (
-        <div className={`w-full h-[300px] rounded-[50px] shadow-lg flex flex-col ${type === 'premium' ? 'bg-bgRed' : type === 'paket' ? 'bg-secondary' : 'bg-textOrange'}`}>
+        <div className={`w-full h-[320px] rounded-[50px] shadow-lg flex flex-col ${type === 'premium' ? 'bg-bgRed' : type === 'paket' ? 'bg-secondary' : 'bg-textOrange'}`}>
             <div className='flex flex-1'>
                 <div className='flex-1 flex flex-col gap-2 pt-6 pl-6 pb-6 pr-2 text-white'>
                     <div className='flex-1 flex items-center'>
@@ -36,15 +36,10 @@ const ItemCardTO = ({ type }) => {
                     <p className='text-lg font-semibold capitalize'>{type}</p>
                 </div>
             </div>
-            <div className='h-[100px] bg-white rounded-b-[50px] px-8 py-2'>
-                <div className='flex items-center justify-between h-full'>
-                    <div className='flex flex-col gap-1 justify-center'>
-                        <p className='font-bold'>Harga Paket</p>
-                        <p className='text-2xl font-semibold text-textColorRed'>Rp. 500.000</p>
-                    </div>
-
-                    <Button title={'Beli'} />
-
+            <div className='h-[120px] bg-white rounded-b-[50px] px-8 py-2'>
+                <div className='flex flex-col justify-center h-full gap-2'>
+                    <p className='font-semibold'>Pengerjaan dimulai pada 01 Januari 2024</p>
+                    <Button title={'Mulai Mengerjakan'} onClick={onClick}/>
                 </div>
             </div>
 
@@ -52,4 +47,4 @@ const ItemCardTO = ({ type }) => {
     )
 }
 
-export default ItemCardTO
+export default ItemCardTOSaya

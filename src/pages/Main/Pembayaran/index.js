@@ -12,7 +12,7 @@ const Pembayaran = () => {
     return (
         <Layout>
             <section className='flex flex-col gap-8'>
-                <h1 className='text-2xl font-bold '>Pembayaran</h1>
+                <h1 className='text-2xl font-bold'>Pembayaran</h1>
 
                 {/* LIST PAKET */}
                 <div className='grid grid-cols-1 gap-4'>

@@ -1,7 +1,11 @@
 import React from 'react'
 import ItemTipeSoal from '../../../../components/Item/ItemTipeSoal'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const BerandaTOSaya = () => {
+    const {menu, type} = useParams()
+    const navigate = useNavigate()
+    
     return (
         <section className='flex flex-col gap-8'>
             <div className='grid grid-cols-2'>
@@ -39,17 +43,17 @@ const BerandaTOSaya = () => {
                 <div className='flex flex-col gap-4'>
                     <h1 className='text-4xl text-secondary font-bold'>TPS</h1>
                     <div className='grid grid-cols-1 gap-4'>
-                        <ItemTipeSoal/>
-                        <ItemTipeSoal/>
-                        <ItemTipeSoal/>
+                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
+                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
+                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
                     </div>
                 </div>
                 <div className='flex flex-col gap-4'>
                     <h1 className='text-4xl text-secondary font-bold'>TPS</h1>
                     <div className='grid grid-cols-1 gap-4'>
-                        <ItemTipeSoal/>
-                        <ItemTipeSoal/>
-                        <ItemTipeSoal/>
+                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
+                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
+                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
                     </div>
                 </div>
             </div>

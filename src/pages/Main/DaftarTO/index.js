@@ -1,19 +1,23 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import Layout from '../../../components/Layout'
-import Utbk from './UTBK'
-import Poltekses from './Poltekses'
-import UjianKedinasan from './UjianKedinasan'
+import ItemCardTO from '../../../components/Item/ItemCardTO'
 
 const DaftarTryOut = () => {
     const { id } = useParams()
     return (
         <Layout>
-            {
-                id === 'utbk' ? <Utbk/> :
-                    id === 'poltekses' ? <Poltekses/> :
-                        id === 'kedinasan' ? <UjianKedinasan/> : null
-            }
+            <section className='flex flex-col gap-8'>
+                <h1 className='text-2xl font-bold capitalize'>Daftar {id}</h1>
+
+                <div className='grid grid-cols-3 gap-6'>
+                    <ItemCardTO type={'premium'} />
+                    <ItemCardTO type={'premium'} />
+                    <ItemCardTO type={'paket'} />
+                    <ItemCardTO type={'biasa'} />
+                </div>
+
+            </section>
         </Layout>
     )
 }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { FaChevronRight, FaClock, FaFile } from 'react-icons/fa6'
 
-const ItemTipeSoal = () => {
+const ItemTipeSoal = ({ onClick }) => {
     return (
-        <div className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white'>
+        <button onClick={onClick} className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white'>
             <div className='flex-1'>
                 <h1 className='font-bold text-xl'>Penalaran Umum</h1>
             </div>
-            <div className='flex items-center justify-between'>
+            <div className='flex w-full items-center justify-between'>
                 <div className='flex flex-col gap-1'>
                     <div className='flex items-center gap-2'>
                         <FaFile />
@@ -20,10 +20,10 @@ const ItemTipeSoal = () => {
                 </div>
 
                 <div>
-                    <FaChevronRight/>
+                    <FaChevronRight />
                 </div>
             </div>
-        </div>
+        </button>
     )
 }
 
