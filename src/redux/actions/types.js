@@ -1,0 +1,1 @@
+export const INIT_SIDEBAR = "INIT_SIDEBAR";
