@@ -7,6 +7,10 @@ export const router = [
         element: <DataPengguna />
     },
     {
+        path: '/user/detail/:id',
+        element: <DataPengguna />
+    },
+    {
         path: '/materi/:jenis',
         element: <MateriTryout />
     }
