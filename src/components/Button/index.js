@@ -6,11 +6,11 @@ const Button = ({
     classNames = '',
     title = "click me",
     onClick = () => { },
-    textColor = 'white',
-    bgColor = 'primary',
-    textColorHover = '',
+    textColor = 'text-white',
+    bgColor = 'bg-primary',
+    textColorHover = 'hover:text-white',
     iconPlacement = 'start',
-    bgColorHover = 'bgHoverPrimary',
+    bgColorHover = '',
 }) => {
     return (
         // <button type="button" className={`text-${textColor} hover:text-${textColorHover} bg-${bgColor} hover:bg-${bgColorHover} font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2`}>
@@ -32,7 +32,7 @@ const Button = ({
         // </button>
         <Fragment>
             {!children ? (
-                <button onClick={onClick} type="button" className={`text-${textColor} hover:text-${textColorHover} bg-${bgColor} hover:bg-${bgColorHover} font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center`}>
+                <button onClick={onClick} type="button" className={`${textColor} ${textColorHover} ${bgColor} ${bgColorHover !== '' ? bgColorHover : ''} font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center`}>
                     {icon !== '' && iconPlacement === 'start' &&
                         { icon }
                     }

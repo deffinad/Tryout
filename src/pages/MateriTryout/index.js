@@ -1,11 +1,17 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { Fragment } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import ListMateri from "./ListMateri";
 
 const MateriTryout = () => {
     const { jenis } = useParams();
+    const { pathname } = useLocation();
 
     return (
-        <h1>Materi Tryout Page {jenis}</h1>
+        <Fragment>
+            {pathname === `/materi/${jenis}` && 
+                <ListMateri />
+            }
+        </Fragment>
     )
 }
 

@@ -65,14 +65,15 @@ const DataListItem = ({ user, index, keyItem }) => {
                     <div className="flex flex-row gap-x-3 gap-y-0">
                         <Button
                             title="Edit"
-                            bgColor="primary"
-                            textColor="white"
+                            bgColor="bg-primary"
+                            textColor="text-white"
+                            bgColorHover='hover:bg-bgHoverPrimary'
                             onClick={() => handleOpenEditModal(user.id)}
                         />
                         <Button
                             title="Hapus"
-                            bgColor="bgDanger"
-                            textColor="white"
+                            bgColor="bg-bgDanger"
+                            textColor="text-white"
                         />
                     </div>
                 </td>
