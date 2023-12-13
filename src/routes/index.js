@@ -5,7 +5,8 @@ const { login, onCheckToken, logout } = require("../controller/auth.js");
 const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
-const { materiValidation, listValidation, soalTryoutValidation } = require("../controller/validation.js");
+const { materiValidation, listValidation, soalTryoutValidation, produkValidation } = require("../controller/validation.js");
+const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
 
 var router = express.Router();
 router.use(bodyParser.json());
@@ -71,6 +72,13 @@ router.get("/materi/:kategori/:id", onGetDetailMateri);
 router.post("/materi", materiValidation, onAddMateri);
 router.put("/materi/:id", materiValidation, onUpdateMateri);
 router.delete("/materi/:id", onDeleteMateri);
+
+//PRODUK
+router.get("/produk", onGetListProduk);
+router.get("/produk/:id", onGetDetailProduk);
+router.post("/produk", produkValidation, onAddProduk);
+router.put("/produk/:id", produkValidation, onUpdateProduk);
+router.delete("/produk/:id", onDeleteProduk);
 
 
 module.exports = router;
