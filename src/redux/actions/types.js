@@ -7,3 +7,7 @@ export const GET_DETAIL_PENGGUNA = 'get_detail_pengguna';
 // MATERI TRYOUT
 export const GET_LIST_MATERI = 'get_list_materi';
 export const GET_DETAIL_MATERI = 'get_detail_materi';
+
+// PAKET TRYOUT
+export const GET_LIST_PAKET = 'get_list_paket';
+export const GET_DETAIL_PAKET = 'get_detai_paket';

@@ -3,11 +3,13 @@ import Modal from '../../../../../components/Modal';
 import Button from '../../../../../components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailMateri } from '../../../../../redux/actions/materiTryout.action';
+import DialogModal from '../../../../../components/DialogModal';
 
 const DataListItem = ({ data, index }) => {
     const dispatch = useDispatch();
-    const [namaMateri, setNamaMateri] = useState('');
     const [open, setOpen] = useState(false);
+    const [namaMateri, setNamaMateri] = useState('');
+    const [openDialog, setOpenDialog] = useState(false);
 
     const { detail } = useSelector(state => state.materi);
 
@@ -22,6 +24,16 @@ const DataListItem = ({ data, index }) => {
         }
         console.log(payload);
         setOpen(false);
+    }
+
+    const handleCloseDialog = (status = 0) => {
+        if (status === 1) {
+            // action
+            setOpenDialog(false);
+        } else {
+            // tutup
+            setOpenDialog(false);
+        }
     }
 
     useEffect(() => {
@@ -54,10 +66,19 @@ const DataListItem = ({ data, index }) => {
                             title="Hapus"
                             textColor="text-white"
                             bgColor="bg-bgDanger"
+                            onClick={() => setOpenDialog(true)}
                         />
                     </div>
                 </td>
             </tr>
+
+            {/* Modal Hapus */}
+            <DialogModal 
+                open={openDialog}
+                title={'Hapus Materi Tryout'}
+                content={'Apakah anda yakin ingin menghapus materi ini?'}
+                handleClose={handleCloseDialog}
+            />
 
             {/* Modal Edit */}
             <Modal title='Edit Materi Tryout' open={open} setClose={() => setOpen(false)}>
@@ -77,8 +98,8 @@ const DataListItem = ({ data, index }) => {
                     <div className='flex flex-row justify-end'>
                         <Button
                             title='Simpan'
-                            textColor='white'
-                            bgColor='bgSidebar'
+                            textColor='text-white'
+                            bgColor='bg-bgSidebar'
                             onClick={() => handleEdit()}
                         />
                     </div>

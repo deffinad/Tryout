@@ -1,5 +1,6 @@
 import DataPengguna from "../pages/DataPengguna";
 import MateriTryout from "../pages/MateriTryout";
+import PaketTryout from "../pages/PaketTryout";
 
 export const router = [
     {
@@ -13,5 +14,9 @@ export const router = [
     {
         path: '/materi/:jenis',
         element: <MateriTryout />
+    },
+    {
+        path: '/paket',
+        element: <PaketTryout />
     }
 ]

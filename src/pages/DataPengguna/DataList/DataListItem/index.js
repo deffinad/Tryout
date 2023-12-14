@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../../components/Button';
 import Modal from '../../../../components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
+import DialogModal from '../../../../components/DialogModal';
 import { getDetailPengguna } from '../../../../redux/actions/dataPengguna.action';
 
 const DataListItem = ({ user, index, keyItem }) => {
@@ -15,6 +16,7 @@ const DataListItem = ({ user, index, keyItem }) => {
     const [email, setEmail] = useState('');
     const [asalSekolah, setAsalSekolah] = useState('');
     const [jenisKelamin, setJenisKelamin] = useState('');
+    const [openDialog, setOpenDialog] = useState(false);
 
     const { detail } = useSelector(state => state.users);
 
@@ -35,6 +37,14 @@ const DataListItem = ({ user, index, keyItem }) => {
         console.log(payload);
         setOpen(false);
     }
+
+    const handleCloseDialog = (status = 0) => {
+        if (status === 1) {
+            setOpenDialog(false);
+        } else {
+            setOpenDialog(false);
+        }
+    } 
 
     useEffect(() => {
         if (detail != null) {
@@ -74,10 +84,19 @@ const DataListItem = ({ user, index, keyItem }) => {
                             title="Hapus"
                             bgColor="bg-bgDanger"
                             textColor="text-white"
+                            onClick={() => setOpenDialog(true)}
                         />
                     </div>
                 </td>
             </tr>
+
+            {/* Modal Delete */}
+            <DialogModal 
+                open={openDialog}
+                title={'Hapus Pengguna'}
+                content={'Apakah anda yakin ingin menghapus pengguna ini?'}
+                handleClose={handleCloseDialog}
+            />
 
             {/* Modal Edit */}
             <Modal title='Edit Pengguna' open={open} setClose={() => setOpen(false)}>
@@ -144,8 +163,8 @@ const DataListItem = ({ user, index, keyItem }) => {
                     <div className='flex flex-row justify-end'>
                         <Button
                             title='Simpan'
-                            textColor='white'
-                            bgColor='bgSidebar'
+                            textColor='text-white'
+                            bgColor='bg-bgSidebar'
                             onClick={()=> handleEditUser()}
                         />
                     </div>

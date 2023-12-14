@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
+import DataListHeader from "./DataListHeader";
 import DataListItem from "./DataListItem";
 import { useSelector } from "react-redux";
-import DataListHeader from "./DataListHeader";
 
-const DataListMateri = () => {
+const DataListPaket = () => {
 
-    const { list } = useSelector(state => state.materi);
+    const { list } = useSelector(state => state.paket);
 
     return (
         <table className="min-w-full leading-normal">
@@ -21,4 +21,4 @@ const DataListMateri = () => {
     )
 }
 
-export default DataListMateri;
+export default DataListPaket;

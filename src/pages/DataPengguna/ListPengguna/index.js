@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
-import { FaPlus } from 'react-icons/fa6'
-import Card from '../../../components/Card';
-import { useSelector } from "react-redux";
-import Button from "../../../components/Button";
 import DataList from "../DataList";
+import { useSelector } from "react-redux";
+import Card from '../../../components/Card';
 // import { useLocation } from "react-router-dom";
 // import { getDataPengguna } from "../../redux/actions/dataPengguna.action";
 
@@ -22,12 +20,6 @@ const ListPengguna = () => {
                 header="Data Pengguna"
                 headerPlacement="center"
             >
-                <div className="flex justify-start items-center">
-                    <Button classNames="text-white bg-secondary hover:bg-bgHoverSecondary text-lg flex gap-[10px]">
-                        <FaPlus />
-                        Tambah
-                    </Button>
-                </div>
                 <div className="container mx-auto">
                     <div className="py-4">
                         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { FaPlus } from 'react-icons/fa6'
-import { useSelector } from "react-redux";
+import { FaPlus } from 'react-icons/fa6';
 import Card from '../../../components/Card';
 import { useParams } from "react-router-dom";
 import DataListMateri from "./DataListMateri";
@@ -15,7 +14,6 @@ const ListMateri = () => {
     // const { pathname } = useLocation();
     const [open, setOpen] = useState(false);
     const [namaMateri, setNamaMateri] = useState('');
-    const { list } = useSelector(state => state.materi);
 
     // useEffect(() => {
     //     if (pathname === '/') dispatch(getListMateri());
@@ -49,7 +47,7 @@ const ListMateri = () => {
                     <div className="py-4">
                         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                             <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-                                <DataListMateri datas={list} />
+                                <DataListMateri />
                             </div>
                         </div>
                     </div>
@@ -74,8 +72,8 @@ const ListMateri = () => {
                     <div className='flex flex-row justify-end'>
                         <Button
                             title='Simpan'
-                            textColor='white'
-                            bgColor='bgSidebar'
+                            textColor='text-white'
+                            bgColor='bg-bgSidebar'
                             onClick={() => handleTambah()}
                         />
                     </div>
