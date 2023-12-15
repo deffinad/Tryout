@@ -16,7 +16,7 @@ export const router = [
         element: <MateriTryout />
     },
     {
-        path: '/paket',
+        path: '/produk',
         element: <PaketTryout />
     }
 ]

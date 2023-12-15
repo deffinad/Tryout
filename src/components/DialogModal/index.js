@@ -15,7 +15,7 @@ const DialogModal = ({ open, title, content, handleClose, labelButton = 'Hapus' 
                     {content}
                 </p>
             </div>
-            <div className="flex gap-6 items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <div className="flex justify-end gap-6 items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <Button
                     title='Tidak'
                     bgColor='bg-primary'

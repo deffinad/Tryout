@@ -77,9 +77,9 @@ export const routesMain = [
     {
         id: 'list-paket',
         icon: "FaFolderOpen",
-        title: 'Paket Tryout',
+        title: 'Produk',
         type: 'item',
-        pathUrl: '/paket'
+        pathUrl: '/produk'
     },
     {
         id: 'pembelian',
