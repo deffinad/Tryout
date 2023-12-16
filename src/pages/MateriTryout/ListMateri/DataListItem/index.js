@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Modal from '../../../../../components/Modal';
-import Button from '../../../../../components/Button';
+import Modal from '../../../../components/Modal';
+import Button from '../../../../components/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetailMateri } from '../../../../../redux/actions/materiTryout.action';
-import DialogModal from '../../../../../components/DialogModal';
+import { deleteMateri, getDetailMateri, updateMateri } from '../../../../redux/actions/materiTryout.action';
+import DialogModal from '../../../../components/DialogModal';
 
-const DataListItem = ({ data, index }) => {
+const DataListItem = ({ data, index, setRefresh }) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [namaMateri, setNamaMateri] = useState('');
@@ -13,22 +13,27 @@ const DataListItem = ({ data, index }) => {
 
     const { detail } = useSelector(state => state.materi);
 
-    const handleOpenEditModal = (id) => {
+    const handleOpenEditModal = (id, kategori) => {
         setOpen(true);
-        dispatch(getDetailMateri(id));
+        dispatch(getDetailMateri(id, kategori));
     }
 
+    // modal edit materi
     const handleEdit = () => {
         const payload = {
-            materi: namaMateri
+            "nama": namaMateri,
+            "kategori": data.kategori
         }
-        console.log(payload);
+        
+        dispatch(updateMateri(data.id, payload, setRefresh));
         setOpen(false);
     }
 
+    // modal hapus materi
     const handleCloseDialog = (status = 0) => {
         if (status === 1) {
             // action
+            dispatch(deleteMateri(data.id, setRefresh))
             setOpenDialog(false);
         } else {
             // tutup
@@ -37,8 +42,8 @@ const DataListItem = ({ data, index }) => {
     }
 
     useEffect(() => {
-        if (detail != null) {
-            setNamaMateri(detail.nama);
+        if (detail !== null) {
+            setNamaMateri(detail.result.nama);
         }
 
         return () => { }
@@ -60,7 +65,7 @@ const DataListItem = ({ data, index }) => {
                             bgColor="bg-primary"
                             textColor="text-white"
                             bgColorHover='hover:bg-bgHoverPrimary'
-                            onClick={() => handleOpenEditModal(data.id)}
+                            onClick={() => handleOpenEditModal(data.id, data.kategori)}
                         />
                         <Button
                             title="Hapus"
@@ -73,7 +78,7 @@ const DataListItem = ({ data, index }) => {
             </tr>
 
             {/* Modal Hapus */}
-            <DialogModal 
+            <DialogModal
                 open={openDialog}
                 title={'Hapus Materi Tryout'}
                 content={'Apakah anda yakin ingin menghapus materi ini?'}
