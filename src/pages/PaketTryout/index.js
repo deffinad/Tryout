@@ -1,20 +1,31 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-import Button from "../../components/Button";
 import Card from "../../components/Card";
-import DataListPaket from "./DataListPaket";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/Modal";
+import DataListPaket from "./DataListPaket";
+import Button from "../../components/Button";
+import { useLocation } from "react-router-dom";
+import { addProduk, getListProduk } from "../../redux/actions/produk.action";
+import { clearListTryout, getListTryout } from "../../redux/actions/tryout.action";
 
 const PaketTryout = () => {
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
     const [open, setOpen] = useState();
+    const [toId, setToId] = useState([]);
     const [harga, setHarga] = useState('');
-    const [jenisTo, setJenisTo] = useState('');
-    const [deskripsi, setDeskripsi] = useState('');
+    const [kategori, setKategori] = useState('');
     const [namaPaket, setNamaPaket] = useState('');
-    const [premium, setPremium] = useState({
-        ya: false,
-        tidak: false
+    const [refresh, setRefresh] = useState(false);
+    const [jenis, setJenis] = useState({
+        biasa: false,
+        paket: false,
+        premium: false,
     });
+
+    const { loading } = useSelector(state => state.common);
+    const { list: listTo } = useSelector(state => state.tryout);
 
     const handleOpenTambahModal = () => {
         setOpen(true);
@@ -22,15 +33,55 @@ const PaketTryout = () => {
 
     const handleTambah = () => {
         const payload = {
-            nama_paket: namaPaket,
-            jenis_to: jenisTo,
-            deskripsi: deskripsi,
-            harga: harga,
-            premium: premium.ya
+            "nama": namaPaket,
+            "kategori": kategori,
+            "jenis": jenis.biasa ? "biasa" : jenis.paket ? "paket" : jenis.premium ? "premium" : "",
+            "id_tryout": toId,
+            "harga": parseInt(harga),
+            "diskon": 0
         }
-        console.log(payload);
+
         setOpen(false);
+        handleResetState();
+        dispatch(clearListTryout());
+        dispatch(addProduk(payload, setRefresh));
     }
+
+    const handleSetToId = (id) => {
+        const arrayId = [...toId]
+        if (arrayId.includes(id)) {
+            const newArray = arrayId.filter(item => item !== id);
+            setToId(newArray);
+        } else {
+            arrayId.push(id);
+            setToId(arrayId);
+        }
+    }
+
+    const handleResetState = () => {
+        setNamaPaket('');
+        setKategori('');
+        setToId([]);
+        setHarga('');
+        setJenis({
+            biasa: false,
+            paket: false,
+            premium: false
+        });
+    }
+
+    useEffect(() => {
+        if (pathname === '/produk') {
+            dispatch(getListProduk())
+        }
+    }, [pathname])
+
+    useEffect(() => {
+        if (refresh) {
+            dispatch(getListProduk())
+            setRefresh(false);
+        }
+    }, [refresh])
 
     return (
         <Fragment>
@@ -48,7 +99,7 @@ const PaketTryout = () => {
                     <div className="py-4">
                         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                             <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-                                <DataListPaket />
+                                <DataListPaket setRefresh={setRefresh} />
                             </div>
                         </div>
                     </div>
@@ -56,7 +107,15 @@ const PaketTryout = () => {
             </Card>
 
             {/* Modal add */}
-            <Modal title='Tambah Paket Tryout' open={open} setClose={() => setOpen(false)}>
+            <Modal
+                open={open}
+                title='Tambah Paket Tryout'
+                setClose={() => {
+                    setOpen(false)
+                    handleResetState()
+                    dispatch(clearListTryout())
+                }}
+            >
                 <form className="p-4 md:p-5">
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
@@ -72,7 +131,16 @@ const PaketTryout = () => {
                         </div>
                         <div className='col-span-2'>
                             <label htmlFor="jenis-to" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis TO</label>
-                            <select value={jenisTo} onChange={(e) => setJenisTo(e.target.value)} id="jenis-to" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <select
+                                id="jenis-to"
+                                value={kategori}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(e) => {
+                                    setToId([])
+                                    setKategori(e.target.value)
+                                    dispatch(getListTryout(e.target.value))
+                                }}
+                            >
                                 <option value="">Pilih Jenis TO</option>
                                 <option value="utbk">UTBK - SNBT</option>
                                 <option value="poltekes">Poltekes</option>
@@ -84,14 +152,32 @@ const PaketTryout = () => {
                             <label htmlFor="deskripsi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Deskripsi
                             </label>
-                            <textarea
-                                rows="4"
-                                id="deskripsi"
-                                value={deskripsi}
-                                placeholder="Masukkan Deskripsi"
-                                onChange={(e) => setDeskripsi(e.target.value)}
-                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            />
+                            <div className='p-2 border border-gray-300 rounded-md grid grid-rows-3 grid-flow-col gap-4'>
+                                {(listTo !== null && !loading) ? (
+                                    listTo?.result.map(item => (
+                                        <div key={'to-1'} className='flex items-center gap-2'>
+                                            <input
+                                                type="checkbox"
+                                                checked={toId.includes(item.id)}
+                                                id={item.id}
+                                                onChange={(e) => { handleSetToId(e.target.id) }}
+                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                            <label htmlFor={item.id} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{item.nama}</label>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <>
+                                        {(listTo !== null && loading) || loading &&
+                                            <p>Loading...</p>
+                                        }
+                                        {(listTo === null && !loading) &&
+                                            <>
+                                                <p className="text-sm text-gray-400">Harap pilih Jenis TO terlebih dahulu</p>
+                                            </>
+                                        }
+                                    </>
+                                )}
+                            </div>
                         </div>
                         <div className="col-span-2">
                             <label htmlFor="harga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
@@ -105,32 +191,41 @@ const PaketTryout = () => {
                             />
                         </div>
                         <div className="col-span-2">
-                            <label htmlFor="harga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Premium</label>
+                            <label htmlFor="harga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Paket</label>
                             <div className='flex flex-row gap-6'>
                                 <div className="flex items-center mb-4">
                                     <input
                                         type="checkbox"
-                                        checked={premium.ya}
-                                        id="checked-checkbox"
-                                        onChange={(e) => setPremium({ ya: e.target.checked, tidak: false })}
+                                        checked={jenis.biasa}
+                                        id="biasa"
+                                        onChange={(e) => setJenis({ biasa: e.target.checked, paket: false, premium: false })}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <label htmlFor="premium-check" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ya</label>
+                                    <label htmlFor="biasa" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Biasa</label>
                                 </div>
                                 <div className="flex items-center mb-4">
                                     <input
                                         type="checkbox"
-                                        checked={premium.tidak}
+                                        checked={jenis.paket}
                                         id="premium-uncheck"
-                                        onChange={(e) => setPremium({ ya: false, tidak: e.target.checked })}
+                                        onChange={(e) => setJenis({ biasa: false, paket: e.target.checked, premium: false })}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <label htmlFor="premium-uncheck" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak</label>
+                                    <label htmlFor="premium-uncheck" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Paket</label>
+                                </div>
+                                <div className="flex items-center mb-4">
+                                    <input
+                                        type="checkbox"
+                                        checked={jenis.premium}
+                                        id="premium"
+                                        onChange={(e) => setJenis({ biasa: false, paket: false, premium: e.target.checked })}
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                    <label htmlFor="premium" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Premium</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='flex flex-row justify-end'>
                         <Button
-                            title='Tambah'
+                            title='Simpan'
                             textColor='text-white'
                             bgColor='bg-bgSidebar'
                             onClick={() => handleTambah()}

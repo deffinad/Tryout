@@ -15,4 +15,10 @@ export const GET_DETAIL_MATERI = 'get_detail_materi';
 
 // PAKET TRYOUT
 export const GET_LIST_PAKET = 'get_list_paket';
-export const GET_DETAIL_PAKET = 'get_detai_paket';
+export const GET_DETAIL_PAKET = 'get_detail_paket';
+export const CLEAR_DETAIL_PAKET = 'clear_detail_paket';
+
+// LIST TRYOUT
+export const GET_LIST_TRYOUT = 'get_list_tryout';
+export const CLEAR_LIST_TRYOUT = 'clear_list_tryout';
+export const GET_DETAIL_TRYOUT = 'get_detail_tryout';
