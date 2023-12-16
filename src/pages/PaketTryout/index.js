@@ -8,6 +8,8 @@ import Button from "../../components/Button";
 import { useLocation } from "react-router-dom";
 import { addProduk, getListProduk } from "../../redux/actions/produk.action";
 import { clearListTryout, getListTryout } from "../../redux/actions/tryout.action";
+import TextInput from "../../components/TextInput";
+import TextInputDropdown from "../../components/TextInputDropdown";
 
 const PaketTryout = () => {
     const dispatch = useDispatch();
@@ -23,6 +25,29 @@ const PaketTryout = () => {
         paket: false,
         premium: false,
     });
+
+    const pilihanKategori = [
+        {
+            name: 'Pilih Jenis TO',
+            value: ''
+        },
+        {
+            name: 'UTBK - SNBT',
+            value: 'utbk'
+        },
+        {
+            name: 'Poltekes',
+            value: 'poltekes'
+        },
+        {
+            name: 'Kedinasan - polri',
+            value: 'polri'
+        },
+        {
+            name: 'Kedinasan - IPDN',
+            value: 'ipdn'
+        }
+    ]
 
     const { loading } = useSelector(state => state.common);
     const { list: listTo } = useSelector(state => state.tryout);
@@ -119,43 +144,35 @@ const PaketTryout = () => {
                 <form className="p-4 md:p-5">
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
-                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                            <input
-                                id='name'
-                                type="text"
+                            <TextInput
+                                name="name"
+                                label="Nama"
                                 value={namaPaket}
                                 placeholder="Masukkan Nama Paket"
                                 onChange={(e) => setNamaPaket(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                         </div>
                         <div className='col-span-2'>
-                            <label htmlFor="jenis-to" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis TO</label>
-                            <select
-                                id="jenis-to"
+                            <TextInputDropdown
+                                name="jenis-to"
+                                label="Jenis TO"
                                 value={kategori}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                options={pilihanKategori}
                                 onChange={(e) => {
                                     setToId([])
                                     setKategori(e.target.value)
                                     dispatch(getListTryout(e.target.value))
                                 }}
-                            >
-                                <option value="">Pilih Jenis TO</option>
-                                <option value="utbk">UTBK - SNBT</option>
-                                <option value="poltekes">Poltekes</option>
-                                <option value="polri">Kedinasan - Polri</option>
-                                <option value="ipdn">Kedinasan - IPDN</option>
-                            </select>
+                            />
                         </div>
                         <div className='col-span-2'>
                             <label htmlFor="deskripsi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Deskripsi
+                                Deskripsi (List Tryout)
                             </label>
                             <div className='p-2 border border-gray-300 rounded-md grid grid-rows-3 grid-flow-col gap-4'>
                                 {(listTo !== null && !loading) ? (
                                     listTo?.result.map(item => (
-                                        <div key={'to-1'} className='flex items-center gap-2'>
+                                        <div key={item.id} className='flex items-center gap-2'>
                                             <input
                                                 type="checkbox"
                                                 checked={toId.includes(item.id)}
@@ -167,7 +184,7 @@ const PaketTryout = () => {
                                     ))
                                 ) : (
                                     <>
-                                        {(listTo !== null && loading) || loading &&
+                                        {loading &&
                                             <p>Loading...</p>
                                         }
                                         {(listTo === null && !loading) &&
@@ -180,14 +197,12 @@ const PaketTryout = () => {
                             </div>
                         </div>
                         <div className="col-span-2">
-                            <label htmlFor="harga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                            <input
-                                id='harga'
-                                type="text"
+                            <TextInput
+                                name="harga"
+                                label="Harga"
                                 value={harga}
                                 placeholder="Masukkan Harga"
                                 onChange={(e) => setHarga(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                         </div>
                         <div className="col-span-2">

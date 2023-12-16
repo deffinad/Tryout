@@ -5,6 +5,8 @@ import DialogModal from '../../../../components/DialogModal';
 import { stringToRupiah } from '../../../../shared/appEnums';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearDetailPaket, deleteProduk, getDetailProduk, updateProduk } from '../../../../redux/actions/produk.action';
+import TextInput from '../../../../components/TextInput';
+import TextInputDropdown from '../../../../components/TextInputDropdown';
 
 const DataListItem = ({ data, index, setRefresh }) => {
     const dispatch = useDispatch();
@@ -20,6 +22,29 @@ const DataListItem = ({ data, index, setRefresh }) => {
         paket: false,
         premium: false,
     });
+
+    const pilihanKategori = [
+        {
+            name: 'Pilih Jenis TO',
+            value: ''
+        },
+        {
+            name: 'UTBK - SNBT',
+            value: 'utbk'
+        },
+        {
+            name: 'Poltekes',
+            value: 'poltekes'
+        },
+        {
+            name: 'Kedinasan - polri',
+            value: 'polri'
+        },
+        {
+            name: 'Kedinasan - IPDN',
+            value: 'ipdn'
+        }
+    ]
 
     const { detail } = useSelector(state => state.produk);
 
@@ -175,25 +200,22 @@ const DataListItem = ({ data, index, setRefresh }) => {
                 <form className="p-4 md:p-5">
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
-                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                            <input
-                                id='name'
-                                type="text"
+                            <TextInput
+                                name='name'
+                                label='Nama'
                                 value={namaPaket}
-                                placeholder="Masukkan Nama Paket"
+                                placeholder='Masukkan Nama Paket'
                                 onChange={(e) => setNamaPaket(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                         </div>
                         <div className='col-span-2'>
-                            <label htmlFor="jenis-to" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis TO</label>
-                            <select value={kategori} onChange={(e) => setKategori(e.target.value)} id="jenis-to" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="">Pilih Jenis TO</option>
-                                <option value="utbk">UTBK - SNBT</option>
-                                <option value="poltekes">Poltekes</option>
-                                <option value="polri">Kedinasan - Polri</option>
-                                <option value="ipdn">Kedinasan - IPDN</option>
-                            </select>
+                            <TextInputDropdown
+                                name='jenis-to'
+                                label="Jenis To"
+                                value={kategori}
+                                options={pilihanKategori}
+                                onChange={(e) => setKategori(e.target.value)}
+                            />
                         </div>
                         <div className='col-span-2'>
                             <label htmlFor="deskripsi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -214,25 +236,20 @@ const DataListItem = ({ data, index, setRefresh }) => {
                             </div>
                         </div>
                         <div className="col-span-2">
-                            <label htmlFor="harga" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                            <input
-                                id='harga'
-                                type="text"
+                            <TextInput
+                                name='harga'
+                                label='Harga'
                                 value={harga}
-                                placeholder="Masukkan Harga"
+                                placeholder='Masukkan Harga'
                                 onChange={(e) => setHarga(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                         </div>
                         <div className="col-span-2">
-                            <label htmlFor="diskon" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Diskon</label>
-                            <input
-                                id='diskon'
-                                type="text"
+                            <TextInput
+                                name='diskon'
                                 value={diskon}
-                                placeholder="Masukkan Harga"
+                                placeholder='Masukkn Harga'
                                 onChange={(e) => setDiskon(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                         </div>
                         <div className="col-span-2">
