@@ -12,7 +12,7 @@ const Layout = () => {
     const dispatch = useDispatch();
     const { open } = useSelector(state => state.sidebar);
     const [toggleSidebar, setToggleSidebar] = useState(false);
-
+    
     useEffect(() => {
         setToggleSidebar(open)
     }, [open])
