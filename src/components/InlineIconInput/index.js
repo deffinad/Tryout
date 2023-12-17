@@ -2,13 +2,13 @@ import React from "react";
 
 const InlineIconInput = ({ label = '', name = '', value = '', type = 'text', onchange = () => { }, iconPrefix = '', iconSuffix = '', placeholder = 'Ketikkan Sesuatu', outline = false }) => {
     return (
-        <div className="group">
+        <div className="group p-2">
             {label !== '' &&
-                <label for={name} class="block w-full pb-2 text-md font-medium  transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
+                <label for={name} className="block w-full pb-2 text-md font-medium  transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
                     {label}
                 </label>
             }
-            <div class="relative flex items-center w-full">
+            <div className="relative flex items-center w-full">
                 <input
                     id={name}
                     name={name}

@@ -3,21 +3,37 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
 import { Navbar } from "../../../components/Navbar";
 import { Footer } from "../../../components/Footer";
-import InlineIconInput from "../../../components/InlineIconInput";
-import { FaRegEnvelope, FaUnlockKeyhole } from "react-icons/fa6";
+import useAuth from "../../../shared/hooks/useAuth";
 import PasswordInput from "../../../components/PasswordInput";
-// import masukPng from './assets/img/masuk.png';
+import { FaRegEnvelope, FaUnlockKeyhole } from "react-icons/fa6";
+import InlineIconInput from "../../../components/InlineIconInput";
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [uname, setUname] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
 
-    const handleLogin = () => {
-        console.log('uname', uname);
-        console.log('password', password);
+    const handleLogin = async () => {
+        const payload = {
+            'username': uname,
+            'password': password
+        }
 
-        navigate('/beranda');
+        const status = await login(payload);
+        // const response = await authLogin(payload);
+        if (status === 200) {
+            handleResetState();
+            navigate('/beranda');
+        } else {
+            alert('Gagal Login');
+            handleResetState();
+        }
+    }
+
+    const handleResetState = () => {
+        setUname('');
+        setPassword('');
     }
 
     return (

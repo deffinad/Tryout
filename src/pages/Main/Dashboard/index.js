@@ -1,7 +1,13 @@
 import React from 'react'
 import Layout from '../../../components/Layout'
+import useAuth from '../../../shared/hooks/useAuth'
 
 const Dashboard = () => {
+   const { user, token } = useAuth();
+
+   console.log(user);
+   console.log(token);
+
    return (
       <Layout>
          {/* Greetings */}
