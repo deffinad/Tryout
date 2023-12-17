@@ -23,5 +23,9 @@ export const router = [
     {
         path: '/tryout/:jenis',
         element: <Tryout />
+    },
+    {
+        path: '/tryout/:jenis/:id',
+        element: <Tryout />
     }
 ]

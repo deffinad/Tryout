@@ -141,17 +141,17 @@ const DataListItem = ({ data, index, setRefresh }) => {
 
     return (
         <Fragment>
-            <tr>
-                <td className="w-[5%] px-3 py-3 border-b border-gray-200 bg-white text-sm">
+             <tr className='bg-white hover:bg-gray-100 cursor-pointer'>
+                <td className="w-[5%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap text-center">{index + 1}.</p>
                 </td>
-                <td className="w-[25%] px-3 py-3 border-b border-gray-200 bg-white text-sm">
+                <td className="w-[25%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap uppercase">{data.kategori}</p>
                 </td>
-                <td className="w-[30%] px-3 py-3 border-b border-gray-200 bg-white text-sm">
+                <td className="w-[30%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap">{data.nama}</p>
                 </td>
-                <td className="w-[20%] px-3 py-3 border-b border-gray-200 bg-white text-sm">
+                <td className="w-[20%] px-3 py-3 border-b border-gray-200 text-sm">
                     {data.diskon !== 0 ? (
                         <>
                             <p className="text-red-600 line-through text-sm whitespace-no-wrap">Rp. {stringToRupiah(data.harga)}</p>
@@ -161,7 +161,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
                         <p className="text-gray-900 text-lg whitespace-no-wrap">Rp. {stringToRupiah(data.harga)}</p>
                     )}
                 </td>
-                <td className="w-[20%] px-3 py-3 border-b border-gray-200 bg-white text-sm">
+                <td className="w-[20%] px-3 py-3 border-b border-gray-200 text-sm">
                     <div className="flex flex-row gap-x-3 gap-y-0">
                         <Button
                             title="Edit"
