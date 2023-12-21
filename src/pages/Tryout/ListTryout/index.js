@@ -66,6 +66,7 @@ const ListTryout = () => {
             <Card
                 header={`List Tryout ${jenis.toUpperCase()}`}
                 headerPlacement="center"
+                style={'min-h-[75vh]'}
             >
                 <div className="flex justify-start items-center">
                     <Button classNames="text-white bg-secondary hover:bg-bgHoverSecondary text-lg flex gap-[10px]" onClick={() => setOpen(true)}>
@@ -91,7 +92,7 @@ const ListTryout = () => {
                 setClose={() => {
                     setOpen(false)
                     handleResetState()
-                    dispatch(clearListTryout())
+                    // dispatch(clearListTryout())
                 }}
             >
                 <form className="p-4 md:p-5">

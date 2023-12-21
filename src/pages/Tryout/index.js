@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ListTryout from "./ListTryout";
 import DetailTryout from "./DetailTryout";
+import TambahSoal from "./TambahSoal";
 
 const Tryout = () => {
     const { pathname } = useLocation()
@@ -13,7 +14,9 @@ const Tryout = () => {
                     <ListTryout />
                     : pathname === `/tryout/${jenis}/${id}` ?
                         <DetailTryout />
-                        : null
+                        : pathname === `/tryout/${jenis}/${id}/soal` ?
+                            <TambahSoal />
+                            : null
             }
         </Fragment>
     )

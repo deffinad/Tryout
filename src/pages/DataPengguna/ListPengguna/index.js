@@ -19,6 +19,7 @@ const ListPengguna = () => {
             <Card
                 header="Data Pengguna"
                 headerPlacement="center"
+                style={'min-h-[75vh]'}
             >
                 <div className="container mx-auto">
                     <div className="py-4">

@@ -113,6 +113,7 @@ const PaketTryout = () => {
             <Card
                 header={`List Paket Tryout`}
                 headerPlacement="center"
+                style={'min-h-[75vh]'}
             >
                 <div className="flex justify-start items-center">
                     <Button classNames="text-white bg-secondary hover:bg-bgHoverSecondary text-lg flex gap-[10px]" onClick={() => handleOpenTambahModal()}>

@@ -32,7 +32,7 @@ const Button = ({
         // </button>
         <Fragment>
             {!children ? (
-                <button onClick={onClick} type="button" className={`${textColor} ${textColorHover} ${bgColor} ${bgColorHover !== '' ? bgColorHover : ''} font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center`}>
+                <button onClick={onClick} type="button" className={`${textColor} ${textColorHover} ${bgColor} ${bgColorHover !== '' ? bgColorHover : ''} font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center`}>
                     {icon !== '' && iconPlacement === 'start' &&
                         { icon }
                     }
@@ -47,7 +47,7 @@ const Button = ({
                 <button
                     type="button"
                     onClick={onClick}
-                    className={`font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 ${classNames}`}
+                    className={`font-medium rounded-lg px-5 py-2.5 text-center flex items-center justify-center me-2 mb-2 ${classNames}`}
                 >
                     {children}
                 </button>

@@ -4,9 +4,11 @@ import DialogModal from '../../../../../components/DialogModal';
 import Modal from '../../../../../components/Modal';
 import TextInput from '../../../../../components/TextInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearDetailTryout, clearListTryout, deleteTryout, getDetailTryout, updateTryout } from '../../../../../redux/actions/tryout.action';
+import { clearDetailTryout, deleteTryout, getDetailTryout, updateTryout } from '../../../../../redux/actions/tryout.action';
+import { useNavigate } from 'react-router-dom';
 
 const DataListItem = ({ data, index, setRefresh }) => {
+    const navigation = useNavigate()
     const [open, setOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const dispatch = useDispatch()
@@ -65,7 +67,10 @@ const DataListItem = ({ data, index, setRefresh }) => {
 
     return (
         <Fragment>
-            <tr className='bg-white hover:bg-gray-100 cursor-pointer'>
+            <tr className='bg-white hover:bg-gray-100 cursor-pointer' onClick={(e) => {
+                e.stopPropagation()
+                navigation(`/tryout/${data.kategori}/${data.id}`)
+            }}>
                 <td className="w-[5%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap text-center">{index + 1}.</p>
                 </td>
@@ -79,13 +84,19 @@ const DataListItem = ({ data, index, setRefresh }) => {
                             bgColor="bg-primary"
                             textColor="text-white"
                             bgColorHover='hover:bg-bgHoverPrimary'
-                            onClick={() => handleOpenEditModal(data.id, data.kategori)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleOpenEditModal(data.id, data.kategori)
+                            }}
                         />
                         <Button
                             title="Hapus"
                             textColor="text-white"
                             bgColor="bg-bgDanger"
-                            onClick={() => setOpenDialog(true)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setOpenDialog(true)
+                            }}
                         />
                     </div>
                 </td>
