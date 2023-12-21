@@ -5,14 +5,15 @@ const { login, onCheckToken, logout } = require("../controller/auth.js");
 const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
-const { materiValidation, listValidation, soalTryoutValidation, produkValidation } = require("../controller/validation.js");
+const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation } = require("../controller/validation.js");
 const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
+const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi } = require("../controller/transaksi.js");
 
 var router = express.Router();
 router.use(bodyParser.json());
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "*",
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 };
@@ -21,7 +22,7 @@ router.use(cors(corsOptions));
 
 router.use((req, res, next) => {
     const authHeader = req.headers.authorization
-
+    
     if (loggedInUsers.has(authHeader) || req.path === '/login') {
         next();
     } else {
@@ -78,6 +79,11 @@ router.get("/produk/:id", onGetDetailProduk);
 router.post("/produk", produkValidation, onAddProduk);
 router.put("/produk/:id", produkValidation, onUpdateProduk);
 router.delete("/produk/:id", onDeleteProduk);
+
+//TRANSAKSI
+router.get("/transaksi", onGetListTransaksi);
+router.get("/transaksi/:id", onGetDetailTransaksi);
+router.post("/transaksi", transaksiValidation, onAddTransaksi);
 
 
 module.exports = router;

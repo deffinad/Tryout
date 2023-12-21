@@ -14,6 +14,7 @@ var soalTryoutValidation = [
     check('id_materi', 'Id Materi Wajib Diisi').exists(),
     check('jumlah_soal', 'Jumlah Soal Wajib Diisi').exists(),
     check('waktu_mengerjakan', 'Waktu Mengerjakan Wajib Diisi').exists(),
+    check('jadwal', 'Jadwal Tryout Wajib Diisi').exists(),
     check('soal', 'Soal Wajib Diisi').exists()
 ]
 
@@ -26,4 +27,9 @@ var produkValidation = [
     body('diskon').exists().withMessage('Diskon Wajib Diisi')
 ]
 
-module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation };
+var transaksiValidation = [
+    body('id_produk').exists().withMessage('ID Produk Wajib Diisi'),
+    body('tanggal').exists().withMessage('Tanggal Wajib Diisi'),
+]
+
+module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation };
