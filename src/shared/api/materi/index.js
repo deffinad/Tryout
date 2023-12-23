@@ -78,3 +78,19 @@ export const addMateriApi = async (payload) => {
         return error;
     }
 }
+
+
+export const getDetailSoalApi = async (id, kategori, id_materi) => {
+    try {
+        const response = await fetch(API.GET_DETAIL_SOAL.replace('$kategori', kategori).replace('$id', id).replace('$id_materi', id_materi), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'iJA81HfgjmqWibwwURLY'
+            }
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}

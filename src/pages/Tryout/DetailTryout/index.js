@@ -16,10 +16,8 @@ const DetailTryout = () => {
     const navigation = useNavigate()
 
     useEffect(() => {
-        if (pathname === `/tryout/${jenis}/${id}`) {
-            dispatch(getDetailTryout(id, jenis))
-        }
-    }, [pathname])
+        dispatch(getDetailTryout(id, jenis))
+    }, [id])
 
     return (
         <Fragment>
@@ -38,7 +36,7 @@ const DetailTryout = () => {
                     <div className="w-full overflow-hidden grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 py-8">
                         {
                             detail !== null && detail.result.materi.map(item => (
-                                <ItemSoal data={item} />
+                                <ItemSoal data={item} jenis={jenis} id={id} />
                             ))
                         }
                     </div>
@@ -48,9 +46,11 @@ const DetailTryout = () => {
     )
 }
 
-const ItemSoal = ({ data }) => {
+const ItemSoal = ({ data, jenis, id }) => {
+    const navigation = useNavigate()
+
     return (
-        <button onClick={() => alert('detail soal')} className='flex-1 flex flex-col p-6 lg:h-[150px] h-[170px] shadow-lg rounded-3xl bg-gray-100 text-gray-600'>
+        <button onClick={() => navigation(`/tryout/${jenis}/${id}/soal/${data.id_materi}`)} className='flex-1 flex flex-col p-6 lg:h-[150px] h-[170px] shadow-lg rounded-3xl bg-gray-100 text-gray-600'>
             <div className='flex-1 flex items-start'>
                 <h1 className='font-bold text-xl text-start'>{data.nama}</h1>
             </div>

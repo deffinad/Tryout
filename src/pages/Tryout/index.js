@@ -2,11 +2,11 @@ import React, { Fragment } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ListTryout from "./ListTryout";
 import DetailTryout from "./DetailTryout";
-import TambahSoal from "./TambahSoal";
+import FormSoal from "./FormSoal";
 
 const Tryout = () => {
     const { pathname } = useLocation()
-    const { jenis, id } = useParams()
+    const { jenis, id, id_materi } = useParams()
     return (
         <Fragment>
             {
@@ -14,8 +14,8 @@ const Tryout = () => {
                     <ListTryout />
                     : pathname === `/tryout/${jenis}/${id}` ?
                         <DetailTryout />
-                        : pathname === `/tryout/${jenis}/${id}/soal` ?
-                            <TambahSoal />
+                        : pathname === `/tryout/${jenis}/${id}/soal` ||  pathname === `/tryout/${jenis}/${id}/soal/${id_materi}` ?
+                            <FormSoal />
                             : null
             }
         </Fragment>

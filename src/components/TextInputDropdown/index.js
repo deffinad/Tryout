@@ -14,7 +14,7 @@ const TextInputDropdown = ({
                 {options.length > 0 ? (
                     <>
                         {options.map(item => (
-                            <option key={item.name} value={item.value}>{item.name}</option>
+                            <option key={item.name} value={item.value} disabled={item.value === ''}>{item.name}</option>
                         ))}
                     </>
                 ) : null}

@@ -1,6 +1,7 @@
-import { addTryoutApi, deleteTryoutApi, getDetailTryoutApi, getListTryoutApi, updateTryoutApi } from "../../shared/api/tryout"
+import { getDetailSoalApi } from "../../shared/api/materi"
+import { addSoalApi, addTryoutApi, deleteTryoutApi, getDetailTryoutApi, getListTryoutApi, updateTryoutApi } from "../../shared/api/tryout"
 import { fetchError, fetchStart, fetchSuccess } from "./common.action"
-import { ADD_TRYOUT, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_TRYOUT, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_TRYOUT } from "./types"
+import { ADD_SOAL, ADD_TRYOUT, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_TRYOUT } from "./types"
 
 export const clearListTryout = () => {
     return (dispatch) => {
@@ -11,6 +12,11 @@ export const clearListTryout = () => {
 export const clearDetailTryout = () => {
     return (dispatch) => {
         dispatch({ type: CLEAR_DETAIL_TRYOUT })
+    }
+}
+export const clearDetailSoal = () => {
+    return (dispatch) => {
+        dispatch({ type: CLEAR_DETAIL_SOAL })
     }
 }
 
@@ -94,6 +100,42 @@ export const deleteTryout = (id, setRefresh) => {
                     dispatch(fetchSuccess('Hapus Tryout Berhasil'))
                     setRefresh(true)
                     dispatch({ type: DELETE_TRYOUT })
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError(error))
+            })
+    }
+}
+
+export const addSoalTryout = (data, kategori, id, navigation) => {
+    return (dispatch) => {
+        dispatch(fetchStart())
+        addSoalApi(data, kategori, id)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess('Tambah Soal Berhasil'))
+                    dispatch({ type: ADD_SOAL })
+                    navigation(`/tryout/${kategori}/${id}`)
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError(error))
+            })
+    }
+}
+
+
+export const getDetailSoal = (id, kategori, id_materi) => {
+    return (dispatch) => {
+        dispatch(fetchStart())
+        getDetailSoalApi(id, kategori, id_materi)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(''))
+                    dispatch({ type: GET_DETAIL_SOAL, payload: res })
+                } else {
+                    dispatch(fetchError(res.messages))
                 }
             })
             .catch((error) => {

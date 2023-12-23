@@ -35,6 +35,8 @@ const GET_DETAIL_TRYOUT = BASE_URL + '/list/$kategori/$id';
 const ADD_TRYOUT = BASE_URL + '/list';
 const UPDATE_TRYOUT = BASE_URL + '/list/$id';
 const DELETE_TRYOUT = BASE_URL + '/list/$id';
+const ADD_SOAL = BASE_URL + '/list/$kategori/$id/soal';
+const GET_DETAIL_SOAL = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 
 export const API = {
     BASE_URL,
@@ -53,4 +55,6 @@ export const API = {
     ADD_TRYOUT,
     UPDATE_TRYOUT,
     DELETE_TRYOUT,
+    ADD_SOAL,
+    GET_DETAIL_SOAL
 }

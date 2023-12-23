@@ -78,3 +78,20 @@ export const deleteTryoutApi = async (id) => {
         return error;
     }
 }
+
+export const addSoalApi = async (data, kategori, id) => {
+    try {
+        const response = await fetch(API.ADD_SOAL.replace('$kategori', kategori).replace('$id', id), {
+            method: 'POST',
+            headers: {
+                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}

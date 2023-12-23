@@ -31,5 +31,9 @@ export const router = [
     {
         path: '/tryout/:jenis/:id/soal',
         element: <Tryout />
+    },
+    {
+        path: '/tryout/:jenis/:id/soal/:id_materi',
+        element: <Tryout />
     }
 ]

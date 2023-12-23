@@ -21,19 +21,14 @@ const ListTryout = () => {
     })
 
     useEffect(() => {
-        if (pathname === '/tryout/' + jenis) {
+        if (jenis !== undefined) {
+            dispatch(getListTryout(jenis))
             setData({
                 nama: '',
                 kategori: jenis
             })
         }
     }, [jenis])
-
-    useEffect(() => {
-        if (pathname === '/tryout/' + jenis) {
-            dispatch(getListTryout(jenis))
-        }
-    }, [pathname])
 
     useEffect(() => {
         if (refresh) {
@@ -103,7 +98,7 @@ const ListTryout = () => {
                                 label="Nama Tryout"
                                 value={data.nama}
                                 placeholder="Masukkan Nama Tryout"
-                                onChange={(e) => setData({...data, nama:e.target.value})}
+                                onChange={(e) => setData({ ...data, nama: e.target.value })}
                             />
                         </div>
                         <div className="col-span-2">

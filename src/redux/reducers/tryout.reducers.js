@@ -1,12 +1,13 @@
-import { CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_TRYOUT } from "../actions/types";
+import { ADD_SOAL, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_TRYOUT } from "../actions/types";
 
 const initialState = {
     list: null,
-    detail: null
+    detail: null,
+    soal: null
 }
 
 const tryoutReducers = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case GET_LIST_TRYOUT:
             return {
                 ...state,
@@ -22,6 +23,11 @@ const tryoutReducers = (state = initialState, action) => {
                 ...state,
                 list: null
             }
+        case CLEAR_DETAIL_SOAL:
+            return {
+                ...state,
+                soal: null
+            }
         case CLEAR_DETAIL_TRYOUT:
             return {
                 ...state,
@@ -30,6 +36,15 @@ const tryoutReducers = (state = initialState, action) => {
         case UPDATE_TRYOUT:
             return {
                 ...state,
+            }
+        case ADD_SOAL:
+            return {
+                ...state,
+            }
+        case GET_DETAIL_SOAL:
+            return {
+                ...state,
+                soal: action.payload
             }
         default:
             return state;

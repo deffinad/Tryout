@@ -1,4 +1,4 @@
-import { GET_LIST_MATERI, GET_DETAIL_MATERI } from "./types";
+import { GET_LIST_MATERI, GET_DETAIL_MATERI, } from "./types";
 import { getDetailMateriApi, getListMateriApi, updateMateriApi, deleteMateriApi, addMateriApi } from "../../shared/api/materi";
 import { fetchError, fetchStart, fetchSuccess } from './common.action';
 
