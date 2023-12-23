@@ -23,24 +23,24 @@ router.use(cors(corsOptions));
 router.use((req, res, next) => {
     const authHeader = req.headers.authorization
     
-    if (loggedInUsers.has(authHeader) || req.path === '/login') {
-        next();
-    } else {
-        if (!authHeader) {
-            return res.status(401).json({ error: 'Unauthorized - Missing Authorization header' });
-        }
+    next();
+    // if (loggedInUsers.has(authHeader) || req.path === '/login') {
+    // } else {
+    //     if (!authHeader) {
+    //         return res.status(401).json({ error: 'Unauthorized - Missing Authorization header' });
+    //     }
 
-        const dataCheck = checkAuth(authHeader)
-        dataCheck.then((result) => {
-            if (result.isTrue == false) {
-                return res.status(403).json({ error: 'Forbidden - Invalid token' });
-            }else{
-                return res.status(403).json({ error: 'Please Login' });
-            }
-        }).catch((error) => {
-            return res.status(403).json({ error: 'Forbidden - Invalid token' });
-        });
-    }
+    //     const dataCheck = checkAuth(authHeader)
+    //     dataCheck.then((result) => {
+    //         if (result.isTrue == false) {
+    //             return res.status(403).json({ error: 'Forbidden - Invalid token' });
+    //         }else{
+    //             return res.status(403).json({ error: 'Please Login' });
+    //         }
+    //     }).catch((error) => {
+    //         return res.status(403).json({ error: 'Forbidden - Invalid token' });
+    //     });
+    // }
 });
 
 const checkAuth = async (token) => {
