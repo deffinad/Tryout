@@ -53,7 +53,7 @@ class ModelTryout {
       snapshotMateri.forEach((hasil) => {
         for (let i = 0; i < dataMateri.length; i++) {
           if (hasil.id === dataMateri[i].id_materi) {
-            data['materi'].push({...dataMateri[i], ...hasil.data()})
+            data['materi'].push({ ...dataMateri[i], ...hasil.data() })
           }
         }
       })
@@ -128,6 +128,7 @@ class ModelTryout {
       id_materi: data.id_materi,
       jumlah_soal: data.jumlah_soal,
       waktu_mengerjakan: data.waktu_mengerjakan,
+      jadwal: data.jadwal
     }
 
     const ref = await db.collection('list_tryout').doc(id_list).collection('materi').doc(dataDetail.id_materi)
@@ -176,7 +177,7 @@ class ModelTryout {
       })
       data = {
         id: snapTryout.id,
-        materi: {...snapRefMateri.data(), ...snapMateri.data()},
+        materi: { ...snapRefMateri.data(), ...snapMateri.data() },
         soal: arrSoal,
         ...snapTryout.data()
       }
@@ -203,6 +204,7 @@ class ModelTryout {
       id_materi: data.id_materi,
       jumlah_soal: data.jumlah_soal,
       waktu_mengerjakan: data.waktu_mengerjakan,
+      jadwal: data.jadwal
     }
 
     const ref = await db.collection('list_tryout').doc(id).collection('materi').doc(dataDetail.id_materi)
