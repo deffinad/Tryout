@@ -27,7 +27,7 @@ const Layout = () => {
     return (
         <section className='overflow-hidden z-0'>
             <Navbar toggle={toggleSidebar} setToggle={() => handleToggleSidebar(!open)} />
-            <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'lg:ml-[270px] ml-0' : 'ml-[0]'} mr-0 transition-all duration-500 overflow-auto relative`}>
+            <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'lg:ml-[270px] ml-0' : 'ml-[0]'} mr-0 transition-all duration-500 ${loading ? 'overflow-hidden': 'overflow-y-auto'} relative `}>
                 <div className={`min-h-[89vh] p-16 bg-gray-100 z-10`}>
                     {element}
                 </div>

@@ -79,6 +79,21 @@ export const deleteTryoutApi = async (id) => {
     }
 }
 
+export const deleteDetailTryoutApi = async (jenis, id, id_materi) => {
+    try {
+        const response = await fetch(API.DELETE_DETAIL_TRYOUT.replace('$id', id).replace('$jenis', jenis).replace('$id_materi', id_materi), {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'iJA81HfgjmqWibwwURLY',
+            },
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
 export const addSoalApi = async (data, kategori, id) => {
     try {
         const response = await fetch(API.ADD_SOAL.replace('$kategori', kategori).replace('$id', id), {
@@ -88,6 +103,38 @@ export const addSoalApi = async (data, kategori, id) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+export const updateSoalApi = async (data, kategori, id) => {
+    try {
+        const response = await fetch(API.UPDATE_SOAL.replace('$kategori', kategori).replace('$id', id).replace('$id_materi', data.id_materi), {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getDetailSoalApi = async (id, kategori, id_materi) => {
+    try {
+        const response = await fetch(API.GET_DETAIL_SOAL.replace('$kategori', kategori).replace('$id', id).replace('$id_materi', id_materi), {
+            method: 'GET',
+            headers: {
+                'Authorization': 'iJA81HfgjmqWibwwURLY'
+            }
         })
 
         return response.json();

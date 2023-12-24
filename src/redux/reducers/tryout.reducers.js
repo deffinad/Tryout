@@ -1,4 +1,4 @@
-import { ADD_SOAL, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_TRYOUT } from "../actions/types";
+import { ADD_SOAL, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_DETAIL_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_SOAL, UPDATE_TRYOUT } from "../actions/types";
 
 const initialState = {
     list: null,
@@ -41,10 +41,18 @@ const tryoutReducers = (state = initialState, action) => {
             return {
                 ...state,
             }
+        case UPDATE_SOAL:
+            return {
+                ...state,
+            }
         case GET_DETAIL_SOAL:
             return {
                 ...state,
                 soal: action.payload
+            }
+        case DELETE_DETAIL_TRYOUT:
+            return {
+                ...state,
             }
         default:
             return state;

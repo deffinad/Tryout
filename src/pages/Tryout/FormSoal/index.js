@@ -5,7 +5,7 @@ import TextInputDropdown from '../../../components/TextInputDropdown'
 import TextInputArea from '../../../components/TextInputArea'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addSoalTryout, clearDetailSoal, clearDetailTryout, getDetailSoal, getDetailTryout } from '../../../redux/actions/tryout.action'
+import { addSoalTryout, clearDetailSoal, clearDetailTryout, getDetailSoal, getDetailTryout, updateSoalTryout } from '../../../redux/actions/tryout.action'
 import { getListMateri } from '../../../redux/actions/materiTryout.action'
 import Button from '../../../components/Button'
 import { FaPlus, FaXmark } from 'react-icons/fa6'
@@ -14,7 +14,7 @@ const FormSoal = () => {
   const { jenis, id, id_materi } = useParams()
   const dispatch = useDispatch()
   const navigation = useNavigate()
-  const { detail } = useSelector(state => state.tryout)
+  const { detail, soal } = useSelector(state => state.tryout)
   const { list: listMateri } = useSelector(state => state.materi)
   const [pilihanMateri, setPilihanMateri] = useState([])
   const [data, setData] = useState({
@@ -22,35 +22,7 @@ const FormSoal = () => {
     id_materi: '',
     waktu_pengerjaan: '',
     jadwal: '',
-    soal: [
-      {
-        nama: '',
-        pembahasan: '',
-        opsi: [
-          {
-            id: 'A',
-            value: ''
-          },
-          {
-            id: 'B',
-            value: ''
-          },
-          {
-            id: 'C',
-            value: ''
-          },
-          {
-            id: 'D',
-            value: ''
-          },
-          {
-            id: 'E',
-            value: ''
-          },
-        ],
-        jawaban: '',
-      }
-    ]
+    soal: []
   })
 
   useEffect(() => {
@@ -61,10 +33,23 @@ const FormSoal = () => {
   }, [])
 
   useEffect(() => {
-    if(id_materi !== undefined){
+    if (id_materi !== undefined) {
       dispatch(getDetailSoal(id, jenis, id_materi))
     }
   }, [id_materi])
+
+  useEffect(() => {
+    if (soal !== null) {
+      const newData = soal.result
+      setData({
+        nama: newData.nama,
+        id_materi: newData.materi.id_materi,
+        waktu_pengerjaan: newData.materi.waktu_mengerjakan,
+        jadwal: newData.materi.jadwal,
+        soal: newData.soal
+      })
+    }
+  }, [soal])
 
   useEffect(() => {
     if (detail !== null) {
@@ -90,21 +75,53 @@ const FormSoal = () => {
 
   const addSoal = () => {
     let indexPrevSoal = data.soal.length - 1
-    let dataSoal = data.soal[indexPrevSoal]
-    let checkValidation = false
+    if (indexPrevSoal >= 0) {
+      let dataSoal = data.soal[indexPrevSoal]
+      let checkValidation = false
 
-    if (dataSoal.nama === '' || dataSoal.pembahasan === '' || dataSoal.jawaban === '') {
-      checkValidation = true
-    }
-
-    dataSoal.opsi.map(item => {
-      if (item.value === '') {
+      if (dataSoal.nama === '' || dataSoal.pembahasan === '' || dataSoal.jawaban === '') {
         checkValidation = true
       }
-    })
 
-    if (checkValidation) {
-      alert(`Masukan Data Soal ${indexPrevSoal + 1} Dengan Benar`)
+      dataSoal.opsi.map(item => {
+        if (item.value === '') {
+          checkValidation = true
+        }
+      })
+
+      if (checkValidation) {
+        alert(`Masukan Data Soal ${indexPrevSoal + 1} Dengan Benar`)
+      } else {
+        setData({
+          ...data, soal: [...data.soal, {
+            nama: '',
+            pembahasan: '',
+            opsi: [
+              {
+                id: 'A',
+                value: ''
+              },
+              {
+                id: 'B',
+                value: ''
+              },
+              {
+                id: 'C',
+                value: ''
+              },
+              {
+                id: 'D',
+                value: ''
+              },
+              {
+                id: 'E',
+                value: ''
+              },
+            ],
+            jawaban: '',
+          }]
+        })
+      }
     } else {
       setData({
         ...data, soal: [...data.soal, {
@@ -172,7 +189,7 @@ const FormSoal = () => {
     if (data.id_materi === '' || data.waktu_pengerjaan === '' || data.jadwal === '') {
       checkValidation = true
     }
-    
+
     return checkValidation
   }
 
@@ -189,15 +206,19 @@ const FormSoal = () => {
         jadwal: data.jadwal,
         soal: data.soal
       }
-
-      dispatch(addSoalTryout(payload, jenis, id, navigation))
+      
+      if(id_materi !== undefined){
+        dispatch(updateSoalTryout(payload, jenis, id, navigation))
+      }else{
+        dispatch(addSoalTryout(payload, jenis, id, navigation))
+      }
     }
   }
 
   return (
     <Fragment>
       <Card
-        header={`Tambah Soal`}
+        header={`${id_materi !== undefined ? 'Edit Soal' : 'Tambah Soal'}`}
         headerPlacement="center"
         style={'min-h-[75vh]'}
       >

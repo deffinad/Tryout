@@ -1,7 +1,6 @@
-import { getDetailSoalApi } from "../../shared/api/materi"
-import { addSoalApi, addTryoutApi, deleteTryoutApi, getDetailTryoutApi, getListTryoutApi, updateTryoutApi } from "../../shared/api/tryout"
+import { addSoalApi, addTryoutApi, deleteDetailTryoutApi, deleteTryoutApi, getDetailSoalApi, getDetailTryoutApi, getListTryoutApi, updateSoalApi, updateTryoutApi } from "../../shared/api/tryout"
 import { fetchError, fetchStart, fetchSuccess } from "./common.action"
-import { ADD_SOAL, ADD_TRYOUT, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_TRYOUT } from "./types"
+import { ADD_SOAL, ADD_TRYOUT, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_DETAIL_TRYOUT, DELETE_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_SOAL, UPDATE_TRYOUT } from "./types"
 
 export const clearListTryout = () => {
     return (dispatch) => {
@@ -108,6 +107,23 @@ export const deleteTryout = (id, setRefresh) => {
     }
 }
 
+export const deleteDetailTryout = (jenis, id, id_materi, setRefresh) => {
+    return (dispatch) => {
+        dispatch(fetchStart())
+        deleteDetailTryoutApi(jenis, id, id_materi)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess('Hapus Detail Tryout Berhasil'))
+                    setRefresh(true)
+                    dispatch({ type: DELETE_DETAIL_TRYOUT })
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError(error))
+            })
+    }
+}
+
 export const addSoalTryout = (data, kategori, id, navigation) => {
     return (dispatch) => {
         dispatch(fetchStart())
@@ -116,6 +132,23 @@ export const addSoalTryout = (data, kategori, id, navigation) => {
                 if (res.status === 200) {
                     dispatch(fetchSuccess('Tambah Soal Berhasil'))
                     dispatch({ type: ADD_SOAL })
+                    navigation(`/tryout/${kategori}/${id}`)
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError(error))
+            })
+    }
+}
+
+export const updateSoalTryout = (data, kategori, id, navigation) => {
+    return (dispatch) => {
+        dispatch(fetchStart())
+        updateSoalApi(data, kategori, id)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess('Update Soal Berhasil'))
+                    dispatch({ type: UPDATE_SOAL })
                     navigation(`/tryout/${kategori}/${id}`)
                 }
             })
