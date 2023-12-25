@@ -5,6 +5,7 @@ import materiTryoutReducer from "./materiTryout.reducers";
 import produkReducer from "./produk.reducers";
 import commonReducers from "./common.reducers";
 import tryoutReducers from "./tryout.reducers";
+import pembelianReducer from "./pembelian.reducers";
 
 export default combineReducers({
     sidebar: sidebarReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     users: dataPenggunaReducer,
     materi: materiTryoutReducer,
     produk: produkReducer,
-    tryout: tryoutReducers
+    tryout: tryoutReducers,
+    pembelian: pembelianReducer
 });

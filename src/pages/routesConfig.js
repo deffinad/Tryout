@@ -68,13 +68,6 @@ export const routesMain = [
         ],
     },
     {
-        id: 'pembahasan',
-        icon: "FaBookOpenReader",
-        title: 'Pembahasan',
-        type: 'item',
-        pathUrl: '/pembahasan'
-    },
-    {
         id: 'list-paket',
         icon: "FaFolderOpen",
         title: 'Produk',

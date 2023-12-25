@@ -40,6 +40,9 @@ const UPDATE_SOAL = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 const GET_DETAIL_SOAL = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 const DELETE_DETAIL_TRYOUT = BASE_URL + '/list/$jenis/$id/$id_materi';
 
+//API PEMBELIAN
+const GET_PEMBELIAN = BASE_URL + '/transaksi';
+
 export const API = {
     BASE_URL,
     GET_LIST_MATERI,
@@ -61,4 +64,5 @@ export const API = {
     UPDATE_SOAL,
     GET_DETAIL_SOAL,
     DELETE_DETAIL_TRYOUT,
+    GET_PEMBELIAN
 }

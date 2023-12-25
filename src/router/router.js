@@ -1,6 +1,7 @@
 import DataPengguna from "../pages/DataPengguna";
 import MateriTryout from "../pages/MateriTryout";
 import PaketTryout from "../pages/PaketTryout";
+import Pembelian from "../pages/Pembelian";
 import Tryout from "../pages/Tryout";
 
 export const router = [
@@ -35,5 +36,9 @@ export const router = [
     {
         path: '/tryout/:jenis/:id/soal/:id_materi',
         element: <Tryout />
-    }
+    },
+    {
+        path: '/pembelian',
+        element: <Pembelian />
+    },
 ]

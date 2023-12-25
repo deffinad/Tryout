@@ -31,3 +31,6 @@ export const DELETE_DETAIL_TRYOUT = 'delete_detail_tryout';
 export const CLEAR_LIST_TRYOUT = 'clear_list_tryout';
 export const CLEAR_DETAIL_TRYOUT = 'clear_detail_tryout';
 export const CLEAR_DETAIL_SOAL = 'clear_detail_soal';
+
+// PEMBELIAN
+export const GET_LIST_PEMBELIAN = 'get_list_pembelian';
