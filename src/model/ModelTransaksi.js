@@ -39,6 +39,10 @@ class ModelTransaksi {
             data.push({
                 id: hasil.id,
                 produk: dataProduk,
+                user: {
+                    ...snapUsers.data(),
+                    token: snapUsers.id
+                },
                 ...transaksi
             })
         }
@@ -68,6 +72,9 @@ class ModelTransaksi {
         const ref = await db.collection("transaksi").doc(id);
         const snapshot = await ref.get();
 
+        const usersRef = await db.collection("users").doc(snapshot.data().token)
+        const snapUsers = await usersRef.get()
+
         if (snapshot.exists) {
             let dataProduk = {}
             let dataTryout = []
@@ -93,6 +100,10 @@ class ModelTransaksi {
             data = {
                 id: snapshot.id,
                 produk: dataProduk,
+                user: {
+                    ...snapUsers.data(),
+                    token: snapUsers.id
+                },
                 ...transaksi
             }
         } else {
