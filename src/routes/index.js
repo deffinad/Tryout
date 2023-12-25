@@ -7,7 +7,7 @@ const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
 const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation } = require("../controller/validation.js");
 const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
-const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi } = require("../controller/transaksi.js");
+const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi } = require("../controller/transaksi.js");
 
 var router = express.Router();
 router.use(bodyParser.json());
@@ -91,6 +91,7 @@ router.delete("/produk/:id", onDeleteProduk);
 router.get("/transaksi", onGetListTransaksi);
 router.get("/transaksi/:id", onGetDetailTransaksi);
 router.post("/transaksi", transaksiValidation, onAddTransaksi);
+router.delete("/transaksi/:id", onDeleteTransaksi);
 
 
 module.exports = router;

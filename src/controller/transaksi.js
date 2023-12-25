@@ -89,4 +89,32 @@ const onAddTransaksi = async (req, res) => {
     }
 };
 
-module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi };
+const onDeleteTransaksi = async (req, res) => {
+    const { id } = req.params
+  
+    try {
+        const result = await transaksiModel.deleteTransaksi(id);
+        if (result) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data Transaksi Berhasil Dihapus",
+                result: req.body,
+            });
+        } else {
+            res.status(403).json({
+                status: 403,
+                messages: "Data Transaksi Gagal Dihapus",
+                result: null
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+  };
+  
+
+module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi };

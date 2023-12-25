@@ -196,5 +196,4 @@ const onDeleteUser = async (req, res) => {
   }
 };
 
-
 module.exports = { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, onUpdateUser, onDeleteUser };
