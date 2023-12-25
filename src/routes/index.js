@@ -1,11 +1,11 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 const cors = require("cors");
-const { login, onCheckToken, logout } = require("../controller/auth.js");
+const { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, onUpdateUser, onDeleteUser } = require("../controller/auth.js");
 const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
-const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation } = require("../controller/validation.js");
+const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation } = require("../controller/validation.js");
 const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
 const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi } = require("../controller/transaksi.js");
 
@@ -53,8 +53,15 @@ router.get("/", function (req, res, next) {
         .json({ message: "Welcome to Express API Tryout" });
 });
 
+//AUTH
 router.post("/login", login);
 router.get("/logout", logout);
+router.get("/user", onGetListUser);
+router.get("/user/:id", onGetDetailUser);
+router.post("/user", registerValidation, onAddUser);
+router.put("/user/:id", registerValidation, onUpdateUser);
+router.delete("/user/:id", onDeleteUser);
+
 //LIST
 router.get("/list/:kategori", onGetListTryOut);
 router.post("/list", listValidation, onAddList);

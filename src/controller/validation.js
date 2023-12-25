@@ -32,4 +32,17 @@ var transaksiValidation = [
     body('tanggal').exists().withMessage('Tanggal Wajib Diisi'),
 ]
 
-module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation };
+var registerValidation = [
+    check('asal_kota', 'Asal Kota Wajib Diisi').exists(),
+    check('asal_sekolah', 'Kategori Wajib Diisi').exists(),
+    check('avatar', 'Avatar Wajib Diisi').exists(),
+    check('jenis_kelamin', 'Jenis Kelamin Wajib Diisi').exists(),
+    check('nama', 'Nama Wajib Diisi').exists(),
+    check('password', 'Password Wajib Diisi').exists(),
+    check('provinsi', 'Provinsi Wajib Diisi').exists(),
+    check('role', 'Role Wajib Diisi').exists(),
+    check('tgl_lahir', 'Tanggal Lahir Wajib Diisi').exists(),
+    check('username', 'Username Wajib Diisi').exists(),
+]
+
+module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation };
