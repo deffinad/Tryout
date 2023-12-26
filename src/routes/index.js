@@ -5,9 +5,9 @@ const { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, 
 const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
-const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation } = require("../controller/validation.js");
+const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation, transaksiReqTokenValidation } = require("../controller/validation.js");
 const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
-const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi } = require("../controller/transaksi.js");
+const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken } = require("../controller/transaksi.js");
 
 var router = express.Router();
 router.use(bodyParser.json());
@@ -92,6 +92,7 @@ router.get("/transaksi", onGetListTransaksi);
 router.get("/transaksi/:id", onGetDetailTransaksi);
 router.post("/transaksi", transaksiValidation, onAddTransaksi);
 router.delete("/transaksi/:id", onDeleteTransaksi);
+router.post("/transaksi/request/token", transaksiReqTokenValidation, onRequestPaymentToken);
 
 
 module.exports = router;

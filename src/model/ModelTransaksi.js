@@ -1,5 +1,7 @@
 const e = require("express");
 var { db } = require("../config/firebase");
+const midtransClient = require('midtrans-client');
+const { SERVER_KEY } = require("../midtrans.config");
 
 class ModelTransaksi {
     async getListTransaksi(token) {
@@ -165,6 +167,35 @@ class ModelTransaksi {
             return true;
         } else {
             return false;
+        }
+    }
+
+    async requestPaymentToken(data) {
+        let snap = new midtransClient.Snap({
+            isProduction: false,
+            serverKey: SERVER_KEY
+        });
+
+        const parameter = {
+            transaction_details: {
+                order_id: "order-to-" + data.id,
+                gross_amount: data.gross_amount,
+            },
+            credit_card: {
+                secure: true,
+            },
+            customer_details: {
+                customer_name: data.customer_name,
+                email: data.email,
+                phone: data.phone,
+            },
+        }
+
+        const token = await snap.createTransactionToken(parameter)
+        if (token) {
+            return { isSuccess: true, data: token }
+        } else {
+            return { isSuccess: false, data: token }
         }
     }
 }
