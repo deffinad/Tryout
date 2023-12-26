@@ -12,6 +12,7 @@ const useAuth = () => {
         setUser(objUser);
         setAuthenticated(!!userToken);
         setToken(objUser?.token);
+        localStorage.setItem('token', JSON.stringify(objUser?.token));
     };
 
     useEffect(() => {

@@ -4,11 +4,15 @@ import { Sidebar } from './Sidebar'
 import { Footer } from '../Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { initSidebar } from '../../Redux/actions/sidebar.actions'
+import { useRoutes } from 'react-router-dom'
+import { router } from '../../Router/router'
 
-const Layout = ({ children }) => {
+const Layout = () => {
     const dispatch = useDispatch();
     const { open } = useSelector(state => state.sidebar);
     const [toggleSidebar, setToggleSidebar] = useState(false);
+
+    const element = useRoutes(router);
 
     useEffect(() => {
         setToggleSidebar(open)
@@ -23,7 +27,7 @@ const Layout = ({ children }) => {
             <Navbar toggle={toggleSidebar} setToggle={() => handleToggleSidebar(!open)} />
             <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'ml-[270px]' : 'ml-[0]'} mr-0 transition-all duration-500 overflow-auto`}>
                 <div className='min-h-[100vh] p-16 bg-gray-100'>
-                    {children}
+                    {element}
                 </div>
                 <Footer />
             </div>

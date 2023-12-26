@@ -2,7 +2,6 @@ import React from "react";
 import ProfileSaya from "./ProfileSaya";
 import EditProfile from "./EditProfile";
 import { useLocation, useParams } from "react-router-dom";
-import Layout from "../../../components/Layout";
 import RiwayatPembelian from "./RiwayatPembelian";
 import DetailRiwayatPembelian from "./DetailRiwayatPembelian";
 import Pengaturan from "./Pengaturan";
@@ -12,7 +11,7 @@ const ProfilePage = () => {
     const { id } = useParams();
     const { pathname } = useLocation();
     return (
-        <Layout>
+        <>
             {pathname === '/profile-saya' &&
                 <ProfileSaya />
             }
@@ -28,7 +27,7 @@ const ProfilePage = () => {
             {pathname === `/profile-saya/pengaturan` &&
                 <Pengaturan />
             }
-        </Layout>
+        </>
     )
 }
 
