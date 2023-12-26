@@ -178,7 +178,7 @@ class ModelTransaksi {
 
         const parameter = {
             transaction_details: {
-                order_id: "order-to-" + data.order_id,
+                order_id: "order-to-" + data.id_produk,
                 gross_amount: data.gross_amount,
             },
             credit_card: {
