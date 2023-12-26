@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Navbar } from '../Navbar'
 import { Sidebar } from './Sidebar'
 import { Footer } from '../Footer'
-import { useDispatch, useSelector } from 'react-redux'
-import { initSidebar } from '../../Redux/actions/sidebar.actions'
-import { useRoutes } from 'react-router-dom'
 import { router } from '../../Router/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useRoutes } from 'react-router-dom'
+import { initSidebar } from '../../Redux/actions/sidebar.actions'
 
 const Layout = () => {
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
     const { open } = useSelector(state => state.sidebar);
     const [toggleSidebar, setToggleSidebar] = useState(false);
 
@@ -22,6 +23,12 @@ const Layout = () => {
         dispatch(initSidebar(param))
     }
 
+    if (pathname === '/' || pathname === '/masuk' || pathname === '/daftar') {
+        return (
+            <>{element}</>
+        )
+    }
+
     return (
         <section className='overflow-hidden z-0'>
             <Navbar toggle={toggleSidebar} setToggle={() => handleToggleSidebar(!open)} />
@@ -31,7 +38,6 @@ const Layout = () => {
                 </div>
                 <Footer />
             </div>
-
             <Sidebar toggle={toggleSidebar} />
         </section>
     )
