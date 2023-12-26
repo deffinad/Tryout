@@ -1,9 +1,16 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const VerticalItem = ({ item, level, active, setActive }) => {
-  let activeItem = active.id === item.id;
-  const navigation = useNavigate()
+const VerticalItem = ({ item, setActive }) => {
+  const navigation = useNavigate();
+  const { pathname } = useLocation();
+
+  const [activeItem, setActiveItem] = useState(false);
+
+  useEffect(() => {
+    setActiveItem(pathname === item.pathUrl)
+  }, [pathname, item])
+
   return (
     <button
       key={item.id}

@@ -14,6 +14,8 @@ export const stringToRupiah = (bilangan) => {
 }
 
 const BASE_URL = 'https://tryout-server.vercel.app/tryout';
+const ID_MERCHANT = 'G559497554';
+const CLIENT_KEY = 'SB-Mid-client-hl3Uit2KuqzsgBMN';
 
 // API AUTH
 const AUTH_LOGIN = BASE_URL + '/login';
@@ -33,9 +35,14 @@ const UPDATE_PRODUK = BASE_URL + '/produk/$id';
 const DELETE_PRODUK = BASE_URL + '/produk/$id';
 
 // API TRYOUT
-const GET_LIST_TRYOUT = BASE_URL + '/list/$kategori'
+const GET_LIST_TRYOUT = BASE_URL + '/list/$kategori';
+
+// API PAYMENT
+const GET_TOKEN_SNAP = BASE_URL + '/transaksi/request/token';
 
 export const API = {
+    ID_MERCHANT,
+    CLIENT_KEY,
     BASE_URL,
     AUTH_LOGIN,
     GET_LIST_MATERI,
@@ -48,5 +55,6 @@ export const API = {
     ADD_PRODUK,
     UPDATE_PRODUK,
     DELETE_PRODUK,
-    GET_LIST_TRYOUT
+    GET_LIST_TRYOUT,
+    GET_TOKEN_SNAP,
 }

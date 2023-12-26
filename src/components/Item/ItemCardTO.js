@@ -1,13 +1,39 @@
 import React from 'react'
 import { Button } from '../Button'
 import { FaList } from 'react-icons/fa6'
+import useAuth from '../../shared/hooks/useAuth'
 import { stringToRupiah } from '../../shared/appEnums'
+import { getTokenSnapApi } from '../../shared/api/payment'
 
 const ItemCardTO = ({ data }) => {
+
+    const { user } = useAuth()
 
     const handleDisplayHarga = (data) => {
         if (data?.diskon !== 0) return stringToRupiah(data.diskon);
         return stringToRupiah(data?.harga);
+    }
+
+    const handlePaymentItem = (data) => {
+        const payload = {
+            id_produk: data.id,
+            gross_amount: data.diskon !== 0 ? parseInt(data.diskon) : parseInt(data.harga),
+            customer_name: user.nama,
+            email: 'deffin@gmail.com',
+            phone: '0881111122'
+        }
+
+        getTokenSnapApi(payload)
+            .then((res) => {
+                if (res.status === 201) {
+                    window.snap.pay(res.result);
+                } else {
+                    alert('Gagal Melanjutkan Pembelian');
+                }
+            })
+            .catch((error) => {
+                alert('Gagal Melakukan Pembelian', error);
+            })
     }
 
     return (
@@ -46,7 +72,10 @@ const ItemCardTO = ({ data }) => {
                         </p>
                     </div>
 
-                    <Button title={'Beli'} />
+                    <Button 
+                        title={'Beli'} 
+                        onClick={() => handlePaymentItem(data)}
+                    />
 
                 </div>
             </div>
