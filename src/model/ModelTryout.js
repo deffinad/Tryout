@@ -249,6 +249,42 @@ class ModelTryout {
       return false;
     }
   }
+
+  async getListJadwalTryOut() {
+    let data = [];
+
+    const ref = await db.collection("list_tryout");
+    const snapshot = await ref.get();
+
+    snapshot.forEach(async (hasil) => {
+      try {
+        let refMateri = await db.collection("list_tryout").doc(hasil.id).collection("materi")
+        let snapMateri = await refMateri.get()
+
+        snapMateri.forEach(item => {
+          data.push({
+            id: hasil.id,
+            materi: { ...item.data() },
+            ...hasil.data(),
+          })
+        })
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    });
+
+    if (data.length > 0) {
+      return {
+        isTrue: true,
+        data: data,
+      };
+    } else {
+      return {
+        isTrue: false,
+        data: data
+      };
+    }
+  }
 }
 
 module.exports = ModelTryout;

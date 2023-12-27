@@ -265,5 +265,31 @@ const onDeleteDetailMateri = async (req, res) => {
     }
 };
 
+const onGetListJadwalTryOut = async (req, res) => {
+    try {
+        const result = await tryoutModel.getListJadwalTryOut();
 
-module.exports = { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri };
+        if (result.isTrue) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data Jadwal Try Out Ditemukan",
+                result: result.data,
+            });
+        } else {
+            res.status(403).json({
+                status: 403,
+                messages: "Data Jadwal Tryout Tidak Ditemukan",
+                result: result.data
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+};
+
+
+module.exports = { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut };

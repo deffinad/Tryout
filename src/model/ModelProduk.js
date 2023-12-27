@@ -2,7 +2,7 @@ const e = require("express");
 var { db } = require("../config/firebase");
 
 class ModelProduk {
-    async getListProduk() {
+    async getListProduk(kategori) {
         let data = [];
         let dataTryout = []
 
@@ -17,20 +17,22 @@ class ModelProduk {
 
         snapshot.forEach((hasil) => {
             let tempTryout = []
-            hasil.data().id_tryout.map(val => {
-                let itemTryout = dataTryout.filter(item => item.id === val)
-                tempTryout = [...tempTryout, ...itemTryout]
-            })
-
-            const itemProduk = hasil.data()
-
-            delete itemProduk.id_tryout
-
-            data.push({
-                id: hasil.id,
-                tryout: tempTryout,
-                ...itemProduk
-            })
+            if(hasil.data().kategori === kategori){
+                hasil.data().id_tryout.map(val => {
+                    let itemTryout = dataTryout.filter(item => item.id === val)
+                    tempTryout = [...tempTryout, ...itemTryout]
+                })
+    
+                const itemProduk = hasil.data()
+    
+                delete itemProduk.id_tryout
+    
+                data.push({
+                    id: hasil.id,
+                    tryout: tempTryout,
+                    ...itemProduk
+                })
+            }
         });
 
         if (data.length > 0) {

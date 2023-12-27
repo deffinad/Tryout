@@ -5,8 +5,9 @@ const ModelProduk = require("../model/ModelProduk");
 const produkModel = new ModelProduk();
 
 const onGetListProduk = async (req, res) => {
+    const { kategori } = req.params
     try {
-        const result = await produkModel.getListProduk();
+        const result = await produkModel.getListProduk(kategori);
 
         if (result.isTrue) {
             res.status(200).json({
