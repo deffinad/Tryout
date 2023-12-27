@@ -29,10 +29,10 @@ const DaftarTryOut = () => {
     }, [])
 
     useEffect(() => {
-        if (pathname === '/list-to/utbk') {
-            dispatch(getListProduk());
+        if (pathname === `/list-to/${id}`) {
+            dispatch(getListProduk(id));
         }
-    }, [dispatch, pathname])
+    }, [dispatch, pathname, id])
 
     return (
         <section className='flex flex-col gap-8'>

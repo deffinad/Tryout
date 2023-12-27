@@ -28,7 +28,7 @@ const UPDATE_MATERI = BASE_URL + '/materi/$id';
 const DELETE_MATERI = BASE_URL + '/materi/$id';
 
 // API PRODUK
-const GET_LIST_PRODUK = BASE_URL + '/produk';
+const GET_LIST_PRODUK = BASE_URL + '/produk/$kategori';
 const GET_DETAIL_PRODUK = BASE_URL + '/produk/$id';
 const ADD_PRODUK = BASE_URL + '/produk';
 const UPDATE_PRODUK = BASE_URL + '/produk/$id';

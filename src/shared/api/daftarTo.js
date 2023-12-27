@@ -1,7 +1,7 @@
 import { API } from "../appEnums"
 
-export const getListProdukApi = async () => {
-    const response = await fetch(API.GET_LIST_PRODUK, {
+export const getListProdukApi = async (kategori) => {
+    const response = await fetch(API.GET_LIST_PRODUK.replace('$kategori', kategori), {
         method: 'get',
         headers: {
             'Authorization': localStorage.getItem('token'), 

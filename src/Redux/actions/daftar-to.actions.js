@@ -1,9 +1,9 @@
 import { getListProdukApi } from "../../shared/api/daftarTo";
 import { GET_LIST_PRODUK } from "./types";
 
-export const getListProduk = () => {
+export const getListProduk = (kategori = 'utbk') => {
     return (dispatch) => {
-        getListProdukApi()
+        getListProdukApi(kategori)
             .then((res) => {
                 if (res.status === 200) {
                     dispatch({ type: GET_LIST_PRODUK, payload: res.result })
