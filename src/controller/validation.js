@@ -32,6 +32,13 @@ var transaksiValidation = [
     body('tanggal').exists().withMessage('Tanggal Wajib Diisi'),
 ]
 
+var transaksiReqTokenValidation = [
+    body('gross_amount').exists().withMessage('Gross Amount Wajib Diisi'),
+    body('customer_name').exists().withMessage('First Name Wajib Diisi'),
+    body('phone').exists().withMessage('Phone Wajib Diisi'),
+    body('id_produk').exists().withMessage('Id Produk Wajib Diisi'),
+]
+
 var registerValidation = [
     check('asal_kota', 'Asal Kota Wajib Diisi').exists(),
     check('asal_sekolah', 'Kategori Wajib Diisi').exists(),
@@ -45,4 +52,4 @@ var registerValidation = [
     check('username', 'Username Wajib Diisi').exists(),
 ]
 
-module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation };
+module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, transaksiReqTokenValidation, registerValidation };

@@ -91,7 +91,7 @@ const onAddTransaksi = async (req, res) => {
 
 const onDeleteTransaksi = async (req, res) => {
     const { id } = req.params
-  
+
     try {
         const result = await transaksiModel.deleteTransaksi(id);
         if (result) {
@@ -114,7 +114,37 @@ const onDeleteTransaksi = async (req, res) => {
                 "Server tidak memahami sintak permintaan dari klien",
         });
     }
-  };
-  
+};
 
-module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi };
+const onRequestPaymentToken = async (req, res) => {
+    const errors = validationResult(req)
+    try {
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        } else {
+            const  result = await transaksiModel.requestPaymentToken(req.body);
+            if (result.isSuccess) {
+                res.status(201).json({
+                    status: 201,
+                    messages: "Permintaan token pembayaran berhasil diterima",
+                    result: result.data,
+                });
+            } else {
+                res.status(401).json({
+                    status: 401,
+                    messages: "Gagal membuat token, Harap periksa client key atau server key anda",
+                    result: result.data
+                })
+            }
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+}
+
+
+module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken };
