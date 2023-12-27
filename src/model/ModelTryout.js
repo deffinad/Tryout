@@ -128,7 +128,6 @@ class ModelTryout {
       id_materi: data.id_materi,
       jumlah_soal: data.jumlah_soal,
       waktu_mengerjakan: data.waktu_mengerjakan,
-      jadwal: data.jadwal
     }
 
     const ref = await db.collection('list_tryout').doc(id_list).collection('materi').doc(dataDetail.id_materi)
@@ -204,7 +203,6 @@ class ModelTryout {
       id_materi: data.id_materi,
       jumlah_soal: data.jumlah_soal,
       waktu_mengerjakan: data.waktu_mengerjakan,
-      jadwal: data.jadwal
     }
 
     const ref = await db.collection('list_tryout').doc(id).collection('materi').doc(dataDetail.id_materi)

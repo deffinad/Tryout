@@ -198,6 +198,24 @@ class ModelTransaksi {
             return { isSuccess: false, data: token }
         }
     }
+
+    async addJawaban(id_transaksi, id_tryout, id_materi, data) {
+        let isSuccess = false
+        const soalRef = await db.collection("produk").doc(snapshot.data().id_produk)
+        const snapSoal = await produkRef.get()
+
+        await db.collection('transaksi').doc().set(data).then(function () {
+            isSuccess = true
+        }).catch(err => {
+            isSuccess = false
+        });
+
+        if (isSuccess) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 module.exports = ModelTransaksi;

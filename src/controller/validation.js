@@ -7,14 +7,14 @@ var materiValidation = [
 
 var listValidation = [
     check('nama', 'Nama Wajib Diisi').exists(),
-    check('kategori', 'Kategori Wajib Diisi').exists()
+    check('kategori', 'Kategori Wajib Diisi').exists(),
+    check('jadwal', 'Jadwal Wajib Diisi').exists()
 ]
 
 var soalTryoutValidation = [
     check('id_materi', 'Id Materi Wajib Diisi').exists(),
     check('jumlah_soal', 'Jumlah Soal Wajib Diisi').exists(),
     check('waktu_mengerjakan', 'Waktu Mengerjakan Wajib Diisi').exists(),
-    check('jadwal', 'Jadwal Tryout Wajib Diisi').exists(),
     check('soal', 'Soal Wajib Diisi').exists()
 ]
 

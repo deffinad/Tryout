@@ -122,7 +122,7 @@ const onRequestPaymentToken = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
         } else {
-            const  result = await transaksiModel.requestPaymentToken(req.body);
+            const result = await transaksiModel.requestPaymentToken(req.body);
             if (result.isSuccess) {
                 res.status(201).json({
                     status: 201,
@@ -146,5 +146,38 @@ const onRequestPaymentToken = async (req, res) => {
     }
 }
 
+const onAddJawaban = async (req, res) => {
+    const { id_transaksi, id_tryout, id_materi } = req.params
 
-module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken };
+    const errors = validationResult(req)
+    try {
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        } else {
+            const result = await transaksiModel.addJawaban(id_transaksi, id_tryout, id_materi, req.body);
+            if (result) {
+                res.status(200).json({
+                    status: 200,
+                    messages: "Data Transaksi Berhasil Ditambahkan",
+                    result: req.body,
+                });
+            } else {
+                res.status(403).json({
+                    status: 403,
+                    messages: "Data Transaksi Gagal Ditambahkan",
+                    result: null
+                });
+            }
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+};
+
+
+
+module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban };
