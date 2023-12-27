@@ -199,12 +199,33 @@ class ModelTransaksi {
         }
     }
 
-    async addJawaban(id_transaksi, id_tryout, id_materi, data) {
+    async addJawaban(data) {
         let isSuccess = false
-        const soalRef = await db.collection("produk").doc(snapshot.data().id_produk)
-        const snapSoal = await produkRef.get()
+        const soalRef = await db.collection("list_tryout").doc(data.id_tryout).collection('materi').doc(data.id_materi).collection('soal')
+        const snapSoal = await soalRef.get()
+        let dataSoal = []
+        let nilai = 0
+        let point = 10
 
-        await db.collection('transaksi').doc().set(data).then(function () {
+        snapSoal.forEach(hasil => {
+            dataSoal.push({
+                id: hasil.id,
+                ...hasil.data()
+            })
+        })
+
+        data.jawaban.map(item => {
+            let check = dataSoal.some(val => val.id === item.id_soal && item.value === val.jawaban)
+
+            if (check) {
+                nilai = nilai + point
+            }
+        })
+
+        await db.collection('transaksi').doc(data.id_transaksi).collection('jawaban').doc().set({
+            ...data,
+            nilai: nilai
+        }).then(function () {
             isSuccess = true
         }).catch(err => {
             isSuccess = false

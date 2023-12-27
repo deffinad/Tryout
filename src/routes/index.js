@@ -5,7 +5,7 @@ const { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, 
 const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
-const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation, transaksiReqTokenValidation } = require("../controller/validation.js");
+const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation, transaksiReqTokenValidation, jawabanValidation } = require("../controller/validation.js");
 const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
 const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban } = require("../controller/transaksi.js");
 
@@ -22,7 +22,7 @@ router.use(cors(corsOptions));
 
 router.use((req, res, next) => {
     const authHeader = req.headers.authorization
-    
+
     next();
     // if (loggedInUsers.has(authHeader) || req.path === '/login') {
     // } else {
@@ -71,7 +71,7 @@ router.get("/list/:kategori/:id", onGetDetailTryout);
 router.delete("/list/:kategori/:id/:id_materi", onDeleteDetailMateri);
 router.get("/list/:kategori/:id/soal/:id_materi", onGetListSoalTryOut);
 router.post("/list/:kategori/:id/soal", soalTryoutValidation, onAddSoal);
-router.put("/list/:kategori/:id/soal/:id_materi",soalTryoutValidation, onUpdateSoal);
+router.put("/list/:kategori/:id/soal/:id_materi", soalTryoutValidation, onUpdateSoal);
 router.get("/jadwal", onGetListJadwalTryOut);
 
 //MATERI
@@ -94,6 +94,6 @@ router.get("/transaksi/:id", onGetDetailTransaksi);
 router.post("/transaksi", transaksiValidation, onAddTransaksi);
 router.delete("/transaksi/:id", onDeleteTransaksi);
 router.post("/transaksi/request/token", transaksiReqTokenValidation, onRequestPaymentToken);
-router.post("/jawab/:id_transaksi/:id_tryout/:id_materi", onAddJawaban)
+router.post("/jawab", jawabanValidation, onAddJawaban)
 
 module.exports = router;

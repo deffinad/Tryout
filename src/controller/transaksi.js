@@ -147,14 +147,12 @@ const onRequestPaymentToken = async (req, res) => {
 }
 
 const onAddJawaban = async (req, res) => {
-    const { id_transaksi, id_tryout, id_materi } = req.params
-
     const errors = validationResult(req)
     try {
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
         } else {
-            const result = await transaksiModel.addJawaban(id_transaksi, id_tryout, id_materi, req.body);
+            const result = await transaksiModel.addJawaban(req.body);
             if (result) {
                 res.status(200).json({
                     status: 200,

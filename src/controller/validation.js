@@ -52,4 +52,11 @@ var registerValidation = [
     check('username', 'Username Wajib Diisi').exists(),
 ]
 
-module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, transaksiReqTokenValidation, registerValidation };
+var jawabanValidation = [
+    body('id_transaksi').exists().withMessage('ID Transaksi Wajib Diisi'),
+    body('id_tryout').exists().withMessage('ID Tryout Wajib Diisi'),
+    body('id_materi').exists().withMessage('ID Materi Wajib Diisi'),
+    body('jawaban').exists().withMessage('Jawaban Wajib Diisi'),
+]
+
+module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, transaksiReqTokenValidation, registerValidation, jawabanValidation };
