@@ -6,8 +6,9 @@ const transaksiModel = new ModelTransaksi();
 
 const onGetListTransaksi = async (req, res) => {
     const token = req.headers.authorization
+    const { kategori } = req.params
     try {
-        const result = await transaksiModel.getListTransaksi(token);
+        const result = await transaksiModel.getListTransaksi(token, kategori);
 
         if (result.isTrue) {
             res.status(200).json({

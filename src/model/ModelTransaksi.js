@@ -4,7 +4,7 @@ const midtransClient = require('midtrans-client');
 const { SERVER_KEY } = require("../midtrans.config");
 
 class ModelTransaksi {
-    async getListTransaksi(token) {
+    async getListTransaksi(token, kategori) {
         let data = [];
         let role = ''
 
@@ -51,9 +51,17 @@ class ModelTransaksi {
 
         let newData = []
         if (role === 'user') {
-            newData = data.filter(item => item.token === token)
+            if (kategori !== 'all') {
+                newData = data.filter(item => item.token === token && item.produk.kategori === kategori)
+            } else {
+                newData = data.filter(item => item.token === token)
+            }
         } else {
-            newData = data
+            if (kategori !== 'all') {
+                newData = data.filter(item => item.produk.kategori === kategori)
+            } else {
+                newData = data
+            }
         }
 
         if (newData.length > 0) {
