@@ -14,10 +14,6 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const { login } = useAuth();
 
-<<<<<<< HEAD
-    const handleLogin = () => {
-        navigate('/beranda');
-=======
     const handleLogin = async () => {
         const payload = {
             'username': uname,
@@ -38,7 +34,6 @@ const LoginPage = () => {
     const handleResetState = () => {
         setUname('');
         setPassword('');
->>>>>>> ba0c5805ffeff011bb375f92fe191eb19c3d3032
     }
 
     return (
