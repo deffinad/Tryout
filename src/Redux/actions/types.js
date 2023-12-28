@@ -8,3 +8,8 @@ export const FETCH_SUCCESS = "fetch_success";
 // DAFTAR TRYOUT
 export const GET_LIST_PRODUK = "get_list_produk";
 export const GET_DETAIL_PRODUK = "get_detail_produk";
+
+// MY TRYOUT
+export const GET_LIST_TRANSAKSI = "get_list_transaksi";
+export const GET_DETAIL_TRANSAKSI = "get_detail_transaksi";
+export const ADD_TRANSAKSI = "add_transaksi";
