@@ -1,7 +1,12 @@
 import React from 'react'
 import { FaBars, FaXmark } from 'react-icons/fa6'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../../shared/hooks/useAuth'
 
 export const Navbar = ({ toggle = false, setToggle }) => {
+    const navigation = useNavigate()
+    const { user, logout } = useAuth()
+
     return (
         <div className='w-full bg-primary h-[90px] flex flex-row items-center justify-between text-textColor md:px-16 px-8 fixed z-10'>
             <div className='flex gap-6 items-center'>
@@ -19,8 +24,21 @@ export const Navbar = ({ toggle = false, setToggle }) => {
 
             <div>
                 <ul className='flex flex-row gap-6'>
-                    <li>Masuk</li>
-                    <li>Masuk</li>
+                    {
+                        user === undefined || user === null ? (
+                            <li>
+                                <button onClick={() => navigation('/masuk')}>Masuk</button>
+                            </li>
+                        ) : (
+                            <li>
+                                <button onClick={() => {
+                                    logout()
+                                    navigation('/')
+                                }}>
+                                    Logout
+                                </button>
+                            </li>
+                        )}
                 </ul>
             </div>
         </div>
