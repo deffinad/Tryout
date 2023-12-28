@@ -27,11 +27,11 @@ export const routesMain = [
                         pathUrl: '/list-to/utbk'
                     },
                     {
-                        id: 'list-poltekses',
+                        id: 'list-poltekes',
                         icon: '',
-                        title: 'Poltekses',
+                        title: 'Poltekes',
                         type: 'item',
-                        pathUrl: '/list-to/poltekses'
+                        pathUrl: '/list-to/poltekes'
                     },
                     {
                         id: 'list-ujian-kedinasan',

@@ -1,4 +1,3 @@
-import { createBrowserRouter } from 'react-router-dom';
 import LoginPage from '../pages/Auth/Login';
 import RegisterPage from '../pages/Auth/Register';
 import LandingPage from '../pages/LandingPage';
@@ -8,7 +7,7 @@ import Pembayaran from '../pages/Main/Pembayaran';
 import MyTryOut from '../pages/Main/MyTO';
 import ProfilePage from '../pages/Main/Profile';
 
-export const router = createBrowserRouter([
+export const router = [
     {
         path: "/",
         element: <LandingPage />
@@ -77,4 +76,4 @@ export const router = createBrowserRouter([
         path: "/to-saya/:menu/pembahasan/:id",
         element: <MyTryOut />,
     },
-]);
+];

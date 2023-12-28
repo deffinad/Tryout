@@ -2,13 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Navbar } from '../Navbar'
 import { Sidebar } from './Sidebar'
 import { Footer } from '../Footer'
+import Lottie from 'lottie-react'
+import Loading from './Loading.json'
+import { router } from '../../Router/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { initSidebar } from '../../redux/actions/sidebar.actions'
+import { useLocation, useRoutes } from 'react-router-dom'
+import { initSidebar } from '../../Redux/actions/sidebar.actions'
 
-const Layout = ({ children }) => {
+const Layout = () => {
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
     const { open } = useSelector(state => state.sidebar);
     const [toggleSidebar, setToggleSidebar] = useState(false);
+
+    const element = useRoutes(router);
+    const { loading } = useSelector(state => state.common);
 
     useEffect(() => {
         setToggleSidebar(open)
@@ -18,16 +26,27 @@ const Layout = ({ children }) => {
         dispatch(initSidebar(param))
     }
 
+    if (pathname === '/' || pathname === '/masuk' || pathname === '/daftar') {
+        return (
+            <>{element}</>
+        )
+    }
+
     return (
         <section className='overflow-hidden z-0'>
             <Navbar toggle={toggleSidebar} setToggle={() => handleToggleSidebar(!open)} />
-            <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'lg:ml-[270px] ml-0' : 'ml-[0]'} mr-0 transition-all duration-500 overflow-auto`}>
-                <div className='min-h-[100vh] lg:p-16 p-8 bg-gray-100'>
-                    {children}
+            <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'lg:ml-[270px] ml-0' : 'ml-[0]'} mr-0 transition-all duration-500 ${loading ? 'overflow-hidden': 'overflow-y-auto'} relative `}>
+                <div className='min-h-[100vh] p-16 bg-gray-100'>
+                    {element}
                 </div>
                 <Footer />
+                {
+                    loading &&
+                    <div className='absolute w-full top-0 h-[100vh] z-20 flex items-center justify-center'>
+                        <Lottie animationData={Loading} loop={true} style={{ height: 100, width: 100 }} />
+                    </div>
+                }
             </div>
-
             <Sidebar toggle={toggleSidebar} />
         </section>
     )

@@ -1,11 +1,13 @@
-import React from 'react'
-import Layout from '../../../components/Layout'
+import React, { Fragment } from 'react'
+import useAuth from '../../../shared/hooks/useAuth'
 
 const Dashboard = () => {
+   const { user } = useAuth();
+
    return (
-      <Layout>
+      <Fragment>
          {/* Greetings */}
-         <h1 className='mb-5 text-2xl text-primary'>Hai, Username Selamat Datang Kembali!</h1>
+         <h1 className='mb-8 text-2xl text-primary'>Hai, <span className='italic font-semibold'>{user?.nama}</span> Selamat Datang Kembali!</h1>
          {/* first card */}
          <div className='flex flex-col gap-10'>
             <div className="grid grid-cols-2 grid-rows-1 gap-4">
@@ -90,7 +92,7 @@ const Dashboard = () => {
                </div>
             </div>
          </div>
-      </Layout>
+      </Fragment>
    )
 }
 
