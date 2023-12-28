@@ -43,6 +43,10 @@ const DELETE_DETAIL_TRYOUT = BASE_URL + '/list/$jenis/$id/$id_materi';
 //API PEMBELIAN
 const GET_PEMBELIAN = BASE_URL + '/transaksi';
 
+// API TRYOUT
+const GET_LIST_USER = BASE_URL + '/user';
+const GET_DETAIL_USER = BASE_URL + '/user/$id';
+
 export const API = {
     BASE_URL,
     GET_LIST_MATERI,
@@ -64,5 +68,7 @@ export const API = {
     UPDATE_SOAL,
     GET_DETAIL_SOAL,
     DELETE_DETAIL_TRYOUT,
-    GET_PEMBELIAN
+    GET_PEMBELIAN,
+    GET_LIST_USER,
+    GET_DETAIL_USER
 }

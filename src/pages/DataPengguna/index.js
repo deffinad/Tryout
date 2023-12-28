@@ -7,10 +7,6 @@ const DataPengguna = () => {
     const { id } = useParams();
     const { pathname } = useLocation();
 
-    useEffect(() => {
-        if (pathname === '/') console.log('fetch data user');
-    }, [pathname])
-
     return (
         <Fragment>
             {pathname === '/' &&

@@ -27,7 +27,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
                     <p className="text-gray-900 text-lg whitespace-no-wrap text-center">{index + 1}.</p>
                 </td>
                 <td className="w-[25%] px-3 py-3 border-b border-gray-200 text-sm">
-                    <p className="text-gray-900 text-lg whitespace-no-wrap">{data.token}</p>
+                    <p className="text-gray-900 text-lg whitespace-no-wrap">{data.user.nama}</p>
                 </td>
                 <td className="w-[20%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap">{data.produk.nama}</p>
