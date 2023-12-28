@@ -31,9 +31,31 @@ class ModelAuth {
     });
 
     if (data != null) {
+      const refTransaksi = await db.collection("transaksi")
+      const snapTransaksi = await refTransaksi.get()
+      let idProduk = []
+      let terdaftar = 0
+
+      snapTransaksi.forEach(async hasil => {
+        if (hasil.data().token === data.token) {
+          idProduk.push(hasil.data().id_produk)
+        }
+      })
+
+      await Promise.all(idProduk.map(async item => {
+        const refProduk = await db.collection("produk").doc(item)
+        const snapProduk = await refProduk.get()
+        terdaftar = terdaftar + snapProduk.data().id_tryout.length
+      }))
+
       return {
         isTrue: true,
-        dataUser: data,
+        dataUser: {
+          ...data,
+          dashboard: {
+            terdaftar: terdaftar
+          }
+        }
       };
     } else {
       return {
