@@ -17,7 +17,7 @@ class ModelProduk {
 
         snapshot.forEach((hasil) => {
             let tempTryout = []
-            if(hasil.data().kategori === kategori){
+            if(kategori === 'all' || hasil.data().kategori === kategori ){
                 hasil.data().id_tryout.map(val => {
                     let itemTryout = dataTryout.filter(item => item.id === val)
                     tempTryout = [...tempTryout, ...itemTryout]
