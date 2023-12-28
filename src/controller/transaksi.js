@@ -27,6 +27,7 @@ const onGetListTransaksi = async (req, res) => {
             status: 400,
             messages:
                 "Server tidak memahami sintak permintaan dari klien",
+            error: err
         });
     }
 };
@@ -54,6 +55,7 @@ const onGetDetailTransaksi = async (req, res) => {
             status: 400,
             messages:
                 "Server tidak memahami sintak permintaan dari klien",
+            error: err
         });
     }
 };
@@ -76,7 +78,7 @@ const onAddTransaksi = async (req, res) => {
                 res.status(403).json({
                     status: 403,
                     messages: "Data Transaksi Gagal Ditambahkan",
-                    result: null
+                    result: result
                 });
             }
         }
@@ -85,6 +87,7 @@ const onAddTransaksi = async (req, res) => {
             status: 400,
             messages:
                 "Server tidak memahami sintak permintaan dari klien",
+            error: err
         });
     }
 };
@@ -104,7 +107,7 @@ const onDeleteTransaksi = async (req, res) => {
             res.status(403).json({
                 status: 403,
                 messages: "Data Transaksi Gagal Dihapus",
-                result: null
+                result: result
             });
         }
     } catch (err) {
@@ -112,6 +115,7 @@ const onDeleteTransaksi = async (req, res) => {
             status: 400,
             messages:
                 "Server tidak memahami sintak permintaan dari klien",
+            error: err
         });
     }
 };
@@ -142,6 +146,7 @@ const onRequestPaymentToken = async (req, res) => {
             status: 400,
             messages:
                 "Server tidak memahami sintak permintaan dari klien",
+            error: error
         });
     }
 }
@@ -163,7 +168,7 @@ const onAddJawaban = async (req, res) => {
                 res.status(403).json({
                     status: 403,
                     messages: "Data Transaksi Gagal Ditambahkan",
-                    result: null
+                    result: result
                 });
             }
         }
@@ -172,6 +177,7 @@ const onAddJawaban = async (req, res) => {
             status: 400,
             messages:
                 "Server tidak memahami sintak permintaan dari klien",
+            error: err
         });
     }
 };
