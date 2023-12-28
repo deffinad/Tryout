@@ -20,7 +20,7 @@ const onGetListTransaksi = async (req, res) => {
             res.status(403).json({
                 status: 403,
                 messages: "Data Transaksi Tidak Ditemukan",
-                result: result.data
+                result: []
             });
         }
     } catch (err) {
