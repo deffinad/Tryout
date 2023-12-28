@@ -3,8 +3,8 @@ import { FaChevronRight, FaClock, FaFile } from 'react-icons/fa6'
 
 const ItemTipeSoal = ({ onClick }) => {
     return (
-        <button onClick={onClick} className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white'>
-            <div className='flex-1'>
+        <button onClick={onClick} className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white lg:gap-0 gap-2'>
+            <div className='flex-1 text-start'>
                 <h1 className='font-bold text-xl'>Penalaran Umum</h1>
             </div>
             <div className='flex w-full items-center justify-between'>

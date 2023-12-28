@@ -14,9 +14,6 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        console.log('uname', uname);
-        console.log('password', password);
-
         navigate('/beranda');
     }
 

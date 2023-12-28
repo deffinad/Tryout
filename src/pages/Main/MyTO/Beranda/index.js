@@ -8,7 +8,7 @@ const BerandaTOSaya = () => {
     
     return (
         <section className='flex flex-col gap-8'>
-            <div className='grid grid-cols-2'>
+            <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-4'>
                 <div className='flex flex-col gap-4 justify-between'>
                     <h1 className="text-4xl font-bold uppercase">UTBK - SNBPT #1</h1>
                     <div className='flex flex-col'>
@@ -18,7 +18,7 @@ const BerandaTOSaya = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-end'>
+                <div className='flex lg:justify-end'>
                     <div className='flex flex-col gap-4'>
                         <h1 className='text-xl font-bold'>Durasi Pengerjaan</h1>
                         <div className='flex gap-2 text-white'>

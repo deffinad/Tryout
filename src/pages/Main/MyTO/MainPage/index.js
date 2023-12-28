@@ -16,7 +16,7 @@ const MainPage = () => {
                 <Button onClick={() => navigate(`/to-saya/${menu}/lihat-nilai-keseluruhan`)} title={'Lihat Nilai Keseluruhan'}/>
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
                 <ItemCardTOSaya type={'premium'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)}/>
                 <ItemCardTOSaya type={'premium'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)}/>
                 <ItemCardTOSaya type={'paket'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)}/>

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const VerticalItem = ({ item, level, active, setActive }) => {
   let activeItem = active.id === item.id;
   const navigation = useNavigate()
-  console.log(active)
   return (
     <button
       key={item.id}
