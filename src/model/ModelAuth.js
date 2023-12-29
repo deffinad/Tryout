@@ -34,18 +34,29 @@ class ModelAuth {
       const refTransaksi = await db.collection("transaksi")
       const snapTransaksi = await refTransaksi.get()
       let idProduk = []
-      let terdaftar = 0
+      let terdaftar = []
+      const dikerjakan = []
 
-      snapTransaksi.forEach(async hasil => {
-        if (hasil.data().token === data.token) {
+      for (const hasil of snapTransaksi.docs) {
+        if (hasil.data().token === data.token && hasil.data().status === 'berhasil') {
           idProduk.push(hasil.data().id_produk)
+
+          const refJawaban = await db.collection('transaksi').doc(hasil.id).collection('jawaban')
+          const snapJawaban = await refJawaban.get()
+
+          for (const value of snapJawaban.docs) {
+            dikerjakan.push(value.data().id_tryout)
+          }
         }
-      })
+      }
 
       await Promise.all(idProduk.map(async item => {
         const refProduk = await db.collection("produk").doc(item)
         const snapProduk = await refProduk.get()
-        terdaftar = terdaftar + snapProduk.data().id_tryout.length
+
+        snapProduk.data().id_tryout.map(item => {
+          terdaftar.push(item)
+        })
       }))
 
       return {
@@ -53,7 +64,9 @@ class ModelAuth {
         dataUser: {
           ...data,
           dashboard: {
-            terdaftar: terdaftar
+            terdaftar: terdaftar.length,
+            sudah_dikerjakan: dikerjakan.length,
+            belum_dikerjakan: terdaftar.length - dikerjakan.length
           }
         }
       };
