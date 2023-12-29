@@ -13,3 +13,4 @@ export const GET_DETAIL_PRODUK = "get_detail_produk";
 export const GET_LIST_TRANSAKSI = "get_list_transaksi";
 export const GET_DETAIL_TRANSAKSI = "get_detail_transaksi";
 export const ADD_TRANSAKSI = "add_transaksi";
+export const GET_STATUS_PAYMENT = 'get_status_payment';

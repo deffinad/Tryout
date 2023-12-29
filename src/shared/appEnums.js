@@ -16,6 +16,7 @@ export const stringToRupiah = (bilangan) => {
 const BASE_URL = 'https://tryout-server.vercel.app/tryout';
 const ID_MERCHANT = 'G559497554';
 const CLIENT_KEY = 'SB-Mid-client-hl3Uit2KuqzsgBMN';
+const SERVER_KEY = 'SB-Mid-server-Ic6W0Kwt2d8GgpQtvfzpLq1q';
 
 // API AUTH
 const AUTH_LOGIN = BASE_URL + '/login';
@@ -45,10 +46,12 @@ const ADD_TRANSAKSI = BASE_URL + '/transaksi';
 
 // API PAYMENT
 const GET_TOKEN_SNAP = BASE_URL + '/transaksi/request/token';
+const GET_STATUS_PAYMENT = 'https://api.sandbox.midtrans.com/v2/${order_id}/status';
 
 export const API = {
     ID_MERCHANT,
     CLIENT_KEY,
+    SERVER_KEY,
     BASE_URL,
     AUTH_LOGIN,
     AUTH_REGISTER,
@@ -64,6 +67,7 @@ export const API = {
     DELETE_PRODUK,
     GET_LIST_TRYOUT,
     GET_TOKEN_SNAP,
+    GET_STATUS_PAYMENT,
     GET_LIST_TRANSAKSI,
     GET_DETAIL_TRANSAKSI,
     ADD_TRANSAKSI
