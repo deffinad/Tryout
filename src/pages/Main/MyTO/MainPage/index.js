@@ -28,7 +28,7 @@ const MainPage = () => {
 
             <div className="grid grid-cols-3 gap-6">
                 {(list !== null && list.length > 0) ? (
-                    list.result.map(item => (
+                    list.map(item => (
                         <ItemCardTOSaya data={item} menu={menu}/>
                     ))
                 ) : null}

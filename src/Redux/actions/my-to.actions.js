@@ -10,9 +10,13 @@ export const getListMyTransaction = (kategori = 'utbk') => {
                 if (res.status === 200) {
                     let arrayOfTryout = [];
 
-                    if (res.result.length > 0 && res.result.produk.tryout.length > 0) {
-                        res.result.map(item => {
-                            return arrayOfTryout = [...arrayOfTryout, ...item.produk.tryout]
+                    if (res.result.length > 0) {
+                        res.result.map((item) => {
+                            if (item.produk.tryout.length > 0)
+                                item.produk.tryout.map((child) => {
+                                    child['jenis'] = item.produk.jenis
+                                    return arrayOfTryout = [...arrayOfTryout, child]
+                                })
                         })
                     }
                     dispatch(fetchSuccess(''))
