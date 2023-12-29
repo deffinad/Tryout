@@ -84,6 +84,8 @@ class ModelProduk {
         snapTryout.forEach(item => {
             dataTryout.push({ id: item.id, ...item.data() })
         })
+
+        console.log('anjg')
         if (snapshot.exists) {
             let tempTryout = []
             snapshot.data().id_tryout.map(val => {

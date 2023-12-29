@@ -83,7 +83,7 @@ router.delete("/materi/:id", onDeleteMateri);
 
 //PRODUK
 router.get("/produk/:kategori", onGetListProduk);
-router.get("/produk/:id", onGetDetailProduk);
+router.get("/produk/:kategori/:id", onGetDetailProduk);
 router.post("/produk", produkValidation, onAddProduk);
 router.put("/produk/:id", produkValidation, onUpdateProduk);
 router.delete("/produk/:id", onDeleteProduk);
