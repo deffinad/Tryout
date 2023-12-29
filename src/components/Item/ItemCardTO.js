@@ -63,9 +63,9 @@ const ItemCardTO = ({ data }) => {
                     <p className='text-lg font-semibold capitalize'>{data?.jenis}</p>
                 </div>
             </div>
-            <div className='h-[100px] bg-white rounded-b-[50px] px-8 py-2'>
+            <div className='bg-white rounded-b-[50px] px-8 py-4'>
                 <div className='flex items-center justify-between h-full'>
-                    <div className='flex flex-col gap-1 justify-center'>
+                    <div className='flex flex-col justify-center'>
                         <p className='font-bold'>Harga Paket</p>
                         <p className='text-2xl font-semibold text-textColorRed'>
                             {handleDisplayHarga(data)}

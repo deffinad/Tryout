@@ -35,7 +35,6 @@ const RegisterPage = () => {
             'password': password
         }
 
-        console.log(payload);
     }
 
     return (

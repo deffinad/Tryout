@@ -21,18 +21,6 @@ const ItemCardTOSaya = ({ data, menu }) => {
                         data.produk.jenis === 'paket' ? (
                             <div className='flex-1 flex'>
                                 <div className='grid grid-cols-2 gap-x-6'>
-                                    {/* <div className='flex flex-row w-full items-center gap-1'>
-                                        <FaList />
-                                        <p className='text-sm capitalize'>Try Out #1</p>
-                                    </div>
-                                    <div className='flex flex-row w-full items-center gap-1'>
-                                        <FaList />
-                                        <p className='text-sm capitalize'>Try Out #2</p>
-                                    </div>
-                                    <div className='flex flex-row w-full items-center gap-1'>
-                                        <FaList />
-                                        <p className='text-sm capitalize'>Try Out #3</p>
-                                    </div> */}
                                     {data.produk.tryout.length > 0 && data.produk.tryout.map(item => (
                                         <div className='flex flex-row w-full items-center gap-1'>
                                             <FaList />
@@ -49,7 +37,7 @@ const ItemCardTOSaya = ({ data, menu }) => {
                     <p className='text-lg font-semibold capitalize'>{data.produk.jenis}</p>
                 </div>
             </div>
-            <div className='h-[120px] bg-white rounded-b-[50px] px-8 py-2'>
+            <div className='bg-white rounded-b-[50px] px-8 py-4'>
                 <div className='flex flex-col justify-center h-full gap-2'>
                     <p className='font-semibold'>Pengerjaan dimulai pada 01 Januari 2024</p>
                     <Button title={'Mulai Mengerjakan'} onClick={() => handleNavigate()} />

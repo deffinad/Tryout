@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { FaFile } from 'react-icons/fa6'
 import { Button } from '../../../../components/Button'
 import { RadioButton } from '../../../../components/RadioButton'
+import { useSelector } from 'react-redux'
 
 export const SoalTryOut = () => {
     const [activeSoalIndex, setActiveSoalIndex] = useState(1)
+    const { open } = useSelector(state => state.sidebar)
     const renderNoSoal = () => {
         let arr = []
         for (let i = 1; i <= 30; i++) {
-            let item = <button onClick={() => setActiveSoalIndex(i)} className={`rounded-full w-12 h-12 ${activeSoalIndex === i ? 'bg-secondary' : 'bg-gray-400' } flex items-center justify-center text-white text-lg transition-all duration-300`}>
+            let item = <button onClick={() => setActiveSoalIndex(i)} className={`rounded-full w-12 h-12 ${activeSoalIndex === i ? 'bg-secondary' : 'bg-gray-400'} flex items-center justify-center text-white text-lg transition-all duration-300`}>
                 <p>{i}</p>
             </button>;
 
@@ -18,7 +20,7 @@ export const SoalTryOut = () => {
     }
     return (
         <section className='flex flex-col gap-8'>
-            <div className='grid grid-cols-2'>
+            <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-4'>
                 <div className='flex flex-col gap-4 justify-between'>
                     <h1 className="text-4xl font-bold uppercase">SNBPT - TPS</h1>
                     <div className='flex flex-col gap-2'>
@@ -36,7 +38,7 @@ export const SoalTryOut = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-end'>
+                <div className='flex lg:justify-end'>
                     <div className='flex flex-col gap-4'>
                         <h1 className='text-xl font-bold'>Durasi Pengerjaan</h1>
                         <div className='flex gap-2 text-white'>
@@ -57,8 +59,8 @@ export const SoalTryOut = () => {
                 </div>
             </div>
 
-            <div className='mt-4 grid grid-cols-12 gap-8'>
-                <div className='col-span-9'>
+            <div className='mt-4 grid lg:grid-cols-12 grid-cols-1 gap-8'>
+                <div className='lg:col-span-9'>
                     <div className='min-h-[500px] shadow-lg bg-white rounded-3xl p-6 pt-16 relative flex flex-col gap-6'>
                         <div className='absolute top-0 left-0 py-1 w-28 flex items-center justify-center text-white rounded-tl-3xl rounded-br-lg bg-primary'>
                             <p>Soal {activeSoalIndex}</p>
@@ -68,20 +70,20 @@ export const SoalTryOut = () => {
                         </div>
 
                         <div className='flex flex-col'>
-                            <RadioButton title={'Lorem Ipsum Color Sit Amet'}/>
-                            <RadioButton title={'Lorem Ipsum Color Sit Amet'}/>
-                            <RadioButton title={'Lorem Ipsum Color Sit Amet'}/>
-                            <RadioButton title={'Lorem Ipsum Color Sit Amet'}/>
+                            <RadioButton title={'Lorem Ipsum Color Sit Amet'} />
+                            <RadioButton title={'Lorem Ipsum Color Sit Amet'} />
+                            <RadioButton title={'Lorem Ipsum Color Sit Amet'} />
+                            <RadioButton title={'Lorem Ipsum Color Sit Amet'} />
                         </div>
                         <div className='flex justify-between items-center'>
-                            <Button title={'Sebelumnya'}/>
-                            <Button title={'Selanjutnya'}/>
+                            <Button title={'Sebelumnya'} onClick={() => setActiveSoalIndex(activeSoalIndex - 1)}/>
+                            <Button title={'Selanjutnya'} onClick={() => setActiveSoalIndex(activeSoalIndex + 1)} />
                         </div>
                     </div>
                 </div>
-                <div className='col-span-3'>
+                <div className='lg:col-span-3 lg:block hidden'>
                     <div className='flex flex-col gap-8'>
-                        <div className='grid grid-cols-5 gap-y-2'>
+                        <div className={`grid ${open ? 'lg:grid-cols-4' : 'grid-cols-5'} gap-y-2`}>
                             {renderNoSoal()}
                         </div>
 

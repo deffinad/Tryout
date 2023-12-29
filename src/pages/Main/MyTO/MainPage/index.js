@@ -27,11 +27,6 @@ const MainPage = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-6">
-                {/* <ItemCardTOSaya type={'premium'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)} />
-                <ItemCardTOSaya type={'premium'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)} />
-                <ItemCardTOSaya type={'paket'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)} />
-                <ItemCardTOSaya type={'paket'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)} />
-                <ItemCardTOSaya type={'biasa'} onClick={() => navigate(`/to-saya/${menu}/beranda/soal/1`)} /> */}
                 {(list !== null && list.length > 0) ? (
                     list.result.map(item => (
                         <ItemCardTOSaya data={item} menu={menu}/>

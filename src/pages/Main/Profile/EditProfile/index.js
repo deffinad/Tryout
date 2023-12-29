@@ -35,7 +35,6 @@ const EditProfile = () => {
             'username': uname,
         }
 
-        console.log(payload)
         navigate('/profile-saya')
     }
 
