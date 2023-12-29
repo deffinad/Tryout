@@ -14,7 +14,8 @@ const DataListItem = ({ data, index, setRefresh }) => {
     const dispatch = useDispatch()
     const [dataEdit, setDataEdit] = useState({
         nama: '',
-        kategori: ''
+        kategori: '',
+        jadwal: ''
     })
     const { detail } = useSelector(state => state.tryout);
 
@@ -28,6 +29,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
         const payload = {
             "nama": dataEdit.nama,
             "kategori": dataEdit.kategori,
+            "jadwal": dataEdit.jadwal
         }
 
         dispatch(updateTryout(data.id, payload, setRefresh))
@@ -50,7 +52,8 @@ const DataListItem = ({ data, index, setRefresh }) => {
     const handleResetState = () => {
         setDataEdit({
             nama: '',
-            kategori: ''
+            kategori: '',
+            jadwal: ''
         });
     }
 
@@ -58,7 +61,8 @@ const DataListItem = ({ data, index, setRefresh }) => {
         if (detail !== null) {
             setDataEdit({
                 nama: detail.result.nama,
-                kategori: detail.result.kategori
+                kategori: detail.result.kategori,
+                jadwal: detail.result.jadwal
             })
         }
 
@@ -74,8 +78,11 @@ const DataListItem = ({ data, index, setRefresh }) => {
                 <td className="w-[5%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap text-center">{index + 1}.</p>
                 </td>
-                <td className="w-[75%] px-3 py-3 border-b border-gray-200 text-sm">
+                <td className="w-[50%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap uppercase">{data.nama}</p>
+                </td>
+                <td className="w-[25%] px-3 py-3 border-b border-gray-200 text-sm">
+                    <p className="text-gray-900 text-lg whitespace-no-wrap uppercase">{data.jadwal}</p>
                 </td>
                 <td className="w-[20%] px-3 py-3 border-b border-gray-200 text-sm">
                     <div className="flex flex-row gap-x-3 gap-y-0">
@@ -136,6 +143,15 @@ const DataListItem = ({ data, index, setRefresh }) => {
                                 label="Kategori"
                                 value={dataEdit.kategori}
                                 disabled={true}
+                            />
+                        </div>
+                        <div className="col-span-2">
+                            <TextInput
+                                name="jadwal"
+                                label="Jadwal"
+                                type="date"
+                                value={data.jadwal}
+                                onChange={(e) => setDataEdit({ ...dataEdit, jadwal: e.target.value })}
                             />
                         </div>
                     </div>

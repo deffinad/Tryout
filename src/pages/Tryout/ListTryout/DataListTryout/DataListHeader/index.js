@@ -7,8 +7,11 @@ const DataListHeader = () => {
                 <th scope="col" className="w-[5%] px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     No
                 </th>
-                <th scope="col" className="w-[75%] px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                <th scope="col" className="w-[50%] px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Nama Tryout
+                </th>
+                <th scope="col" className="w-[25%] px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Jadwal
                 </th>
                 <th scope="col" className="w-[20%] px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Aksi

@@ -21,7 +21,6 @@ const FormSoal = () => {
     nama: '',
     id_materi: '',
     waktu_pengerjaan: '',
-    jadwal: '',
     soal: []
   })
 
@@ -45,7 +44,6 @@ const FormSoal = () => {
         nama: newData.nama,
         id_materi: newData.materi.id_materi,
         waktu_pengerjaan: newData.materi.waktu_mengerjakan,
-        jadwal: newData.materi.jadwal,
         soal: newData.soal
       })
     }
@@ -186,7 +184,7 @@ const FormSoal = () => {
   const handleValidation = () => {
     let checkValidation = false;
 
-    if (data.id_materi === '' || data.waktu_pengerjaan === '' || data.jadwal === '') {
+    if (data.id_materi === '' || data.waktu_pengerjaan === '') {
       checkValidation = true
     }
 
@@ -203,7 +201,6 @@ const FormSoal = () => {
         id_materi: data.id_materi,
         jumlah_soal: data.soal.length,
         waktu_mengerjakan: data.waktu_pengerjaan,
-        jadwal: data.jadwal,
         soal: data.soal
       }
       
@@ -263,17 +260,6 @@ const FormSoal = () => {
                   value={data.waktu_pengerjaan}
                   placeholder="Masukkan Waktu Mengerjakan"
                   onChange={(e) => setData({ ...data, waktu_pengerjaan: e.target.value.toString() })}
-                />
-              </div>
-
-              <div>
-                <TextInput
-                  name="jadwal"
-                  type='date'
-                  label="Jadwal Tryout"
-                  value={data.jadwal}
-                  placeholder="Masukkan Jadwal Tryout"
-                  onChange={(e) => setData({ ...data, jadwal: e.target.value })}
                 />
               </div>
             </div>

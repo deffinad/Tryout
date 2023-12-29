@@ -17,7 +17,8 @@ const ListTryout = () => {
     const dispatch = useDispatch()
     const [data, setData] = useState({
         nama: '',
-        kategori: ''
+        kategori: '',
+        jadwal: ''
     })
 
     useEffect(() => {
@@ -25,7 +26,8 @@ const ListTryout = () => {
             dispatch(getListTryout(jenis))
             setData({
                 nama: '',
-                kategori: jenis
+                kategori: jenis,
+                jadwal: ''
             })
         }
     }, [jenis])
@@ -40,7 +42,8 @@ const ListTryout = () => {
     const handleResetState = () => {
         setData({
             nama: '',
-            kategori: jenis
+            kategori: jenis,
+            jadwal: ''
         });
     }
 
@@ -48,6 +51,7 @@ const ListTryout = () => {
         const payload = {
             "nama": data.nama,
             "kategori": data.kategori,
+            "jadwal": data.jadwal
         }
 
         setOpen(false);
@@ -99,7 +103,7 @@ const ListTryout = () => {
                                 value={data.nama}
                                 placeholder="Masukkan Nama Tryout"
                                 onChange={(e) => setData({ ...data, nama: e.target.value })}
-                            />
+                                />
                         </div>
                         <div className="col-span-2">
                             <TextInput
@@ -107,6 +111,15 @@ const ListTryout = () => {
                                 label="Kategori"
                                 value={data.kategori}
                                 disabled={true}
+                            />
+                        </div>
+                        <div className="col-span-2">
+                            <TextInput
+                                name="jadwal"
+                                label="Jadwal"
+                                type="date"
+                                value={data.jadwal}
+                                onChange={(e) => setData({ ...data, jadwal: e.target.value })}
                             />
                         </div>
                     </div>
