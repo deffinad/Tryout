@@ -31,7 +31,7 @@ const MainPage = () => {
                     list.map(item => (
                         <ItemCardTOSaya data={item} menu={menu}/>
                     ))
-                ) : null}
+                ) : <>Tidak Ada Data</>}
             </div>
 
         </section>

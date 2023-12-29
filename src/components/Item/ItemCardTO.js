@@ -73,8 +73,9 @@ const ItemCardTO = ({ data }) => {
                     </div>
 
                     <Button 
-                        title={'Beli'} 
+                        title={data.status ? 'Sudah Dibeli' : 'Beli'} 
                         onClick={() => handlePaymentItem(data)}
+                        disabled={data.status}
                     />
 
                 </div>
