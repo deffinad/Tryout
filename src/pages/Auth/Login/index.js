@@ -20,13 +20,16 @@ const LoginPage = () => {
             'password': password
         }
 
-        const status = await login(payload);
+        const { status, role } = await login(payload);
         // const response = await authLogin(payload);
         if (status === 200) {
             handleResetState();
-            navigate('/beranda');
+            if (role === 'user') {
+                navigate('/beranda');
+            } else {
+                window.location.href = "https://tryout-admin.vercel.app/";
+            }
         } else {
-            alert('Gagal Login');
             handleResetState();
         }
     }
