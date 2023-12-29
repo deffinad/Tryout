@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as FaIcons from "react-icons/fa6";
 import { useLocation } from 'react-router-dom';
 
-const VerticalItem = ({ item, setActive }) => {
+const VerticalItem = ({ item, setActive, level }) => {
   const navigation = useNavigate();
   const { pathname } = useLocation();
 
@@ -21,7 +21,8 @@ const VerticalItem = ({ item, setActive }) => {
         navigation(item.pathUrl)
         setActive(item)
       }}
-      className={`h-auto my-[0.25px] cursor-pointer px-[16px] py-4  relative transition-all duration-500 ${activeItem ? 'bg-bgMenuActive shadow-lg' : 'bg-transparent'} w-full flex flex-row items-center gap-3`}
+      className={`h-auto my-[0.25px] cursor-pointer px-[16px] py-4 relative transition-all duration-500 ${activeItem ? 'bg-bgMenuActive shadow-lg' : 'bg-transparent'} w-full flex flex-row items-center gap-3`}
+      style={{ paddingLeft: level * 16 }}
     >
       {
         item.icon && (

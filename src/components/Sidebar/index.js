@@ -14,9 +14,9 @@ export const Sidebar = ({ toggle }) => {
       {
         routesMain && routesMain.map(item => (
           <div key={item.id}>
-            {item.type === 'group' && <VerticalGroup item={item} level={0} active={activeMenu} setActive={setActiveMenu} />}
-            {item.type === 'collapse' && <VerticalCollapse item={item} level={0} active={activeMenu} setActive={setActiveMenu} />}
-            {item.type === 'item' && <VerticalItem item={item} level={0} setActive={setActiveMenu} />}
+            {item.type === 'group' && <VerticalGroup item={item} level={1} active={activeMenu} setActive={setActiveMenu} />}
+            {item.type === 'collapse' && <VerticalCollapse item={item} level={1} active={activeMenu} setActive={setActiveMenu} />}
+            {item.type === 'item' && <VerticalItem item={item} level={1} setActive={setActiveMenu} />}
           </div>
         ))
       }
