@@ -23,7 +23,7 @@ const UPDATE_MATERI = BASE_URL + '/materi/$id';
 const DELETE_MATERI = BASE_URL + '/materi/$id';
 
 // API PRODUK
-const GET_LIST_PRODUK = BASE_URL + '/produk';
+const GET_LIST_PRODUK = BASE_URL + '/produk/all';
 const GET_DETAIL_PRODUK = BASE_URL + '/produk/$id';
 const ADD_PRODUK = BASE_URL + '/produk';
 const UPDATE_PRODUK = BASE_URL + '/produk/$id';
@@ -41,7 +41,7 @@ const GET_DETAIL_SOAL = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 const DELETE_DETAIL_TRYOUT = BASE_URL + '/list/$jenis/$id/$id_materi';
 
 //API PEMBELIAN
-const GET_PEMBELIAN = BASE_URL + '/transaksi';
+const GET_PEMBELIAN = BASE_URL + '/transaksi/all';
 
 // API TRYOUT
 const GET_LIST_USER = BASE_URL + '/user';
