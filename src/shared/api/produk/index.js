@@ -15,9 +15,9 @@ export const getListProdukApi = async () => {
     }
 }
 
-export const getDetailProdukApi = async (id) => {
+export const getDetailProdukApi = async (id, kategori) => {
     try {
-        const response = await fetch(API.GET_DETAIL_PRODUK.replace('$id', id), {
+        const response = await fetch(API.GET_DETAIL_PRODUK.replace('$id', id).replace('$kategori', kategori), {
             method: 'GET',
             headers: {
                 'Authorization': 'zitPy6simHZxUDFOXiTZ'
