@@ -17,8 +17,8 @@ const onGetListTryOut = async (req, res) => {
                 result: result.data,
             });
         } else {
-            res.status(403).json({
-                status: 403,
+            res.status(200).json({
+                status: 200,
                 messages: "Data Tryout Tidak Ditemukan",
                 result: result.data
             });
