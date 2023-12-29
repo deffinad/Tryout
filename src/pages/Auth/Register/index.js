@@ -6,9 +6,12 @@ import { Footer } from "../../../components/Footer";
 import InlineIconInput from "../../../components/InlineIconInput";
 import PasswordInput from "../../../components/PasswordInput";
 import DropdownInput from "../../../components/DropdownInput";
+import { useDispatch } from "react-redux";
+import { register } from "../../../Redux/actions/auth.action";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [noHp, setNoHp] = useState('');
     const [uname, setUname] = useState('');
     const [email, setEmail] = useState('');
@@ -17,6 +20,8 @@ const RegisterPage = () => {
     const [namaLengkap, setNamaLengkap] = useState('');
     const [asalSekolah, setAsalSekolah] = useState('');
     const [jenisKelamin, setJenisKelamin] = useState('');
+    const [provinsi, setProvinsi] = useState('');
+    const [asalKota, setAsalKota] = useState('');
 
     const pilihanJnsKelamin = [
         { name: 'Laki-Laki', value: 'Laki-Laki' },
@@ -25,14 +30,24 @@ const RegisterPage = () => {
 
     const handleRegister = () => {
         const payload = {
-            'nama_lengkap': namaLengkap,
+            'asal_kota': asalKota,
             'asal_sekolah': asalSekolah,
-            'tgl_lahir': tglLahir,
-            'jenis_kelamin': jenisKelamin,
-            'no_hp': noHp,
+            'avatar': '',
             'email': email,
+            'jenis_kelamin': jenisKelamin,
+            'nama': namaLengkap,
+            'password': password,
+            'provinsi': provinsi,
+            'role': 'user',
+            'tgl_lahir': tglLahir,
+            'no_hp': noHp,
             'username': uname,
-            'password': password
+        }
+
+        if (asalKota === '' || asalSekolah === '' || email === '' || jenisKelamin === '' || namaLengkap === '' || password === '' || provinsi === '' || tglLahir === '' || noHp === '' || uname === '') {
+            alert('Mohon Masukan Data Dengan Benar')
+        } else {
+            dispatch(register(payload, navigate))
         }
 
     }
@@ -43,44 +58,80 @@ const RegisterPage = () => {
             <div className="w-full pt-[90px] p-10 bg-neutral-200">
                 <div className="mt-5 grid grid-cols-2">
                     <div className="p-2 flex item-center justify-center">
-                        <div className="px-10 py-2 w-[568px] bg-primary rounded-[128px] flex flex-col justify-center gap-5">
+                        <div className="px-10 py-16 w-[568px] bg-primary rounded-[128px] flex flex-col justify-center gap-5">
                             <div className="text-center">
                                 <h1 className="text-[35px] text-white font-bold">Daftar</h1>
                             </div>
-                            <div className="flex flex-col gap-7">
+                            <div className="flex flex-col gap-4">
                                 <InlineIconInput
                                     name="namaLengkap"
                                     value={namaLengkap}
                                     placeholder="Nama Lengkap"
                                     onchange={(e) => setNamaLengkap(e.target.value)}
                                 />
-                                <InlineIconInput
-                                    name="asalSekolah"
-                                    value={asalSekolah}
-                                    placeholder="Asal Sekolah"
-                                    onchange={(e) => setAsalSekolah(e.target.value)}
-                                />
-                                <InlineIconInput
-                                    type="date"
-                                    name="tglLahir"
-                                    value={tglLahir}
-                                    placeholder="Tanggal Lahir"
-                                    onchange={(e) => setTglLahir(e.target.value)}
-                                />
-                                <DropdownInput
-                                    name="jenisKelamin"
-                                    value={jenisKelamin}
-                                    option={pilihanJnsKelamin}
-                                    placeholder="Jenis Kelamin"
-                                    onChange={(e) => setJenisKelamin(e.target.value)}
-                                />
-                                <InlineIconInput
-                                    type="phone"
-                                    name="noHp"
-                                    value={noHp}
-                                    placeholder="No. Hp"
-                                    onchange={(e) => setNoHp(e.target.value)}
-                                />
+
+                                <div className="flex flex-row gap-2">
+                                    <div className="flex-1">
+                                        <InlineIconInput
+                                            name="asalSekolah"
+                                            value={asalSekolah}
+                                            placeholder="Asal Sekolah"
+                                            onchange={(e) => setAsalSekolah(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className="flex-1">
+                                        <InlineIconInput
+                                            name="asalKota"
+                                            value={asalKota}
+                                            placeholder="Asal Kota"
+                                            onchange={(e) => setAsalKota(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-row gap-2">
+                                    <div className="flex-1">
+                                        <InlineIconInput
+                                            type="date"
+                                            name="tglLahir"
+                                            value={tglLahir}
+                                            placeholder="Tanggal Lahir"
+                                            onchange={(e) => setTglLahir(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className="flex-1">
+                                        <InlineIconInput
+                                            name="provinsi"
+                                            value={provinsi}
+                                            placeholder="Provinsi"
+                                            onchange={(e) => setProvinsi(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-row gap-2">
+                                    <div className="flex-1">
+                                        <DropdownInput
+                                            name="jenisKelamin"
+                                            value={jenisKelamin}
+                                            option={pilihanJnsKelamin}
+                                            placeholder="Jenis Kelamin"
+                                            onChange={(e) => setJenisKelamin(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className="flex-1">
+                                        <InlineIconInput
+                                            type="phone"
+                                            name="noHp"
+                                            value={noHp}
+                                            placeholder="No. Hp"
+                                            onchange={(e) => setNoHp(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
                                 <InlineIconInput
                                     type="email"
                                     value={email}

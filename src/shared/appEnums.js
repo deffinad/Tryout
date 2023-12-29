@@ -19,6 +19,7 @@ const CLIENT_KEY = 'SB-Mid-client-hl3Uit2KuqzsgBMN';
 
 // API AUTH
 const AUTH_LOGIN = BASE_URL + '/login';
+const AUTH_REGISTER = BASE_URL + '/user';
 
 // API MATERI
 const GET_LIST_MATERI = BASE_URL + '/materi/$kategori'; // kategori: utbk/poltekes/kedinasan
@@ -45,6 +46,7 @@ export const API = {
     CLIENT_KEY,
     BASE_URL,
     AUTH_LOGIN,
+    AUTH_REGISTER,
     GET_LIST_MATERI,
     GET_DETAIL_MATERI,
     ADD_MATERI,

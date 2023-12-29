@@ -24,10 +24,10 @@ const LoginPage = () => {
         // const response = await authLogin(payload);
         if (status === 200) {
             handleResetState();
-            if(role === 'user'){
+            if (role === 'user') {
                 navigate('/beranda');
-            }else{
-                window.location.href = "http://localhost:3000/";
+            } else {
+                window.location.href = "https://tryout-admin.vercel.app/";
             }
         } else {
             handleResetState();
