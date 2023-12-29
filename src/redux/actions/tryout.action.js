@@ -65,6 +65,9 @@ export const addTryout = (data, setRefresh) => {
                     dispatch(fetchSuccess('Tambah Tryout Berhasil'))
                     setRefresh(true)
                     dispatch({ type: ADD_TRYOUT })
+                } else {
+                    console.log(res)
+                    dispatch(fetchError('Gagal menambah Tryout'))
                 }
             })
             .catch((error) => {
@@ -82,6 +85,9 @@ export const updateTryout = (id, data, setRefresh) => {
                     dispatch(fetchSuccess('Ubah Tryout Berhasil'))
                     setRefresh(true)
                     dispatch({ type: UPDATE_TRYOUT })
+                } else {
+                    console.log(res)
+                    dispatch(fetchError('Gagal mengubah Tryout'))
                 }
             })
             .catch((error) => {
