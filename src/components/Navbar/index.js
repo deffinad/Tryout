@@ -26,7 +26,7 @@ export const Navbar = ({ toggle = false, setToggle }) => {
             </div>
 
             {
-                pathname !== '/daftar' || pathname !== '/masuk' ? (
+                pathname !== '/daftar' && pathname !== '/masuk' ? (
                     <div>
                         <ul className='flex flex-row gap-6'>
                             {

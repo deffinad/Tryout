@@ -21,19 +21,19 @@ const Dashboard = () => {
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Terdaftar</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-secondary font-semibold text-white text-[18px]'>
-                              5
+                              {user.dashboard.terdaftar}
                            </div>
                         </div>
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Sudah Dikerjakan</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-primary font-semibold text-white text-[18px]'>
-                              1
+                              {user.dashboard.sudah_dikerjakan}
                            </div>
                         </div>
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Belum Dikerjakan</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-bgRed font-semibold text-white text-[18px]'>
-                              4
+                              {user.dashboard.belum_dikerjakan}
                            </div>
                         </div>
                      </div>
