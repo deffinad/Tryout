@@ -2,14 +2,29 @@ const e = require("express");
 var { db } = require("../config/firebase");
 
 class ModelProduk {
-    async getListProduk(kategori) {
+    async getListProduk(kategori, token) {
         let data = [];
         let dataTryout = []
+        let dataTransaksi = []
 
         const ref = await db.collection("produk");
         const snapshot = await ref.get();
         const tryoutRef = await db.collection("list_tryout")
         const snapTryout = await tryoutRef.get()
+
+        const refUser = await db.collection("users").doc(token);
+        const snapshotUser = await refUser.get();
+
+        const refTransaksi = await db.collection("transaksi");
+        const snapshotTransaksi = await refTransaksi.get();
+
+        const role = snapshotUser.data().role
+
+        snapshotTransaksi.forEach(hasil => {
+            if(hasil.data().token === token){
+                dataTransaksi.push(hasil.data().id_produk)
+            }
+        })
 
         snapTryout.forEach(hasil => {
             dataTryout.push({ id: hasil.id, ...hasil.data() })
@@ -17,21 +32,30 @@ class ModelProduk {
 
         snapshot.forEach((hasil) => {
             let tempTryout = []
-            if(kategori === 'all' || hasil.data().kategori === kategori ){
+            if (kategori === 'all' || hasil.data().kategori === kategori) {
                 hasil.data().id_tryout.map(val => {
                     let itemTryout = dataTryout.filter(item => item.id === val)
                     tempTryout = [...tempTryout, ...itemTryout]
                 })
-    
+
                 const itemProduk = hasil.data()
-    
+
                 delete itemProduk.id_tryout
-    
-                data.push({
-                    id: hasil.id,
-                    tryout: tempTryout,
-                    ...itemProduk
-                })
+
+                if(role === 'user'){
+                    data.push({
+                        id: hasil.id,
+                        tryout: tempTryout,
+                        status: dataTransaksi.some(item => item === hasil.id),
+                        ...itemProduk
+                    })
+                }else{
+                    data.push({
+                        id: hasil.id,
+                        tryout: tempTryout,
+                        ...itemProduk
+                    })
+                }
             }
         });
 
