@@ -58,9 +58,9 @@ export const routesMain = [
                     {
                         id: 'my-poltekses',
                         icon: '',
-                        title: 'Poltekses',
+                        title: 'Poltekes',
                         type: 'item',
-                        pathUrl: '/to-saya/poltekses'
+                        pathUrl: '/to-saya/poltekes'
                     },
                     {
                         id: 'my-ujian-kedinasan',
