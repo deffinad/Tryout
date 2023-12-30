@@ -19,6 +19,7 @@ class ModelTransaksi {
         for (const hasil of snapshot.docs) {
             let dataProduk = {}
             let dataTryout = []
+            let dataUser = {}
             const produkRef = await db.collection("produk").doc(hasil.data().id_produk)
             const snapProduk = await produkRef.get()
 
@@ -31,6 +32,9 @@ class ModelTransaksi {
                 dataTryout.push({ id: snapTryout.id, ...snapTryout.data() })
             }))
 
+            const custRef = await db.collection("users").doc(hasil.data().token)
+            const snapCust = await custRef.get()
+
             dataProduk['tryout'] = dataTryout
 
             let transaksi = hasil.data()
@@ -42,8 +46,8 @@ class ModelTransaksi {
                 id: hasil.id,
                 produk: dataProduk,
                 user: {
-                    ...snapUsers.data(),
-                    token: snapUsers.id
+                    ...snapCust.data(),
+                    token: snapCust.id
                 },
                 ...transaksi
             })

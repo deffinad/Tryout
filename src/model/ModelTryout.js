@@ -171,6 +171,7 @@ class ModelTryout {
       let arrSoal = []
       snapSoal.forEach(hasil => {
         arrSoal.push({
+          id: hasil.id,
           ...hasil.data()
         })
       })

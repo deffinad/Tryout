@@ -6,8 +6,9 @@ const produkModel = new ModelProduk();
 
 const onGetListProduk = async (req, res) => {
     const { kategori } = req.params
+    const token = req.headers.authorization
     try {
-        const result = await produkModel.getListProduk(kategori);
+        const result = await produkModel.getListProduk(kategori, token);
 
         if (result.isTrue) {
             res.status(200).json({
