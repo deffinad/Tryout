@@ -68,7 +68,7 @@ const onAddTransaksi = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
         } else {
-            const result = await transaksiModel.addTransaksi({ token: token, ...req.body, status: "menunggu pembayaran" });
+            const result = await transaksiModel.addTransaksi({ token: token, ...req.body });
             if (result) {
                 res.status(200).json({
                     status: 200,
