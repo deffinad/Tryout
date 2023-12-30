@@ -25,8 +25,8 @@ const ItemCardTO = ({ data }) => {
             id_produk: data.id,
             gross_amount: data.diskon !== 0 ? parseInt(data.diskon) : parseInt(data.harga),
             customer_name: user.nama,
-            email: 'deffin@gmail.com',
-            phone: '0881111122'
+            email: user?.email,
+            phone: '-'
         }
         getTokenSnapApi(payload)
             .then((res) => {
