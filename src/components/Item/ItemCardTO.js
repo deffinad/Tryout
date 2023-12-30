@@ -4,10 +4,14 @@ import { FaList } from 'react-icons/fa6'
 import useAuth from '../../shared/hooks/useAuth'
 import { stringToRupiah } from '../../shared/appEnums'
 import { getTokenSnapApi } from '../../shared/api/payment'
+import { fetchError, fetchStart, fetchSuccess } from '../../Redux/actions/common.actions'
+import { useDispatch } from 'react-redux'
+import { addToMyTransaction } from '../../Redux/actions/my-to.actions'
+import moment from 'moment'
 
 const ItemCardTO = ({ data }) => {
-
     const { user } = useAuth()
+    const dispatch = useDispatch();
 
     const handleDisplayHarga = (data) => {
         if (data?.diskon !== 0) return stringToRupiah(data.diskon);
@@ -15,6 +19,8 @@ const ItemCardTO = ({ data }) => {
     }
 
     const handlePaymentItem = (data) => {
+        dispatch(fetchStart());
+        const today = new Date();
         const payload = {
             id_produk: data.id,
             gross_amount: data.diskon !== 0 ? parseInt(data.diskon) : parseInt(data.harga),
@@ -22,16 +28,41 @@ const ItemCardTO = ({ data }) => {
             email: 'deffin@gmail.com',
             phone: '0881111122'
         }
-
         getTokenSnapApi(payload)
             .then((res) => {
                 if (res.status === 201) {
-                    window.snap.pay(res.result);
+                    dispatch(fetchSuccess(''));
+                    window.snap.pay(res.result, {
+                        onSuccess: (res) => {
+                            const payload = {
+                                "id_produk": data.id,
+                                "tanggal": moment(today).format('DD-MM-YYYY'),
+                                "status": 'berhasil'
+                            }
+                            dispatch(addToMyTransaction(payload))
+                            alert('berhasil melakukan proses pembayaran');
+                        },
+                        onPending: (res) => {
+                            const payload = {
+                                "id_produk": data.id,
+                                "tanggal": moment(today).format('DD-MM-YYYY'),
+                                "status": 'menunggu pembayaran'
+                            }
+                            dispatch(addToMyTransaction(payload))
+                            alert('menunggu pembayaran');
+                        },
+                        onError: (error) => {
+                            alert('gagal melakukan proses pembayaran');
+                            console.log(error);
+                        }
+                    });
                 } else {
+                    dispatch(fetchError('Gagal Melanjutkan Pembelian'));
                     alert('Gagal Melanjutkan Pembelian');
                 }
             })
             .catch((error) => {
+                dispatch(fetchError('Gagal Melakukan Pembelian'));
                 alert('Gagal Melakukan Pembelian', error);
             })
     }
@@ -72,8 +103,8 @@ const ItemCardTO = ({ data }) => {
                         </p>
                     </div>
 
-                    <Button 
-                        title={data.status ? 'Sudah Dibeli' : 'Beli'} 
+                    <Button
+                        title={data.status ? 'Sudah Dibeli' : 'Beli'}
                         onClick={() => handlePaymentItem(data)}
                         disabled={data.status}
                     />

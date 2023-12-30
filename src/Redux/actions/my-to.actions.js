@@ -60,16 +60,16 @@ export const addToMyTransaction = (payload) => {
         addToMyTransactionApi(payload)
             .then((res) => {
                 if (res.status === 200) {
-                    dispatch(fetchSuccess(''))
+                    dispatch(fetchSuccess('Pembayaran berhasil diproses'))
                     dispatch({ type: ADD_TRANSAKSI })
                 } else {
                     console.log(res)
-                    dispatch(fetchError('Gagal memproses transaksi'))
+                    dispatch(fetchError('Gagal memproses pembayaran'))
                 }
             })
             .catch((error) => {
                 console.log(error)
-                dispatch(fetchError('Gagal memproses transaksi'))
+                dispatch(fetchError('Gagal memproses pembayaran'))
             })
     }
 }
