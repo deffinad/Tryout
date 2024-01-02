@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {  useNavigate } from 'react-router-dom'
 import { Navbar } from '../../components/Navbar'
 import { Button } from '../../components/Button'
@@ -6,6 +6,12 @@ import { Footer } from '../../components/Footer'
 const LandingPage = () => {
     const navigate = useNavigate();
  
+    useEffect(() => {
+        const isUserExist = localStorage.getItem('token');
+        if (isUserExist !== null) {
+            navigate('/beranda');
+        };
+    }, [])
 
     return (
         <section className='w-full'>

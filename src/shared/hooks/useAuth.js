@@ -15,7 +15,9 @@ const useAuth = () => {
         setUser(objUser);
         setAuthenticated(!!userToken);
         setToken(objUser?.token);
-        localStorage.setItem('token', objUser?.token);
+        if (objUser?.token !== undefined) {
+            localStorage.setItem('token', objUser?.token);
+        };
     };
 
     useEffect(() => {
@@ -44,6 +46,7 @@ const useAuth = () => {
     };
 
     const logout = () => {
+        localStorage.removeItem('token');
         localStorage.removeItem('user');
         setAuthenticated(false);
     };
