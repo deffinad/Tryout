@@ -10,7 +10,7 @@ import LihatNilaiKeseluruhan from "./LihatNilaiKeseluruhan";
 
 const MyTryOut = () => {
 
-    const { menu, id, type } = useParams();
+    const { menu, id, id_transaksi, id_tryout, id_materi } = useParams();
     const { pathname } = useLocation()
     return (
         <>
@@ -18,9 +18,9 @@ const MyTryOut = () => {
                 pathname === `/to-saya/${menu}` ? <MainPage/> :
                 pathname === `/to-saya/${menu}/lihat-nilai-keseluruhan` ? <LihatNilaiKeseluruhan/> :
                 pathname === `/to-saya/${menu}/detail/${id}` ? <DetailPage/> :
-                pathname === `/to-saya/${menu}/beranda/${type}/${id}` ? <BerandaTOSaya/> :
-                pathname === `/to-saya/${menu}/soal/${id}` ? <SoalTryOut/> :
-                pathname === `/to-saya/${menu}/pembahasan/${id}` ? <Pembahasan/> :
+                pathname === `/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}` ? <BerandaTOSaya/> :
+                pathname === `/to-saya/${menu}/${id_transaksi}/${id_tryout}/soal/${id_materi}` ? <SoalTryOut/> :
+                pathname === `/to-saya/${menu}/${id_transaksi}/${id_tryout}/pembahasan/${id_materi}` ? <Pembahasan/> :
                 null
             }
         </>

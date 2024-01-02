@@ -9,7 +9,7 @@ const ItemCardTOSaya = ({ data, menu }) => {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
-        navigate(`/to-saya/${menu}/beranda/soal/1`)
+        navigate(`/to-saya/${menu}/beranda/${data.id_transaksi}/${data.id}`)
     }
 
     return (

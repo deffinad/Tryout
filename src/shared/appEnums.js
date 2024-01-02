@@ -37,6 +37,8 @@ const DELETE_PRODUK = BASE_URL + '/produk/$id';
 
 // API TRYOUT
 const GET_LIST_TRYOUT = BASE_URL + '/list/$kategori';
+const GET_DETAIL_TRYOUT = BASE_URL + '/list/$kategori/$id';
+const GET_LIST_SOAL_TRYOUT = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 
 // API TRANSAKSI (MY TO)
 const GET_LIST_TRANSAKSI = BASE_URL + '/transaksi/$kategori';
@@ -63,6 +65,8 @@ export const API = {
     UPDATE_PRODUK,
     DELETE_PRODUK,
     GET_LIST_TRYOUT,
+    GET_DETAIL_TRYOUT,
+    GET_LIST_SOAL_TRYOUT,
     GET_TOKEN_SNAP,
     GET_LIST_TRANSAKSI,
     GET_DETAIL_TRANSAKSI,

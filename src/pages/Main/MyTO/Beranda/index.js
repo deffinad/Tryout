@@ -1,20 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ItemTipeSoal from '../../../../components/Item/ItemTipeSoal'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDetailTryout } from "../../../../Redux/actions/my-to.actions";
+import moment from 'moment/moment';
+
+moment.locale('id')
 
 const BerandaTOSaya = () => {
-    const {menu, type} = useParams()
+    const { menu, id_tryout, id_transaksi } = useParams()
     const navigate = useNavigate()
-    
+    const dispatch = useDispatch()
+    const { detail } = useSelector(state => state.myTo)
+
+    useEffect(() => {
+        dispatch(getDetailTryout(menu, id_tryout))
+    }, [])
+
     return (
         <section className='flex flex-col gap-8'>
             <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-4'>
                 <div className='flex flex-col gap-4 justify-between'>
-                    <h1 className="text-4xl font-bold uppercase">UTBK - SNBPT #1</h1>
+                    <h1 className="text-4xl font-bold uppercase">{detail?.nama}</h1>
                     <div className='flex flex-col'>
                         <p className='font-semibold text-xl '>Masa Pengerjaan</p>
-                        <p className='font-semibold text-base '>01 Januari 2024 - Tidak Ada Batas</p>
-                        <p >Try Out dapat dikerjakan mulai pukul 09.00, 1 Januari 2024</p>
+                        <p className='font-semibold text-base '>{moment(detail?.jadwal).format('DD MMMM YYYY')} - Tidak Ada Batas</p>
+                        <p >Try Out dapat dikerjakan mulai pukul 09.00, {moment(detail?.jadwal).format('DD MMMM YYYY')}</p>
                     </div>
                 </div>
 
@@ -39,23 +50,12 @@ const BerandaTOSaya = () => {
                 </div>
             </div>
 
-            <div className='grid grid-cols-2 mt-4 gap-6'>
-                <div className='flex flex-col gap-4'>
-                    <h1 className='text-4xl text-secondary font-bold'>TPS</h1>
-                    <div className='grid grid-cols-1 gap-4'>
-                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
-                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
-                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
-                    </div>
-                </div>
-                <div className='flex flex-col gap-4'>
-                    <h1 className='text-4xl text-secondary font-bold'>TPS</h1>
-                    <div className='grid grid-cols-1 gap-4'>
-                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
-                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
-                        <ItemTipeSoal onClick={() => navigate(`/to-saya/${menu}/${type}/1`)}/>
-                    </div>
-                </div>
+            <div className='grid grid-cols-2 mt-4 gap-4'>
+                {
+                    detail?.materi.map(item => (
+                        <ItemTipeSoal data={item} menu={menu} idTransaksi={id_transaksi} idTryout={id_tryout}/>
+                    ))
+                }
             </div>
         </section>
     )

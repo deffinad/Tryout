@@ -65,15 +65,15 @@ export const router = [
         element: <MyTryOut />,
     },
     {
-        path: "/to-saya/:menu/beranda/:type/:id",
+        path: "/to-saya/:menu/beranda/:id_transaksi/:id_tryout",
         element: <MyTryOut />,
     },
     {
-        path: "/to-saya/:menu/soal/:id",
+        path: "/to-saya/:menu/:id_transaksi/:id_tryout/soal/:id_materi",
         element: <MyTryOut />,
     },
     {
-        path: "/to-saya/:menu/pembahasan/:id",
+        path: "/to-saya/:menu/:id_transaksi/:id_tryout/pembahasan/:id_materi",
         element: <MyTryOut />,
     },
 ];
