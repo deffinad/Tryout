@@ -12,8 +12,10 @@ export const GET_DETAIL_PRODUK = "get_detail_produk";
 //TRYOUT
 export const GET_DETAIL_TRYOUT = "get_detail_tryout";
 export const GET_LIST_SOAL_TRYOUT = "get_list_soal_tryout";
+export const CLEAR_LIST_SOAL_TRYOUT = "clear_list_soal_tryout";
 
 // MY TRYOUT
 export const GET_LIST_TRANSAKSI = "get_list_transaksi";
 export const GET_DETAIL_TRANSAKSI = "get_detail_transaksi";
 export const ADD_TRANSAKSI = "add_transaksi";
+export const GET_STATUS_PAYMENT = 'get_status_payment';

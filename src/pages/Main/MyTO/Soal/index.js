@@ -15,7 +15,6 @@ export const SoalTryOut = () => {
     const { listSoal } = useSelector(state => state.myTo)
     const [soal, setSoal] = useState([])
     const [jawaban, setJawaban] = useState({})
-    const [countdownDate, setCountdownDate] = useState(new Date('12/31/2023').getTime());
     const [state, setState] = useState({
         days: 0,
         hours: 0,
@@ -23,7 +22,7 @@ export const SoalTryOut = () => {
         seconds: 0,
     });
     const [toggleSelesai, setToggleSelesai] = useState(false)
-    
+
     const renderNoSoal = (length) => {
         let arr = []
         for (let i = 0; i < length; i++) {
@@ -45,10 +44,16 @@ export const SoalTryOut = () => {
             setSoal(listSoal.soal)
             const dateNow = new Date()
             dateNow.setMinutes(dateNow.getMinutes() + parseInt(listSoal.materi.waktu_mengerjakan))
-            // setCountdownDate(new Date('12/31/2023').getTime())
-            setInterval(() => setNewTime(), 1000);
+            const newDate = dateNow.getTime()
+            setInterval(() => setNewTime(newDate), 1000);
         }
     }, [listSoal])
+
+    useEffect(() => {
+        if (state.hours && state.minutes && state.seconds) {
+
+        }
+    }, [state])
 
     const handleJawaban = (id_soal, id) => {
         setJawaban((prevAnswers) => ({
@@ -57,7 +62,8 @@ export const SoalTryOut = () => {
         }));
     }
 
-    const setNewTime = () => {
+    const setNewTime = (countdownDate) => {
+        console.log('refresh')
         if (countdownDate !== '') {
             const currentTime = new Date().getTime();
 
@@ -85,7 +91,7 @@ export const SoalTryOut = () => {
 
             setState({ days: days, hours: hours, minutes, seconds });
         }
-    };
+    }
 
     return (
         <section className='flex flex-col gap-8'>
@@ -176,7 +182,7 @@ export const SoalTryOut = () => {
                         </div>
 
                         <div>
-                            <Button title={'Selesai'} onClick={() => setToggleSelesai(true)}/>
+                            <Button title={'Selesai'} onClick={() => setToggleSelesai(true)} />
                         </div>
                     </div>
                 </div>
@@ -187,12 +193,8 @@ export const SoalTryOut = () => {
                 open={toggleSelesai}
                 title={'Soal Test'}
                 handleClose={() => setToggleSelesai(false)}
-            >
-                <div>
-                    <p>Apakah anda yakin akan mengakhiri test soal ini?</p>
-                </div>
-            </DialogModal>
-
+                content={'Apakah anda yakin akan mengakhiri soal ini?'}
+            />
         </section>
     )
 }

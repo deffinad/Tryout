@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../../../components/Button";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -29,9 +29,11 @@ const MainPage = () => {
             <div className="grid grid-cols-3 gap-6">
                 {(list !== null && list.length > 0) ? (
                     list.map(item => (
-                        <ItemCardTOSaya data={item} menu={menu}/>
+                        <Fragment key={item.id}>
+                            <ItemCardTOSaya data={item} menu={menu} />
+                        </Fragment>
                     ))
-                ) : null}
+                ) : <>Tidak Ada Data</>}
             </div>
 
         </section>

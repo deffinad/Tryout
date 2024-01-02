@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ItemTipeSoal from '../../../../components/Item/ItemTipeSoal'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetailTryout } from "../../../../Redux/actions/my-to.actions";
+import { clearListTryout, getDetailTryout } from "../../../../Redux/actions/my-to.actions";
 import moment from 'moment/moment';
 
 moment.locale('id')
@@ -15,6 +15,7 @@ const BerandaTOSaya = () => {
 
     useEffect(() => {
         dispatch(getDetailTryout(menu, id_tryout))
+        dispatch(clearListTryout())
     }, [])
 
     return (
