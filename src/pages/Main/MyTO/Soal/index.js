@@ -16,10 +16,10 @@ export const SoalTryOut = () => {
     const [soal, setSoal] = useState([])
     const [jawaban, setJawaban] = useState({})
     const [state, setState] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
+        days: null,
+        hours: null,
+        minutes: null,
+        seconds: null,
     });
     const [toggleSelesai, setToggleSelesai] = useState({
         toggle: false,
@@ -52,14 +52,14 @@ export const SoalTryOut = () => {
         }
     }, [listSoal])
 
-    // useEffect(() => {
-    //     if (state.hours && state.minutes && state.seconds) {
-    //         setToggleSelesai({
-    //             toggle: true,
-    //             id: 'timeout'
-    //         })
-    //     }
-    // }, [state])
+    useEffect(() => {
+        if (state.hours === 0 && state.minutes === 0 && state.seconds === 0) {
+            setToggleSelesai({
+                toggle: true,
+                id: 'timeout'
+            })
+        }
+    }, [state])
 
     const handleJawaban = (id_soal, id) => {
         setJawaban((prevAnswers) => ({
@@ -70,12 +70,29 @@ export const SoalTryOut = () => {
 
     const handleFinishSoal = (status) => {
         if (status === 1) {
-            alert('Berhasil')
+            let payloadJawaban = []
+
+            if(Object.keys(jawaban).length !== 0){
+                for(const value in jawaban){
+                    payloadJawaban.push({
+                        id_soal: value,
+                        value: jawaban[value]
+                    })
+                }
+            }
+
+            const payload = {
+                id_transaksi: id_transaksi,
+                id_tryout: id_tryout,
+                id_materi: id_materi,
+                jawaban: payloadJawaban
+            }
+            console.log(payload)
             setToggleSelesai({
                 toggle: false,
                 id: ''
             })
-        }else{
+        } else {
             setToggleSelesai({
                 toggle: false,
                 id: ''
@@ -85,8 +102,8 @@ export const SoalTryOut = () => {
     }
 
     const setNewTime = (countdownDate) => {
-        if (countdownDate !== '') {
-            const currentTime = new Date().getTime();
+        const currentTime = new Date().getTime();
+        if (countdownDate >= currentTime) {
 
             const distanceToDate = countdownDate - currentTime;
 
@@ -211,13 +228,14 @@ export const SoalTryOut = () => {
 
             </div>
 
-            {/* <DialogModal
+            <DialogModal
                 open={toggleSelesai.toggle}
                 title={toggleSelesai.id === 'finish' ? 'Soal Test' : 'Waktu Habis'}
-                handleClose={handleFinishSoal()}
-                content={'Apakah anda yakin akan mengakhiri soal ini?'}
+                handleClose={handleFinishSoal}
+                content={toggleSelesai.id === 'finish' ? 'Apakah anda yakin akan mengakhiri soal ini?' : 'Jawaban akan tersimpan otomatis ke dalam sistem'}
                 labelButton='Ya'
-            /> */}
+                type={toggleSelesai.id === 'finish' ? 'dialog' : 'alert'}
+            />
         </section>
     )
 }
