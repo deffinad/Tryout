@@ -22,7 +22,7 @@ const ItemCardTO = ({ data }) => {
         dispatch(fetchStart());
         const today = new Date();
         const payload = {
-            id_produk: data.id,
+            id_produk: "id-tryout-" + data.id,
             gross_amount: data.diskon !== 0 ? parseInt(data.diskon) : parseInt(data.harga),
             customer_name: user.nama,
             email: user?.email,
@@ -34,19 +34,29 @@ const ItemCardTO = ({ data }) => {
                     dispatch(fetchSuccess(''));
                     window.snap.pay(res.result, {
                         onSuccess: (res) => {
+                            const paymentType = res.payment_type
                             const payload = {
                                 "id_produk": data.id,
                                 "tanggal": moment(today).format('DD-MM-YYYY'),
-                                "status": 'berhasil'
+                                "status": 'berhasil',
+                                "tipe_pembayaran": paymentType,
+                                "bank": paymentType === 'bank_transfer' ? res.va_numbers[0].bank : '',
+                                "qris": paymentType === 'qris' ? `https://api.sandbox.midtrans.com/v2/qris/${res.transaction_id}/qr-code` : '',
+                                "va_number": paymentType === 'bank_transfer' ? res.va_numbers[0].va_number : '',
                             }
                             dispatch(addToMyTransaction(payload))
                             alert('berhasil melakukan proses pembayaran');
                         },
                         onPending: (res) => {
+                            const paymentType = res.payment_type
                             const payload = {
                                 "id_produk": data.id,
                                 "tanggal": moment(today).format('DD-MM-YYYY'),
-                                "status": 'menunggu pembayaran'
+                                "status": 'menunggu pembayaran',
+                                "tipe_pembayaran": paymentType,
+                                "bank": paymentType === 'bank_transfer' ? res.va_numbers[0].bank : '',
+                                "qris": paymentType === 'qris' ? `https://api.sandbox.midtrans.com/v2/qris/${res.transaction_id}/qr-code` : '',
+                                "va_number": paymentType === 'bank_transfer' ? res.va_numbers[0].va_number : '',
                             }
                             dispatch(addToMyTransaction(payload))
                             alert('menunggu pembayaran');
