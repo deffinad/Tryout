@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const RadioButton = ({ key, id, value, title, onChange, name, checked }) => {
+export const RadioButton = ({ id, value, title, onChange, name, checked }) => {
     return (
-        <div className={`flex items-center ps-4 rounded ${checked ? 'bg-blue-200' : ''} cursor-pointer`} key={key}>
+        <div className={`flex items-center ps-4 rounded ${checked ? 'bg-blue-200' : ''} cursor-pointer`} key={id}>
             <input
                 type="radio"
                 id={id}
