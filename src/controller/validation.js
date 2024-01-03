@@ -27,11 +27,6 @@ var produkValidation = [
     body('diskon').exists().withMessage('Diskon Wajib Diisi')
 ]
 
-var transaksiValidation = [
-    body('id_produk').exists().withMessage('ID Produk Wajib Diisi'),
-    body('tanggal').exists().withMessage('Tanggal Wajib Diisi'),
-]
-
 var transaksiReqTokenValidation = [
     body('gross_amount').exists().withMessage('Gross Amount Wajib Diisi'),
     body('customer_name').exists().withMessage('First Name Wajib Diisi'),
@@ -59,4 +54,4 @@ var jawabanValidation = [
     body('jawaban').exists().withMessage('Jawaban Wajib Diisi'),
 ]
 
-module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, transaksiReqTokenValidation, registerValidation, jawabanValidation };
+module.exports = { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiReqTokenValidation, registerValidation, jawabanValidation };

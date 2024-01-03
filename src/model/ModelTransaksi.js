@@ -167,6 +167,21 @@ class ModelTransaksi {
         }
     }
 
+    async updateTransaksi(data, id) {
+        let isSuccess = false
+        await db.collection('transaksi').doc(id).update(data).then(function () {
+            isSuccess = true
+        }).catch(err => {
+            isSuccess = false
+        });
+
+        if (isSuccess) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     async deleteTransaksi(id) {
         let isSuccess = false
         await db.collection('transaksi').doc(id).delete().then(function () {

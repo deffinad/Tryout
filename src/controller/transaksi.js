@@ -65,23 +65,46 @@ const onAddTransaksi = async (req, res) => {
     const errors = validationResult(req)
     const token = req.headers.authorization
     try {
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+        const result = await transaksiModel.addTransaksi({ token: token, ...req.body });
+        if (result) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data Transaksi Berhasil Ditambahkan",
+                result: req.body,
+            });
         } else {
-            const result = await transaksiModel.addTransaksi({ token: token, ...req.body });
-            if (result) {
-                res.status(200).json({
-                    status: 200,
-                    messages: "Data Transaksi Berhasil Ditambahkan",
-                    result: req.body,
-                });
-            } else {
-                res.status(403).json({
-                    status: 403,
-                    messages: "Data Transaksi Gagal Ditambahkan",
-                    result: result
-                });
-            }
+            res.status(403).json({
+                status: 403,
+                messages: "Data Transaksi Gagal Ditambahkan",
+                result: result
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+            error: err
+        });
+    }
+};
+
+const onUpdateTransaksi = async (req, res) => {
+    const { id } = req.params
+    try {
+        const result = await transaksiModel.updateTransaksi(req.body, id);
+        if (result) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data Transaksi Berhasil Diubah",
+                result: req.body,
+            });
+        } else {
+            res.status(403).json({
+                status: 403,
+                messages: "Data Transaksi Gagal Diubah",
+                result: result
+            });
         }
     } catch (err) {
         res.status(400).json({
@@ -185,4 +208,4 @@ const onAddJawaban = async (req, res) => {
 
 
 
-module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban };
+module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban, onUpdateTransaksi };
