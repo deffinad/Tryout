@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ title = "", children, open, setClose }) => {
+const Modal = ({ title = "", children, open, setClose, type = 'dialog' }) => {
     return (
         <>
             {open ? (
@@ -12,11 +12,15 @@ const Modal = ({ title = "", children, open, setClose }) => {
                                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                                         {title}
                                     </h3>
-                                    <button type="button" onClick={setClose} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                                        <span className="bg-transparent text-black w-6 text-2xl block outline-none focus:outline-none">
-                                            ×
-                                        </span>
-                                    </button>
+                                    {
+                                        type === 'dialog' ? (
+                                            <button type="button" onClick={setClose} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                                <span className="bg-transparent text-black w-6 text-2xl block outline-none focus:outline-none">
+                                                    ×
+                                                </span>
+                                            </button>
+                                        ) : null
+                                    }
                                 </div>
                                 {children}
                             </div>

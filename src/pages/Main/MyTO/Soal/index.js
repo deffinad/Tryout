@@ -16,17 +16,20 @@ export const SoalTryOut = () => {
     const [soal, setSoal] = useState([])
     const [jawaban, setJawaban] = useState({})
     const [state, setState] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
+        days: null,
+        hours: null,
+        minutes: null,
+        seconds: null,
     });
-    const [toggleSelesai, setToggleSelesai] = useState(false)
+    const [toggleSelesai, setToggleSelesai] = useState({
+        toggle: false,
+        id: ''
+    })
 
     const renderNoSoal = (length) => {
         let arr = []
         for (let i = 0; i < length; i++) {
-            let item = <button onClick={() => setActiveSoalIndex(i)} className={`rounded-full w-12 h-12 ${activeSoalIndex === i ? 'bg-secondary' : jawaban.hasOwnProperty(soal[i]?.id) ? 'bg-blue-400' : 'bg-gray-400'} flex items-center justify-center text-white text-lg transition-all duration-300`}>
+            let item = <button key={i} onClick={() => setActiveSoalIndex(i)} className={`rounded-full w-12 h-12 ${activeSoalIndex === i ? 'bg-secondary' : jawaban.hasOwnProperty(soal[i]?.id) ? 'bg-blue-400' : 'bg-gray-400'} flex items-center justify-center text-white text-lg transition-all duration-300`}>
                 <p>{i + 1}</p>
             </button>;
 
@@ -50,8 +53,11 @@ export const SoalTryOut = () => {
     }, [listSoal])
 
     useEffect(() => {
-        if (state.hours && state.minutes && state.seconds) {
-
+        if (state.hours === 0 && state.minutes === 0 && state.seconds === 0) {
+            setToggleSelesai({
+                toggle: true,
+                id: 'timeout'
+            })
         }
     }, [state])
 
@@ -62,10 +68,42 @@ export const SoalTryOut = () => {
         }));
     }
 
+    const handleFinishSoal = (status) => {
+        if (status === 1) {
+            let payloadJawaban = []
+
+            if(Object.keys(jawaban).length !== 0){
+                for(const value in jawaban){
+                    payloadJawaban.push({
+                        id_soal: value,
+                        value: jawaban[value]
+                    })
+                }
+            }
+
+            const payload = {
+                id_transaksi: id_transaksi,
+                id_tryout: id_tryout,
+                id_materi: id_materi,
+                jawaban: payloadJawaban
+            }
+            console.log(payload)
+            setToggleSelesai({
+                toggle: false,
+                id: ''
+            })
+        } else {
+            setToggleSelesai({
+                toggle: false,
+                id: ''
+            })
+        }
+
+    }
+
     const setNewTime = (countdownDate) => {
-        console.log('refresh')
-        if (countdownDate !== '') {
-            const currentTime = new Date().getTime();
+        const currentTime = new Date().getTime();
+        if (countdownDate >= currentTime) {
 
             const distanceToDate = countdownDate - currentTime;
 
@@ -135,7 +173,7 @@ export const SoalTryOut = () => {
                     {
                         soal.map((value, i) => (
                             i === activeSoalIndex ? (
-                                <div className='min-h-[500px] w-full shadow-lg bg-white rounded-3xl p-6 pt-16 relative flex flex-col gap-6'>
+                                <div key={`soal ${i}`} className='min-h-[500px] w-full shadow-lg bg-white rounded-3xl p-6 pt-16 relative flex flex-col gap-6'>
                                     <div className='absolute top-0 left-0 py-1 w-28 flex items-center justify-center text-white rounded-tl-3xl rounded-br-lg bg-primary'>
                                         <p>Soal {activeSoalIndex + 1}</p>
                                     </div>
@@ -146,15 +184,16 @@ export const SoalTryOut = () => {
                                     <div className='flex flex-col'>
                                         {
                                             value.opsi.map((item, index) => (
-                                                <RadioButton
-                                                    key={item}
-                                                    id={`soal${i} -${index} `}
-                                                    name={`soal${i} `}
-                                                    value={item.id}
-                                                    title={item.value}
-                                                    checked={jawaban[value.id] === item.id}
-                                                    onChange={() => handleJawaban(value.id, item.id)}
-                                                />
+                                                <div key={`soal${i} -${index}`}>
+                                                    <RadioButton
+                                                        id={`soal${i} -${index} `}
+                                                        name={`soal${i} `}
+                                                        value={item.id}
+                                                        title={item.value}
+                                                        checked={jawaban[value.id] === item.id}
+                                                        onChange={() => handleJawaban(value.id, item.id)}
+                                                    />
+                                                </div>
                                             ))
                                         }
                                     </div>
@@ -182,7 +221,7 @@ export const SoalTryOut = () => {
                         </div>
 
                         <div>
-                            <Button title={'Selesai'} onClick={() => setToggleSelesai(true)} />
+                            <Button title={'Selesai'} onClick={() => setToggleSelesai({ toggle: true, id: 'finish' })} />
                         </div>
                     </div>
                 </div>
@@ -190,10 +229,12 @@ export const SoalTryOut = () => {
             </div>
 
             <DialogModal
-                open={toggleSelesai}
-                title={'Soal Test'}
-                handleClose={() => setToggleSelesai(false)}
-                content={'Apakah anda yakin akan mengakhiri soal ini?'}
+                open={toggleSelesai.toggle}
+                title={toggleSelesai.id === 'finish' ? 'Soal Test' : 'Waktu Habis'}
+                handleClose={handleFinishSoal}
+                content={toggleSelesai.id === 'finish' ? 'Apakah anda yakin akan mengakhiri soal ini?' : 'Jawaban akan tersimpan otomatis ke dalam sistem'}
+                labelButton='Ya'
+                type={toggleSelesai.id === 'finish' ? 'dialog' : 'alert'}
             />
         </section>
     )
