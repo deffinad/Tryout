@@ -62,7 +62,6 @@ const onGetDetailTransaksi = async (req, res) => {
 };
 
 const onAddTransaksi = async (req, res) => {
-    const errors = validationResult(req)
     const token = req.headers.authorization
     try {
         const result = await transaksiModel.addTransaksi({ token: token, ...req.body });

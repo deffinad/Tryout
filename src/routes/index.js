@@ -92,7 +92,7 @@ router.delete("/produk/:id", onDeleteProduk);
 router.get("/transaksi/:kategori", onGetListTransaksi);
 router.get("/transaksi/:id", onGetDetailTransaksi);
 router.post("/transaksi", onAddTransaksi);
-router.put("/transaksi/:id", onUpdateTransaksi);
+// router.put("/transaksi/:id", onUpdateTransaksi);
 router.delete("/transaksi/:id", onDeleteTransaksi);
 router.post("/transaksi/request/token", transaksiReqTokenValidation, onRequestPaymentToken);
 router.post("/jawab", jawabanValidation, onAddJawaban)
