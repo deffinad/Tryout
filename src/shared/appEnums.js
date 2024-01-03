@@ -45,6 +45,7 @@ const GET_LIST_SOAL_TRYOUT = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 const GET_LIST_TRANSAKSI = BASE_URL + '/transaksi/$kategori';
 const GET_DETAIL_TRANSAKSI = BASE_URL + '/transaksi/detail/$id';
 const ADD_TRANSAKSI = BASE_URL + '/transaksi';
+const ADD_ANSWER = BASE_URL + '/jawab';
 
 // API PAYMENT
 const GET_TOKEN_SNAP = BASE_URL + '/transaksi/request/token';
@@ -74,5 +75,6 @@ export const API = {
     GET_STATUS_PAYMENT,
     GET_LIST_TRANSAKSI,
     GET_DETAIL_TRANSAKSI,
-    ADD_TRANSAKSI
+    ADD_TRANSAKSI,
+    ADD_ANSWER
 }

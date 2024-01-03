@@ -35,7 +35,8 @@ export const addToMyTransactionApi = async (payload) => {
         const response = await fetch(API.ADD_TRANSAKSI, {
             method: 'POST',
             headers: {
-                'Authorization': localStorage.getItem('token')
+                'Authorization': localStorage.getItem('token'),
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload)
         })
@@ -68,6 +69,24 @@ export const getListSoalTryoutApi = async (kategori, id_tryout, id_materi) => {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+
+export const addMyToAnswerApi = async (payload) => {
+    try {
+        const response = await fetch(API.ADD_ANSWER, {
+            method: 'POST',
+            headers: {
+                'Authorization': localStorage.getItem('token'),
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(payload)
         })
 
         return response.json();

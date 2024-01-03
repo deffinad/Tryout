@@ -4,8 +4,9 @@ import { Button } from '../../../../components/Button'
 import { RadioButton } from '../../../../components/RadioButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { getListSoalTryout } from "../../../../Redux/actions/my-to.actions";
+import { addMyToAnswer, getListSoalTryout } from "../../../../Redux/actions/my-to.actions";
 import DialogModal from '../../../../components/DialogModal'
+import { useNavigate } from 'react-router-dom'
 
 export const SoalTryOut = () => {
     const { menu, id_transaksi, id_tryout, id_materi } = useParams()
@@ -15,6 +16,7 @@ export const SoalTryOut = () => {
     const { listSoal } = useSelector(state => state.myTo)
     const [soal, setSoal] = useState([])
     const [jawaban, setJawaban] = useState({})
+    const navigate = useNavigate()
     const [state, setState] = useState({
         days: null,
         hours: null,
@@ -72,8 +74,8 @@ export const SoalTryOut = () => {
         if (status === 1) {
             let payloadJawaban = []
 
-            if(Object.keys(jawaban).length !== 0){
-                for(const value in jawaban){
+            if (Object.keys(jawaban).length !== 0) {
+                for (const value in jawaban) {
                     payloadJawaban.push({
                         id_soal: value,
                         value: jawaban[value]
@@ -87,11 +89,14 @@ export const SoalTryOut = () => {
                 id_materi: id_materi,
                 jawaban: payloadJawaban
             }
-            console.log(payload)
+            dispatch(addMyToAnswer(payload, navigate))
             setToggleSelesai({
                 toggle: false,
                 id: ''
             })
+            setTimeout(() => {
+                navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
+            }, 3000)
         } else {
             setToggleSelesai({
                 toggle: false,

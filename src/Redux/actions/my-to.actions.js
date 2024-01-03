@@ -1,6 +1,6 @@
-import { addToMyTransactionApi, getDetailTryoutApi, getListMyTransactionApi, getListSoalTryoutApi } from "../../shared/api/myTo"
+import { addMyToAnswerApi, addToMyTransactionApi, getDetailTryoutApi, getListMyTransactionApi, getListSoalTryoutApi } from "../../shared/api/myTo"
 import { fetchStart, fetchSuccess, fetchError } from "./common.actions"
-import { ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_STATUS_PAYMENT } from "./types"
+import { ADD_ANSWER, ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_STATUS_PAYMENT } from "./types"
 import { getStatusPaymentApi } from "../../shared/api/payment"
 
 export const getListMyTransaction = (kategori = 'utbk') => {
@@ -130,5 +130,25 @@ export const getListSoalTryout = (menu, id_tryout, id_materi) => {
 export const clearListTryout = () => {
     return (dispatch) => {
         dispatch({ type:  CLEAR_LIST_SOAL_TRYOUT})
+    }
+}
+
+export const addMyToAnswer = (payload) => {
+    return dispatch => {
+        dispatch(fetchStart())
+        addMyToAnswerApi(payload)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess('Jawaban Telah Berhasil Di Kirim'))
+                    dispatch({ type: ADD_ANSWER })
+                } else {
+                    console.log(res)
+                    dispatch(fetchError('Jawaban Gagal Di Kirim'))
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+                dispatch(fetchError('Jawaban Gagal Di Kirim'))
+            })
     }
 }

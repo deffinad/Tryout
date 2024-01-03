@@ -1,4 +1,4 @@
-import { CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI } from "../actions/types"
+import { ADD_ANSWER, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI } from "../actions/types"
 
 const initialState = {
     list: null,
@@ -32,6 +32,10 @@ const MyToReducers = (state = initialState, action) => {
             return {
                 ...state,
                 listSoal: null
+            }
+        case ADD_ANSWER:
+            return {
+                ...state,
             }
         default:
             return state
