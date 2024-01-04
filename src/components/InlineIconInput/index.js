@@ -4,7 +4,7 @@ const InlineIconInput = ({ label = '', name = '', value = '', type = 'text', onc
     return (
         <div className="group p-2">
             {label !== '' &&
-                <label for={name} className="block w-full pb-2 text-md font-medium  transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
+                <label htmlFor={name} className="block w-full pb-2 text-md font-medium  transition-all duration-200 ease-in-out group-focus-within:text-blue-400">
                     {label}
                 </label>
             }

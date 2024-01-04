@@ -36,12 +36,20 @@ export const Navbar = ({ toggle = false, setToggle }) => {
                                     </li>
                                 ) : (
                                     <li>
-                                        <button onClick={() => {
-                                            logout()
-                                            navigation('/')
-                                        }}>
-                                            Logout
-                                        </button>
+                                        <div className='flex flex-row gap-4'>
+                                            <img 
+                                                src={user?.avatar !== "" ? user?.avatar : '/assets/img/avatar.png'} 
+                                                alt="Rounded avatar" 
+                                                className="w-10 h-10 rounded-full cursor-pointer"
+                                                onClick={() => navigation('/profile-saya')} 
+                                            />
+                                            <button onClick={() => {
+                                                logout()
+                                                navigation('/')
+                                            }}>
+                                                Logout
+                                            </button>
+                                        </div>
                                     </li>
                                 )}
                         </ul>

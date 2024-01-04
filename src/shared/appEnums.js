@@ -21,6 +21,7 @@ const SERVER_KEY = 'SB-Mid-server-Ic6W0Kwt2d8GgpQtvfzpLq1q';
 // API AUTH
 const AUTH_LOGIN = BASE_URL + '/login';
 const AUTH_REGISTER = BASE_URL + '/user';
+const UPDATE_PROFILE_USER = BASE_URL + '/user/$id';
 
 // API MATERI
 const GET_LIST_MATERI = BASE_URL + '/materi/$kategori'; // kategori: utbk/poltekes/kedinasan
@@ -57,6 +58,7 @@ export const API = {
     BASE_URL,
     AUTH_LOGIN,
     AUTH_REGISTER,
+    UPDATE_PROFILE_USER,
     GET_LIST_MATERI,
     GET_DETAIL_MATERI,
     ADD_MATERI,

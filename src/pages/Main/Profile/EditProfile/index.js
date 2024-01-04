@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import DropdownInput from "../../../../components/DropdownInput";
 import InlineIconInput from "../../../../components/InlineIconInput";
 import { FaPen } from "react-icons/fa6";
+import useAuth from "../../../../shared/hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { updateProfileUser } from "../../../../Redux/actions/auth.action";
 
 const EditProfile = () => {
+    const { user } = useAuth();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [noHp, setNoHp] = useState('');
+    const [avatar, setAvatar] = useState('');
     const [email, setEmail] = useState('');
     const [provinsi, setProvinsi] = useState('');
     const [tglLahir, setTglLahir] = useState('');
     const [asalKota, setAsalKota] = useState('');
-    const [uname, setUname] = useState('Username');
+    const [uname, setUname] = useState('');
     const [namaLengkap, setNamaLengkap] = useState('');
     const [asalSekolah, setAsalSekolah] = useState('');
     const [jenisKelamin, setJenisKelamin] = useState('');
@@ -22,9 +29,27 @@ const EditProfile = () => {
         { name: 'Perempuan', value: 'Perempuan' },
     ]
 
+    useEffect(() => {
+        if (user !== null) {
+            setNoHp(user?.no_hp);
+            setEmail(user?.email);
+            setAvatar(user?.avatar !== "" ? user?.avatar : '/assets/img/avatar.png');
+            setProvinsi(user?.provinsi);
+            setTglLahir(user?.tgl_lahir);
+            setAsalKota(user?.asal_kota);
+            setUname(user?.username);
+            setNamaLengkap(user?.nama);
+            setAsalSekolah(user?.asal_sekolah);
+            setJenisKelamin(user?.jenis_kelamin);
+        }
+        return () => resetState();
+    }, [user])
+
     const handleSaveEdit = () => {
         const payload = {
-            'nama_lengkap': namaLengkap,
+            'role': user?.role,
+            'password': user?.password,
+            'nama': namaLengkap,
             'asal_sekolah': asalSekolah,
             'asal_kota': asalKota,
             'provinsi': provinsi,
@@ -33,28 +58,63 @@ const EditProfile = () => {
             'no_hp': noHp,
             'email': email,
             'username': uname,
+            'avatar': avatar
         }
 
-        navigate('/profile-saya')
+        dispatch(updateProfileUser(user.token, payload, navigate));
     }
+
+    const resetState = () => {
+        setNoHp('');
+        setEmail('');
+        setProvinsi('');
+        setTglLahir('');
+        setAsalKota('');
+        setUname('');
+        setNamaLengkap('');
+        setAsalSekolah('');
+        setJenisKelamin('');
+    }
+
+    const handleChangeAvatar = async (file) => {
+        const base64Avatar = await convertImageToBase64(file);
+        setAvatar(base64Avatar);
+    }
+
+    const convertImageToBase64 = (image) => {
+        return new Promise((resolve, reject) => {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var imageBase64 = e.target.result;
+                resolve(imageBase64);
+            };
+
+            reader.onerror = function (error) {
+                reject(error);
+            };
+
+            reader.readAsDataURL(image);
+        });
+    };
 
     return (
         <div className="flex flex-col">
             {/* profile photo */}
             <div className="flex flex-row justify-start gap-8 mb-10">
                 <div className="relative">
-                    <img className="mb-3 rounded-full ring-2 ring-gray-300 shadow-lg w-56 h-56" src="/assets/img/sample-photo-2.jpg" alt="" />
+                <img className="mb-3 rounded-full shadow-lg w-56 h-56 ring-2 ring-gray-300" src={avatar} alt="" />
                     <div style={{ cursor: 'pointer' }} className="absolute flex items-center w-10 h-10 justify-center bg-primary border-2 border-white rounded-full top-1 right-4 dark:border-gray-900 hover:bg-blue-700">
-                        <FaPen size={23} className="text-white" />
+                        <label htmlFor="avatar" ><FaPen size={23} className="text-white" /></label>
                     </div>
+                    <input onChange={(e) => handleChangeAvatar(e.target.files[0])} id="avatar" name="avatar" type="file" style={{ display: 'none' }} />
                 </div>
                 <div className="flex flex-col justify-center items-centers gap-2">
-                    {/* <h1 className="text-3xl font-semibold uppercase">Username</h1> */}
                     <input
                         type='text'
                         value={uname}
                         onChange={(e) => setUname(e.target.value)}
-                        className={`peer uppercase relative h-10 w-full rounded-md bg-inherit text-3xl font-semibold pr-4 outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:ring-2 focus:ring-blue-400 focus:drop-shadow-lg`}
+                        className={`peer relative h-10 w-full rounded-md bg-inherit text-3xl font-semibold pr-4 outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:ring-2 focus:ring-blue-400 focus:drop-shadow-lg`}
                     />
                     <h2 className="text-2xl font-medium uppercase">Asal Sekolah</h2>
                 </div>
@@ -69,7 +129,7 @@ const EditProfile = () => {
                             title={'Batal'}
                             bgColor={'bg-bgRed'}
                             textColor={'text-white'}
-                            onClick={()=>navigate('/profile-saya')}
+                            onClick={() => navigate('/profile-saya')}
                         />
                         <Button
                             size="sm"

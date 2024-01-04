@@ -1,18 +1,21 @@
 import React from "react";
+import 'moment/locale/id';
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { FaBagShopping, FaChevronRight, FaDoorOpen, FaGear } from "react-icons/fa6"
-
-
+import useAuth from "../../../../shared/hooks/useAuth";
+moment.locale('id');
 const ProfileSaya = () => {
+    const { user } = useAuth();
     const navigate = useNavigate();
     return (
         <div className="flex flex-col">
             {/* profile photo */}
             <div className="flex flex-row justify-start gap-8 mb-10">
-                <img className="mb-3 rounded-full shadow-lg w-56 h-56 ring-2 ring-gray-300" src="/assets/img/sample-photo-2.jpg" alt="" />
+                <img className="mb-3 rounded-full shadow-lg w-56 h-56 ring-2 ring-gray-300" src={user?.avatar !== "" ? user?.avatar : '/assets/img/avatar.png'} alt="" />
                 <div className="flex flex-col justify-center items-centers gap-2">
-                    <h1 className="text-3xl font-semibold uppercase">Username</h1>
-                    <h2 className="text-2xl font-medium uppercase">Asal Sekolah</h2>
+                    <h1 className="text-3xl font-semibold uppercase">{user?.username}</h1>
+                    <h2 className="text-2xl font-medium uppercase">{user?.asal_sekolah}</h2>
                 </div>
             </div>
             {/* data pribadi card */}
@@ -26,21 +29,21 @@ const ProfileSaya = () => {
                 <div className="p-3 flex flex-col gap-5">
                     <RowsProfile
                         firstTitle="Nama Lengkap"
-                        firstContent="Nama Lengkap Pengguna"
+                        firstContent={user?.nama}
                         secondTitle="Asal Sekolah"
-                        secondContent="Asal Sekolah Pengguna"
+                        secondContent={user?.asal_sekolah}
                     />
                     <RowsProfile
                         firstTitle="Jenis Kelamin"
-                        firstContent="Perempuan"
+                        firstContent={user?.jenis_kelamin}
                         secondTitle="Asal Kota"
-                        secondContent="Asal Kota Pengguna"
+                        secondContent={user?.asal_kota}
                     />
                     <RowsProfile
                         firstTitle="Tanggal Lahir"
-                        firstContent="15 Januari 2000"
+                        firstContent={moment(user?.tgl_lahir).format('DD MMMM YYYY')}
                         secondTitle="Provinsi"
-                        secondContent="Jawa Barat"
+                        secondContent={user?.provinsi}
                     />
                 </div>
             </div>
