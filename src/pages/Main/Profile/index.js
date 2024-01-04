@@ -18,7 +18,7 @@ const ProfilePage = () => {
             {pathname === '/profile-saya/riwayat-pembelian' &&
                 <RiwayatPembelian />
             }
-            {pathname === `/profile-saya/edit/${id}` &&
+            {pathname === `/profile-saya/edit` &&
                 <EditProfile />
             }
             {pathname === `/profile-saya/riwayat-pembelian/detail/${id}` &&

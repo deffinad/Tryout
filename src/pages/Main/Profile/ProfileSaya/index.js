@@ -22,7 +22,7 @@ const ProfileSaya = () => {
             <div className="bg-white shadow-md rounded-3xl p-5 mb-5">
                 <div className="border-b-2 border-blue-300 p-1 flex flex-row justify-between">
                     <h1 className="text-xl text-primary font-medium">Data Pribadi</h1>
-                    <h1 style={{ cursor: 'pointer' }} className="text-secondary text-xl font-semibold hover:text-yellow-400" onClick={()=>navigate('/profile-saya/edit/1')}>
+                    <h1 style={{ cursor: 'pointer' }} className="text-secondary text-xl font-semibold hover:text-yellow-400" onClick={()=>navigate('/profile-saya/edit')}>
                         Edit
                     </h1>
                 </div>
