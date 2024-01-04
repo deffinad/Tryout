@@ -66,8 +66,8 @@ const RegisterPage = () => {
 
     return (
         <div className="w-full">
-            <Navbar />
-            <div className="w-full pt-[90px] p-10 bg-neutral-200">
+            {/* <Navbar /> */}
+            <div className="w-full p-10 bg-neutral-200">
                 <div className="mt-5 grid grid-cols-2">
                     <div className="p-2 flex item-center justify-center">
                         <div className="px-10 py-16 w-[568px] bg-primary rounded-[128px] flex flex-col justify-center gap-5">
@@ -187,12 +187,12 @@ const RegisterPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="p-2">
+                    <div className="p-2 flex flex-row items-center justify-center">
                         <img alt="" src={'/assets/img/daftar.png'} />
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
