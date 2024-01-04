@@ -5,13 +5,17 @@ import { Button } from '../../components/Button'
 import { Footer } from '../../components/Footer'
 const LandingPage = () => {
     const navigate = useNavigate();
+    const isUserExist = localStorage.getItem('token');
  
     useEffect(() => {
-        const isUserExist = localStorage.getItem('token');
         if (isUserExist !== null) {
             navigate('/beranda');
         };
     }, [])
+
+    if (isUserExist !== null) {
+        return null;
+    }
 
     return (
         <section className='w-full'>

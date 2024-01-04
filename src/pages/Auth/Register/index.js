@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
 import { Navbar } from "../../../components/Navbar";
@@ -23,6 +23,7 @@ const RegisterPage = () => {
     const [provinsi, setProvinsi] = useState('');
     const [asalKota, setAsalKota] = useState('');
     const [avatar, setAvatar] = useState(null)
+    const isUserExist = localStorage.getItem('token');
 
     const pilihanJnsKelamin = [
         { name: 'Laki-Laki', value: 'Laki-Laki' },
@@ -51,6 +52,16 @@ const RegisterPage = () => {
             dispatch(register(payload, navigate))
         }
 
+    }
+
+    useEffect(() => {
+        if (isUserExist !== null) {
+            navigate('/beranda');
+        };
+    }, [])
+
+    if (isUserExist !== null) {
+        return null;
     }
 
     return (

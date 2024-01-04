@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
 import { Navbar } from "../../../components/Navbar";
@@ -9,10 +9,17 @@ import { FaRegEnvelope, FaUnlockKeyhole } from "react-icons/fa6";
 import InlineIconInput from "../../../components/InlineIconInput";
 
 const LoginPage = () => {
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [uname, setUname] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useAuth();
+    const isUserExist = localStorage.getItem('token');
+
+    useEffect(() => {
+        if (isUserExist !== null) {
+            navigate('/beranda');
+        };
+    }, [])
 
     const handleLogin = async () => {
         const payload = {
@@ -21,7 +28,6 @@ const LoginPage = () => {
         }
 
         const { status, role } = await login(payload);
-        // const response = await authLogin(payload);
         if (status === 200) {
             handleResetState();
             if (role === 'user') {
@@ -37,6 +43,10 @@ const LoginPage = () => {
     const handleResetState = () => {
         setUname('');
         setPassword('');
+    }
+
+    if (isUserExist !== null) {
+        return null;
     }
 
     return (
