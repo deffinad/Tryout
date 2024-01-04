@@ -30,7 +30,7 @@ class ModelTryout {
     }
   }
 
-  async getDetailTryOut(kategori, id) {
+  async getDetailTryOut(kategori, id, token) {
     let data = null;
     let dataMateri = []
 
@@ -41,6 +41,14 @@ class ModelTryout {
 
     const refMateri = await db.collection('materi')
     const snapRefMateri = await refMateri.get()
+
+    const refTransaksi = await db.collection('transaksi')
+    const snapTransaksi = await refTransaksi.get()
+
+    const refUser = await db.collection('users').doc(token)
+    const snapUser = await refUser.get()
+
+    const role = snapUser.data().role
 
     snapRefMateri.forEach(item => {
       dataMateri.push({ id_materi: item.id, ...item.data() })
@@ -57,6 +65,35 @@ class ModelTryout {
           }
         }
       })
+
+      if (role === 'user') {
+        for (const value of snapTransaksi.docs) {
+          let dataTransaksi = value.data()
+          if (dataTransaksi.token === token && dataTransaksi.status === 'berhasil') {
+            const refJawaban = await db.collection('transaksi').doc(value.id).collection('jawaban')
+            const snapJawaban = await refJawaban.get()
+
+            for (let i = 0; i < data.materi.length; i++) {
+              for (const item of snapJawaban.docs) {
+                const dataJawaban = item.data()
+                if (id === dataJawaban.id_tryout) {
+                  if(data.materi[i].id_materi === dataJawaban.id_materi){
+                    data.materi[i] = {
+                      ...data.materi[i],
+                      sudah_dikerjakan: true
+                    }
+                  }else{
+                    data.materi[i] = {
+                      ...data.materi[i],
+                      sudah_dikerjakan: false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     } else {
       data = null
     }

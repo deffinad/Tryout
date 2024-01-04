@@ -34,8 +34,9 @@ const onGetListTryOut = async (req, res) => {
 
 const onGetDetailTryout = async (req, res) => {
     const { kategori, id } = req.params;
+    const token = req.headers.authorization
     try {
-        const result = await tryoutModel.getDetailTryOut(kategori, id);
+        const result = await tryoutModel.getDetailTryOut(kategori, id, token);
 
         if (result.isTrue) {
             res.status(200).json({
