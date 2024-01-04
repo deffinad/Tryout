@@ -1,10 +1,37 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaBagShopping } from "react-icons/fa6";
-import { Button } from "../../../../components/Button";
+import { getRiwayatPembelian } from "../../../../Redux/actions/profile.actions";
+import ItemCardRiwayatPembayaran from "../../../../components/Item/ItemCardRiwayatPembayaran";
 
 const RiwayatPembelian = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const { list_pembelian: list } = useSelector(state => state.profile);
+
+    const [data, setData] = useState(null);
+    const [filterBy, setFilterBy] = useState('menunggu pembayaran');
+
+    useEffect(() => {
+        if (pathname === '/profile-saya/riwayat-pembelian') {
+            dispatch(getRiwayatPembelian());
+        }
+    }, [dispatch, pathname])
+
+    useEffect(() => {
+        if (list !== null && list.result.length > 0) {
+            const newList = list.result.filter(item => item.status === filterBy);
+            setData(newList);
+        }
+    }, [list, filterBy])
+
+    const handleFilterBy = (e, param) => {
+        e.preventDefault();
+        setFilterBy(param);
+    }
+
     return (
         <div className="flex flex-col gap-6">
             {/* header page section */}
@@ -22,50 +49,27 @@ const RiwayatPembelian = () => {
             <div className="flex flex-col gap-4">
                 {/* header navigation content page*/}
                 <div className="px-16 py-3 rounded-3xl bg-gray-200 flex flex-row justify-start items-center gap-6">
-                    <p className="text-secondary font-semibold text-lg cursor-pointer">
+                    <p className={`${filterBy === 'menunggu pembayaran' ? 'text-secondary' : 'text-primary'} font-semibold text-lg cursor-pointer`} onClick={(e) => handleFilterBy(e, 'menunggu pembayaran')}>
                         Menunggu Konfirmasi
                     </p>
-                    <p className="text-primary font-normal text-lg cursor-pointer hover:text-blue-700">
+                    <p className={`${filterBy === 'berhasil' ? 'text-secondary' : 'text-primary'} font-semibold text-lg cursor-pointer`} onClick={(e) => handleFilterBy(e, 'berhasil')}>
                         Berhasil
                     </p>
-                    <p className="text-primary font-normal text-lg cursor-pointer hover:text-blue-900">
+                    <p className={`${filterBy === 'gagal' ? 'text-secondary' : 'text-primary'} font-semibold text-lg cursor-pointer`} onClick={(e) => handleFilterBy(e, 'gagal')}>
                         Gagal
                     </p>
                 </div>
                 {/* content card section */}
-                <div className="px-6 py-4 rounded-3xl bg-gray-200 flex flex-col">
-                    <div className="flex flex-row justify-between pb-3 border-b-2 border-blue-300">
-                        <div className="flex flex-row gap-2 items-center">
-                            <img src="/assets/img/pngwing.png" alt="" className="w-10" />
-                            <h1 className="text-2xl font-semibold">Try Out SNBPT #1 2024/2025</h1>
-                        </div>
-                        <div className="grid grid-cols-2 grid-rows-2 gap-x-3">
-                            <div className="text-black font-medium">No Order.</div>
-                            <div className="font-normal">0102030499</div>
-                            <div className="text-black font-medium">Tanggal Order.</div>
-                            <div className="font-normal">00/00/000</div>
-                        </div>
-                    </div>
-                    <div className="flex flex-row justify-between pt-3">
-                        <h1 className="text-primary font-bold text-lg">Rp. 15.000</h1>
-                        <div className="flex flex-row gap-3">
-                            <Button
-                                size="sm"
-                                title={'Lihat Detail'}
-                                textColor={'text-primary'}
-                                bgColor={'bg-white shadow-sm'}
-                                hoverBgColor={"hover:shadow-lg"}
-                                onClick={()=>navigate('/profile-saya/riwayat-pembelian/detail/1')}
-                            />
-                            <Button
-                                bgColor={'bg-white shadow-sm'}
-                                title={'Konfirmasi Pembayaran'}
-                                hoverBgColor={"hover:shadow-lg"}
-                                size="sm" textColor={'text-primary'}
-                            />
-                        </div>
-                    </div>
-                </div>
+                {data !== null && data.length > 0
+                    ? data.map((item) => (
+                        <Fragment key={item.id}>
+                            <ItemCardRiwayatPembayaran item={item} />
+                        </Fragment>
+                    )) 
+                    : data!== null && data.length === 0
+                    ? <>Tidak Ada Data</>
+                    : null
+                }
             </div>
         </div>
     )

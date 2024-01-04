@@ -53,7 +53,7 @@ const ADD_ANSWER = BASE_URL + '/jawab';
 
 // API PAYMENT
 const GET_TOKEN_SNAP = BASE_URL + '/transaksi/request/token';
-const GET_STATUS_PAYMENT = 'https://api.sandbox.midtrans.com/v2/${order_id}/status';
+const GET_STATUS_PAYMENT = 'https://api.sandbox.midtrans.com/v2/$order_id/status';
 
 export const API = {
     ID_MERCHANT,

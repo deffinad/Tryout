@@ -13,6 +13,8 @@ module.exports = {
         textColorRed: '#B81D28',
         textOrange: '#DD5E35',
         bgWaiting: '#efd9bd',
+        bgSuccess: '#c3ffb1',
+        textSuccess: '#5cc03e'
       },
     },
   },
