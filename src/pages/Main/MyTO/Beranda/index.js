@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ItemTipeSoal from '../../../../components/Item/ItemTipeSoal'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,11 +12,60 @@ const BerandaTOSaya = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { detail } = useSelector(state => state.myTo)
+    const [state, setState] = useState({
+        days: null,
+        hours: null,
+        minutes: null,
+        seconds: null,
+    });
 
     useEffect(() => {
         dispatch(getDetailTryout(menu, id_tryout))
         dispatch(clearListTryout())
     }, [])
+
+    useEffect(() => {
+        let newCountDate = 0
+        if (detail !== null) {
+            detail.materi.map(item => {
+                newCountDate = newCountDate + parseInt(item.waktu_mengerjakan)
+            })
+            const dateNow = new Date()
+            dateNow.setMinutes(dateNow.getMinutes() + parseInt(newCountDate))
+            const newDate = dateNow.getTime()
+            setNewTime(newDate)
+        }
+    }, [detail])
+
+    const setNewTime = (countdownDate) => {
+        const currentTime = new Date().getTime();
+        if (countdownDate >= currentTime) {
+
+            const distanceToDate = countdownDate - currentTime;
+
+            let days = Math.floor(distanceToDate / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(
+                (distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            );
+            let minutes = Math.floor(
+                (distanceToDate % (1000 * 60 * 60)) / (1000 * 60),
+            );
+            let seconds = Math.floor((distanceToDate % (1000 * 60)) / 1000);
+
+            const numbersToAddZeroTo = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+            days = `${days}`;
+            if (numbersToAddZeroTo.includes(hours)) {
+                hours = `0${hours}`;
+            } else if (numbersToAddZeroTo.includes(minutes)) {
+                minutes = `0${minutes}`;
+            } else if (numbersToAddZeroTo.includes(seconds)) {
+                seconds = `0${seconds}`;
+            }
+
+            setState({ days: days, hours: hours, minutes, seconds });
+        }
+    }
 
     return (
         <section className='flex flex-col gap-8'>
@@ -35,15 +84,15 @@ const BerandaTOSaya = () => {
                         <h1 className='text-xl font-bold'>Durasi Pengerjaan</h1>
                         <div className='flex gap-2 text-white'>
                             <div className='w-20 h-24 bg-primary rounded-[36px] flex flex-col items-center justify-center'>
-                                <p className='text-4xl font-semibold'>03</p>
+                                <p className='text-4xl font-semibold'>{state.hours || '00'}</p>
                                 <p>Jam</p>
                             </div>
                             <div className='w-20 h-24 bg-secondary rounded-[36px] flex flex-col items-center justify-center'>
-                                <p className='text-4xl font-semibold'>03</p>
+                                <p className='text-4xl font-semibold'>{state.minutes || '00'}</p>
                                 <p>Menit</p>
                             </div>
                             <div className='w-20 h-24 bg-bgRed rounded-[36px] flex flex-col items-center justify-center'>
-                                <p className='text-4xl font-semibold'>03</p>
+                                <p className='text-4xl font-semibold'>{state.seconds || '00'}</p>
                                 <p>Detik</p>
                             </div>
                         </div>
@@ -54,7 +103,7 @@ const BerandaTOSaya = () => {
             <div className='grid grid-cols-2 mt-4 gap-4'>
                 {
                     detail?.materi.map(item => (
-                        <ItemTipeSoal data={item} menu={menu} idTransaksi={id_transaksi} idTryout={id_tryout}/>
+                        <ItemTipeSoal data={item} menu={menu} idTransaksi={id_transaksi} idTryout={id_tryout} />
                     ))
                 }
             </div>
