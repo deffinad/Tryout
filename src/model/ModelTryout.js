@@ -316,6 +316,7 @@ class ModelTryout {
           } else {
             data.push({
               id_tryout: valJawaban.data().id_tryout,
+              id_transaksi: valJawaban.data().id_transaksi,
               ...snapTryout.data(),
               materi: [{
                 id_materi: valJawaban.data().id_materi,
@@ -372,6 +373,7 @@ class ModelTryout {
             } else {
               data = {
                 id_tryout: valJawaban.data().id_tryout,
+                id_transaksi: valJawaban.data().id_transaksi,
                 ...snapTryout.data(),
                 materi: [{
                   id_materi: valJawaban.data().id_materi,
