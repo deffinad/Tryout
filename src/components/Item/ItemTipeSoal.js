@@ -2,11 +2,20 @@ import React from 'react'
 import { FaChevronRight, FaClock, FaFile } from 'react-icons/fa6'
 import { useNavigate } from 'react-router'
 
-const ItemTipeSoal = ({ data, menu, idTransaksi, idTryout }) => {
+const ItemTipeSoal = ({ data, menu, idTransaksi, idTryout, type }) => {
     const navigate = useNavigate()
 
     return (
-        <button onClick={() => navigate(`/to-saya/${menu}/${idTransaksi}/${idTryout}/soal/${data.id_materi}`)} className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white lg:gap-0 gap-2'>
+        <button
+            onClick={() => {
+                if(type === undefined){
+                    navigate(`/to-saya/${menu}/${idTransaksi}/${idTryout}/soal/${data.id_materi}`)
+                }else{
+                    navigate(`/to-saya/${menu}/${idTransaksi}/${idTryout}/pembahasan/${data.id_materi}`)
+                }
+            }}
+            className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white lg:gap-0 gap-2'
+        >
             <div className='flex-1 text-start'>
                 <h1 className='font-bold text-xl'>{data.nama}</h1>
             </div>

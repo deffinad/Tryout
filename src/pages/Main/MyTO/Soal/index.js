@@ -4,8 +4,9 @@ import { Button } from '../../../../components/Button'
 import { RadioButton } from '../../../../components/RadioButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { getListSoalTryout } from "../../../../Redux/actions/my-to.actions";
+import { addMyToAnswer, clearListTryout, getListSoalTryout } from "../../../../Redux/actions/my-to.actions";
 import DialogModal from '../../../../components/DialogModal'
+import { useNavigate } from 'react-router-dom'
 
 export const SoalTryOut = () => {
     const { menu, id_transaksi, id_tryout, id_materi } = useParams()
@@ -15,6 +16,7 @@ export const SoalTryOut = () => {
     const { listSoal } = useSelector(state => state.myTo)
     const [soal, setSoal] = useState([])
     const [jawaban, setJawaban] = useState({})
+    const navigate = useNavigate()
     const [state, setState] = useState({
         days: null,
         hours: null,
@@ -39,6 +41,7 @@ export const SoalTryOut = () => {
     }
 
     useEffect(() => {
+        dispatch(clearListTryout())
         dispatch(getListSoalTryout(menu, id_tryout, id_materi))
     }, [])
 
@@ -72,8 +75,8 @@ export const SoalTryOut = () => {
         if (status === 1) {
             let payloadJawaban = []
 
-            if(Object.keys(jawaban).length !== 0){
-                for(const value in jawaban){
+            if (Object.keys(jawaban).length !== 0) {
+                for (const value in jawaban) {
                     payloadJawaban.push({
                         id_soal: value,
                         value: jawaban[value]
@@ -87,18 +90,20 @@ export const SoalTryOut = () => {
                 id_materi: id_materi,
                 jawaban: payloadJawaban
             }
-            console.log(payload)
+            dispatch(addMyToAnswer(payload, navigate))
             setToggleSelesai({
                 toggle: false,
                 id: ''
             })
+            setTimeout(() => {
+                navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
+            }, 3000)
         } else {
             setToggleSelesai({
                 toggle: false,
                 id: ''
             })
         }
-
     }
 
     const setNewTime = (countdownDate) => {
@@ -177,7 +182,16 @@ export const SoalTryOut = () => {
                                     <div className='absolute top-0 left-0 py-1 w-28 flex items-center justify-center text-white rounded-tl-3xl rounded-br-lg bg-primary'>
                                         <p>Soal {activeSoalIndex + 1}</p>
                                     </div>
-                                    <div className='bg-gray-100 py-2'>
+
+                                    {
+                                        value.gambar !== '' ? (
+                                            <div className='py-2'>
+                                                <img src={value.gambar} className='w-full' />
+                                            </div>
+                                        ) : null
+                                    }
+
+                                    <div className={`bg-gray-100 rounded ${value.gambar === '' ? 'py-2' : 'py-0'}`}>
                                         <p>{value.nama}</p>
                                     </div>
 

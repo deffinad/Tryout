@@ -22,6 +22,7 @@ const RegisterPage = () => {
     const [jenisKelamin, setJenisKelamin] = useState('');
     const [provinsi, setProvinsi] = useState('');
     const [asalKota, setAsalKota] = useState('');
+    const [avatar, setAvatar] = useState(null)
 
     const pilihanJnsKelamin = [
         { name: 'Laki-Laki', value: 'Laki-Laki' },
@@ -32,7 +33,7 @@ const RegisterPage = () => {
         const payload = {
             'asal_kota': asalKota,
             'asal_sekolah': asalSekolah,
-            'avatar': '',
+            'avatar': avatar,
             'email': email,
             'jenis_kelamin': jenisKelamin,
             'nama': namaLengkap,
@@ -132,11 +133,26 @@ const RegisterPage = () => {
                                         />
                                     </div>
                                 </div>
+
                                 <InlineIconInput
                                     type="email"
                                     value={email}
                                     placeholder="Email"
                                     onchange={(e) => setEmail(e.target.value)}
+                                />
+                                <InlineIconInput
+                                    type="file"
+                                    name="avatar"
+                                    onchange={(e) => {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            var imageBase64 = e.target.result;
+                                            setAvatar(imageBase64)
+                                        };
+
+                                        reader.readAsDataURL(e.target.files[0]);
+                                    }}
                                 />
                                 <InlineIconInput
                                     value={uname}

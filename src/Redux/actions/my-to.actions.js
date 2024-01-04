@@ -1,6 +1,6 @@
-import { addToMyTransactionApi, getDetailTryoutApi, getListMyTransactionApi, getListSoalTryoutApi } from "../../shared/api/myTo"
+import { addMyToAnswerApi, addToMyTransactionApi, getDetailMyTryoutApi, getDetailTryoutApi, getListMyTransactionApi, getListMyTryoutApi, getListSoalTryoutApi, getMyTryoutAnswerApi } from "../../shared/api/myTo"
 import { fetchStart, fetchSuccess, fetchError } from "./common.actions"
-import { ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_STATUS_PAYMENT } from "./types"
+import { ADD_ANSWER, ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_MY_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_MY_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_MY_TRYOUT_ANSWER, GET_STATUS_PAYMENT } from "./types"
 import { getStatusPaymentApi } from "../../shared/api/payment"
 
 export const getListMyTransaction = (kategori = 'utbk') => {
@@ -126,9 +126,83 @@ export const getListSoalTryout = (menu, id_tryout, id_materi) => {
     }
 }
 
-
 export const clearListTryout = () => {
     return (dispatch) => {
-        dispatch({ type:  CLEAR_LIST_SOAL_TRYOUT})
+        dispatch({ type: CLEAR_LIST_SOAL_TRYOUT })
+    }
+}
+
+export const addMyToAnswer = (payload) => {
+    return dispatch => {
+        dispatch(fetchStart())
+        addMyToAnswerApi(payload)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess('Jawaban Telah Berhasil Di Kirim'))
+                    dispatch({ type: ADD_ANSWER })
+                } else {
+                    console.log(res)
+                    dispatch(fetchError('Jawaban Gagal Di Kirim'))
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+                dispatch(fetchError('Jawaban Gagal Di Kirim'))
+            })
+    }
+}
+
+export const getListMyTryout = () => {
+    return dispatch => {
+        dispatch(fetchStart())
+        getListMyTryoutApi()
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(''))
+                    dispatch({ type: GET_LIST_MY_TRYOUT, payload: res.result })
+                } else {
+                    dispatch(fetchError('Gagal memproses list my tryout'))
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError('Gagal memproses list my tryout'))
+            })
+    }
+}
+
+export const getDetailMyTryout = (id_tryout) => {
+    return dispatch => {
+        dispatch(fetchStart())
+        getDetailMyTryoutApi(id_tryout)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(''))
+                    dispatch({ type: GET_DETAIL_MY_TRYOUT, payload: res.result })
+                } else {
+                    dispatch(fetchError('Gagal memproses list my tryout'))
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError('Gagal memproses list my tryout'))
+            })
+    }
+}
+
+
+export const getMyTryoutAnswer = (id_transkasi, id_tryout, id_materi) => {
+    return dispatch => {
+        dispatch(fetchStart())
+        getMyTryoutAnswerApi(id_transkasi, id_tryout, id_materi)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(''))
+                    dispatch({ type: GET_MY_TRYOUT_ANSWER, payload: res.result })
+                } else {
+                    dispatch(fetchError('Gagal memproses my tryout answer'))
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError('Gagal memproses my tryout answer'))
+            })
     }
 }

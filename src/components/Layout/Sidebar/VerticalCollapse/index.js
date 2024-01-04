@@ -27,7 +27,7 @@ const VerticalCollapse = ({ item, level, active, setActive }) => {
         </div>
       </button>
 
-      <div className={`${toggle ? 'h-[200px]' : 'h-0'} transition-all ease-in-out duration-500 overflow-hidden relative`}>
+      <div className={`${toggle ? 'h-[170px]' : 'h-0'} transition-all ease-in-out duration-500 overflow-hidden relative`}>
         {item.children && item.children.map(item => (
           <div key={item.id}>
             <VerticalItem item={item} active={active} setActive={setActive} />
