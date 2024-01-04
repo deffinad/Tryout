@@ -401,6 +401,39 @@ class ModelTryout {
       };
     }
   }
+
+  async getMyTryoutAnswer(id_transaksi, id_tryout, id_materi, token) {
+    let dataJawaban = null
+    const ref = await db.collection('transaksi')
+    const snap = await ref.get()
+
+    for (const item of snap.docs) {
+      if (item.data().token === token) {
+        const refJawaban = await db.collection('transaksi').doc(item.id).collection('jawaban')
+        const snapJawaban = await refJawaban.get()
+        for (const value of snapJawaban.docs) {
+          const data = value.data()
+          if (data.id_transaksi === id_transaksi && data.id_tryout === id_tryout && data.id_materi === id_materi) {
+            dataJawaban = {
+              ...data
+            }
+          }
+        }
+      }
+    }
+
+    if (dataJawaban !== null) {
+      return {
+        isTrue: true,
+        data: dataJawaban,
+      };
+    } else {
+      return {
+        isTrue: false,
+        data: dataJawaban
+      };
+    }
+  }
 }
 
 module.exports = ModelTryout;

@@ -321,7 +321,6 @@ const onGetListMyTryout = async (req, res) => {
 const onGetDetailMyTryout = async (req, res) => {
     const token = req.headers.authorization
     const { id } = req.params
-    console.log(id)
     try {
         const result = await tryoutModel.getDetailMyTryout(token, id);
 
@@ -347,5 +346,32 @@ const onGetDetailMyTryout = async (req, res) => {
     }
 };
 
+const onGetMyTryoutAnswer = async (req, res) => {
+    const token = req.headers.authorization
+    const { id_transaksi, id_tryout, id_materi } = req.params
+    try {
+        const result = await tryoutModel.getMyTryoutAnswer(id_transaksi, id_tryout, id_materi, token);
 
-module.exports = { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut, onGetListMyTryout, onGetDetailMyTryout };
+        if (result.isTrue) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data Jawaban My Try Out Ditemukan",
+                result: result.data,
+            });
+        } else {
+            res.status(403).json({
+                status: 403,
+                messages: "Data Jawaban My Tryout Tidak Ditemukan",
+                result: result.data
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+};
+
+module.exports = { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut, onGetListMyTryout, onGetDetailMyTryout, onGetMyTryoutAnswer };
