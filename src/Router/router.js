@@ -29,7 +29,7 @@ export const router = [
         element: <ProfilePage />,
     },
     {
-        path: "/profile-saya/edit/:id",
+        path: "/profile-saya/edit",
         element: <ProfilePage />,
     },
     {

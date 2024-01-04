@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { FaBars, FaXmark } from 'react-icons/fa6'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../../shared/hooks/useAuth'
@@ -7,6 +7,14 @@ export const Navbar = ({ toggle = false, setToggle }) => {
     const navigation = useNavigate()
     const { user, logout } = useAuth()
     const { pathname } = useLocation()
+
+    const renderAvatar = useCallback(() => {
+        if (user){
+            if (user.avatar !== '') return user.avatar;
+            return '/assets/img/avatar.png'
+        }
+        
+    }, [user])
 
     return (
         <div className='w-full bg-primary h-[90px] flex flex-row items-center justify-between text-textColor md:px-16 px-8 fixed z-10'>
@@ -38,7 +46,7 @@ export const Navbar = ({ toggle = false, setToggle }) => {
                                     <li>
                                         <div className='flex flex-row gap-4'>
                                             <img 
-                                                src={user?.avatar !== "" ? user?.avatar : '/assets/img/avatar.png'} 
+                                                src={renderAvatar()} 
                                                 alt="Rounded avatar" 
                                                 className="w-10 h-10 rounded-full cursor-pointer"
                                                 onClick={() => navigation('/profile-saya')} 

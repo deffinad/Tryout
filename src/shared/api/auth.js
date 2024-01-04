@@ -28,6 +28,7 @@ export const updateProfileApi = async (id, payload) => {
     const response = await fetch(API.UPDATE_PROFILE_USER.replace('$id',id), {
         method: 'PUT',
         headers: {
+            'Authorization': localStorage.getItem('token'),
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload)
