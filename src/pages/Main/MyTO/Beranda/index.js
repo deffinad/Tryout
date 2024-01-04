@@ -26,7 +26,7 @@ const BerandaTOSaya = () => {
 
     useEffect(() => {
         let newCountDate = 0
-        if (detail !== null && type !== undefined) {
+        if (detail !== null && type === undefined) {
             detail.materi.map(item => {
                 newCountDate = newCountDate + parseInt(item.waktu_mengerjakan)
             })
