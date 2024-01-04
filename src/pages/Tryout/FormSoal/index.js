@@ -93,6 +93,7 @@ const FormSoal = () => {
         setData({
           ...data, soal: [...data.soal, {
             nama: '',
+            gambar: '',
             pembahasan: '',
             opsi: [
               {
@@ -124,6 +125,7 @@ const FormSoal = () => {
       setData({
         ...data, soal: [...data.soal, {
           nama: '',
+          gambar: '',
           pembahasan: '',
           opsi: [
             {
@@ -162,9 +164,18 @@ const FormSoal = () => {
     })
   }
 
-  const handleInputSoal = (index, key, value) => {
+  const handleInputSoal = async (index, key, value) => {
     let newSoal = [...data.soal]
-    newSoal[index][key] = value
+    if (key === 'gambar') {
+      try {
+        const base64String = await convertImageToBase64(value);
+        newSoal[index][key] = base64String
+      } catch (error) {
+        console.error('Error converting image to Base64:', error);
+      }
+    } else {
+      newSoal[index][key] = value
+    }
     setData({
       ...data,
       soal: newSoal
@@ -203,15 +214,31 @@ const FormSoal = () => {
         waktu_mengerjakan: data.waktu_pengerjaan,
         soal: data.soal
       }
-      
-      if(id_materi !== undefined){
+
+      if (id_materi !== undefined) {
         dispatch(updateSoalTryout(payload, jenis, id, navigation))
-      }else{
+      } else {
         dispatch(addSoalTryout(payload, jenis, id, navigation))
       }
     }
   }
 
+  const convertImageToBase64 = (image) => {
+    return new Promise((resolve, reject) => {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var imageBase64 = e.target.result;
+        resolve(imageBase64);
+      };
+
+      reader.onerror = function (error) {
+        reject(error);
+      };
+
+      reader.readAsDataURL(image);
+    });
+  };
   return (
     <Fragment>
       <Card
@@ -272,6 +299,15 @@ const FormSoal = () => {
                     <button onClick={() => deleteSoal(index)}><FaXmark /></button>
                   </div>
                   <div className='flex flex-col gap-6 '>
+                    <div>
+                      <TextInput
+                        name="image"
+                        label="Gambar"
+                        type='file'
+                        onChange={(e) => handleInputSoal(index, 'gambar', e.target.files[0])}
+                      />
+                    </div>
+
                     <div>
                       <TextInputArea
                         name="soal"
