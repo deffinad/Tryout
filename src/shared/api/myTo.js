@@ -77,16 +77,60 @@ export const getListSoalTryoutApi = async (kategori, id_tryout, id_materi) => {
     }
 }
 
-
 export const addMyToAnswerApi = async (payload) => {
     try {
         const response = await fetch(API.ADD_ANSWER, {
             method: 'POST',
             headers: {
                 'Authorization': localStorage.getItem('token'),
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload)
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getListMyTryoutApi = async () => {
+    try {
+        const response = await fetch(API.GET_LIST_MY_TRYOUT, {
+            method: 'GET',
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getDetailMyTryoutApi = async (id_tryout) => {
+    try {
+        const response = await fetch(API.GET_DETAIL_MY_TRYOUT.replace('$id', id_tryout), {
+            method: 'GET',
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getMyTryoutAnswerApi = async (id_transaksi, id_tryout, id_materi) => {
+    try {
+        const response = await fetch(API.GET_MY_TRYOUT_ANSWER.replace('$id_transaksi', id_transaksi).replace('$id_tryout', id_tryout).replace('$id_materi', id_materi), {
+            method: 'GET',
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
         })
 
         return response.json();

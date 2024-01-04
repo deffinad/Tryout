@@ -76,4 +76,8 @@ export const router = [
         path: "/to-saya/:menu/:id_transaksi/:id_tryout/pembahasan/:id_materi",
         element: <MyTryOut />,
     },
+    {
+        path: "/to-saya/:menu/beranda/:id_transaksi/:id_tryout/:type",
+        element: <MyTryOut />,
+    },
 ];

@@ -8,7 +8,7 @@ import moment from 'moment/moment';
 moment.locale('id')
 
 const BerandaTOSaya = () => {
-    const { menu, id_tryout, id_transaksi } = useParams()
+    const { menu, id_tryout, id_transaksi, type } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { detail } = useSelector(state => state.myTo)
@@ -26,7 +26,7 @@ const BerandaTOSaya = () => {
 
     useEffect(() => {
         let newCountDate = 0
-        if (detail !== null) {
+        if (detail !== null && type !== undefined) {
             detail.materi.map(item => {
                 newCountDate = newCountDate + parseInt(item.waktu_mengerjakan)
             })
@@ -71,39 +71,52 @@ const BerandaTOSaya = () => {
         <section className='flex flex-col gap-8'>
             <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-4'>
                 <div className='flex flex-col gap-4 justify-between'>
+                    {
+                        type !== undefined ? (
+                            <h1 className="text-xl font-bold uppercase">Pembahasan</h1>
+                        ): null
+                    }
                     <h1 className="text-4xl font-bold uppercase">{detail?.nama}</h1>
-                    <div className='flex flex-col'>
-                        <p className='font-semibold text-xl '>Masa Pengerjaan</p>
-                        <p className='font-semibold text-base '>{moment(detail?.jadwal).format('DD MMMM YYYY')} - Tidak Ada Batas</p>
-                        <p >Try Out dapat dikerjakan mulai pukul 09.00, {moment(detail?.jadwal).format('DD MMMM YYYY')}</p>
-                    </div>
+                    {
+                        type === undefined ? (
+                            <div className='flex flex-col'>
+                                <p className='font-semibold text-xl '>Masa Pengerjaan</p>
+                                <p className='font-semibold text-base '>{moment(detail?.jadwal).format('DD MMMM YYYY')} - Tidak Ada Batas</p>
+                                <p >Try Out dapat dikerjakan mulai pukul 09.00, {moment(detail?.jadwal).format('DD MMMM YYYY')}</p>
+                            </div>
+                        ) : null
+                    }
                 </div>
 
-                <div className='flex lg:justify-end'>
-                    <div className='flex flex-col gap-4'>
-                        <h1 className='text-xl font-bold'>Durasi Pengerjaan</h1>
-                        <div className='flex gap-2 text-white'>
-                            <div className='w-20 h-24 bg-primary rounded-[36px] flex flex-col items-center justify-center'>
-                                <p className='text-4xl font-semibold'>{state.hours || '00'}</p>
-                                <p>Jam</p>
-                            </div>
-                            <div className='w-20 h-24 bg-secondary rounded-[36px] flex flex-col items-center justify-center'>
-                                <p className='text-4xl font-semibold'>{state.minutes || '00'}</p>
-                                <p>Menit</p>
-                            </div>
-                            <div className='w-20 h-24 bg-bgRed rounded-[36px] flex flex-col items-center justify-center'>
-                                <p className='text-4xl font-semibold'>{state.seconds || '00'}</p>
-                                <p>Detik</p>
+                {
+                    type === undefined ? (
+                        <div className='flex lg:justify-end'>
+                            <div className='flex flex-col gap-4'>
+                                <h1 className='text-xl font-bold'>Durasi Pengerjaan</h1>
+                                <div className='flex gap-2 text-white'>
+                                    <div className='w-20 h-24 bg-primary rounded-[36px] flex flex-col items-center justify-center'>
+                                        <p className='text-4xl font-semibold'>{state.hours || '00'}</p>
+                                        <p>Jam</p>
+                                    </div>
+                                    <div className='w-20 h-24 bg-secondary rounded-[36px] flex flex-col items-center justify-center'>
+                                        <p className='text-4xl font-semibold'>{state.minutes || '00'}</p>
+                                        <p>Menit</p>
+                                    </div>
+                                    <div className='w-20 h-24 bg-bgRed rounded-[36px] flex flex-col items-center justify-center'>
+                                        <p className='text-4xl font-semibold'>{state.seconds || '00'}</p>
+                                        <p>Detik</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    ) : null
+                }
             </div>
 
             <div className='grid grid-cols-2 mt-4 gap-4'>
                 {
                     detail?.materi.map(item => (
-                        <ItemTipeSoal data={item} menu={menu} idTransaksi={id_transaksi} idTryout={id_tryout} />
+                        <ItemTipeSoal data={item} menu={menu} idTransaksi={id_transaksi} idTryout={id_tryout} type={type}/>
                     ))
                 }
             </div>

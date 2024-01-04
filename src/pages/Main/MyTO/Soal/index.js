@@ -104,7 +104,6 @@ export const SoalTryOut = () => {
                 id: ''
             })
         }
-
     }
 
     const setNewTime = (countdownDate) => {
