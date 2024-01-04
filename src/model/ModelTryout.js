@@ -61,7 +61,7 @@ class ModelTryout {
       data = null
     }
 
-    if (data != null) {
+    if (data !== null) {
       return {
         isTrue: true,
         data: data,
@@ -273,6 +273,121 @@ class ModelTryout {
     });
 
     if (data.length > 0) {
+      return {
+        isTrue: true,
+        data: data,
+      };
+    } else {
+      return {
+        isTrue: false,
+        data: data
+      };
+    }
+  }
+
+  async getListMyTryout(token) {
+    let data = []
+    const ref = await db.collection("transaksi");
+    const snapshot = await ref.get();
+
+    for (var value of snapshot.docs) {
+      if (value.data().token === token && value.data().status === 'berhasil') {
+        const refJawaban = await db.collection('transaksi').doc(value.id).collection('jawaban')
+        const snapJawaban = await refJawaban.get()
+
+        for (var valJawaban of snapJawaban.docs) {
+          let check = data.some(item => item.id_tryout === valJawaban.data().id_tryout)
+
+          const refTryout = await db.collection('list_tryout').doc(valJawaban.data().id_tryout)
+          const snapTryout = await refTryout.get()
+
+          const refMateri = await db.collection('materi').doc(valJawaban.data().id_materi)
+          const snapMateri = await refMateri.get()
+
+          if (check) {
+            let index = data.findIndex(val => val.id_tryout === valJawaban.data().id_tryout)
+            data[index].materi.push({
+              id_materi: valJawaban.data().id_materi,
+              ...snapMateri.data(),
+              nilai: valJawaban.data().nilai
+            })
+            data[index].total_nilai = data[index].total_nilai + valJawaban.data().nilai
+            data[index].rata_nilai = data[index].total_nilai / data[index].materi.length
+          } else {
+            data.push({
+              id_tryout: valJawaban.data().id_tryout,
+              ...snapTryout.data(),
+              materi: [{
+                id_materi: valJawaban.data().id_materi,
+                ...snapMateri.data(),
+                nilai: valJawaban.data().nilai
+              }],
+              total_nilai: valJawaban.data().nilai,
+              rata_nilai: valJawaban.data().nilai / 1
+            })
+          }
+        }
+      }
+    }
+
+    if (data.length > 0) {
+      return {
+        isTrue: true,
+        data: data,
+      };
+    } else {
+      return {
+        isTrue: false,
+        data: data
+      };
+    }
+  }
+
+  async getDetailMyTryout(token, id_tryout) {
+    let data = null
+    const ref = await db.collection("transaksi");
+    const snapshot = await ref.get();
+
+    for (var value of snapshot.docs) {
+      if (value.data().token === token && value.data().status === 'berhasil') {
+        const refJawaban = await db.collection('transaksi').doc(value.id).collection('jawaban')
+        const snapJawaban = await refJawaban.get()
+
+        for (var valJawaban of snapJawaban.docs) {
+          if (valJawaban.data().id_tryout === id_tryout) {
+            const refTryout = await db.collection('list_tryout').doc(valJawaban.data().id_tryout)
+            const snapTryout = await refTryout.get()
+
+            const refMateri = await db.collection('materi').doc(valJawaban.data().id_materi)
+            const snapMateri = await refMateri.get()
+
+            if (data !== null) {
+              data.materi.push({
+                id_materi: valJawaban.data().id_materi,
+                ...snapMateri.data(),
+                nilai: valJawaban.data().nilai
+              })
+              data.total_nilai = data.total_nilai + valJawaban.data().nilai
+              data.rata_nilai = data.total_nilai / data.materi.length
+            } else {
+              data = {
+                id_tryout: valJawaban.data().id_tryout,
+                ...snapTryout.data(),
+                materi: [{
+                  id_materi: valJawaban.data().id_materi,
+                  ...snapMateri.data(),
+                  nilai: valJawaban.data().nilai
+                }],
+                total_nilai: valJawaban.data().nilai,
+                rata_nilai: valJawaban.data().nilai / 1
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (data !== null) {
       return {
         isTrue: true,
         data: data,

@@ -291,5 +291,61 @@ const onGetListJadwalTryOut = async (req, res) => {
     }
 };
 
+const onGetListMyTryout = async (req, res) => {
+    const token = req.headers.authorization
+    try {
+        const result = await tryoutModel.getListMyTryout(token);
 
-module.exports = { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut };
+        if (result.isTrue) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data My Try Out Ditemukan",
+                result: result.data,
+            });
+        } else {
+            res.status(403).json({
+                status: 403,
+                messages: "Data My Tryout Tidak Ditemukan",
+                result: result.data
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+};
+
+const onGetDetailMyTryout = async (req, res) => {
+    const token = req.headers.authorization
+    const { id } = req.params
+    console.log(id)
+    try {
+        const result = await tryoutModel.getDetailMyTryout(token, id);
+
+        if (result.isTrue) {
+            res.status(200).json({
+                status: 200,
+                messages: "Data My Try Out Ditemukan",
+                result: result.data,
+            });
+        } else {
+            res.status(403).json({
+                status: 403,
+                messages: "Data My Tryout Tidak Ditemukan",
+                result: result.data
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+        });
+    }
+};
+
+
+module.exports = { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut, onGetListMyTryout, onGetDetailMyTryout };

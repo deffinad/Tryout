@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 const cors = require("cors");
 const { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, onUpdateUser, onDeleteUser } = require("../controller/auth.js");
-const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut } = require("../controller/tryout.js");
+const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut, onGetListMyTryout, onGetDetailMyTryout } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
 const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation, transaksiReqTokenValidation, jawabanValidation } = require("../controller/validation.js");
@@ -73,6 +73,8 @@ router.get("/list/:kategori/:id/soal/:id_materi", onGetListSoalTryOut);
 router.post("/list/:kategori/:id/soal", soalTryoutValidation, onAddSoal);
 router.put("/list/:kategori/:id/soal/:id_materi", soalTryoutValidation, onUpdateSoal);
 router.get("/jadwal", onGetListJadwalTryOut);
+router.get("/my-to", onGetListMyTryout);
+router.get("/my-to/:id", onGetDetailMyTryout);
 
 //MATERI
 router.get("/materi/:kategori", onGetListMateri);
