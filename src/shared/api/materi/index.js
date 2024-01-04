@@ -5,7 +5,7 @@ export const getListMateriApi = async (kategori) => {
         const response = await fetch(API.GET_LIST_MATERI.replace('$kategori', kategori), {
             method: 'GET',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY'
+                'Authorization': 'zitPy6simHZxUDFOXiTZ'
             }
         })
 
@@ -20,7 +20,7 @@ export const getDetailMateriApi = async (id, kategori) => {
         const response = await fetch(API.GET_DETAIL_MATERI.replace('$kategori', kategori).replace('$id', id), {
             method: 'GET',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY'
+                'Authorization': 'zitPy6simHZxUDFOXiTZ'
             }
         })
 
@@ -35,7 +35,7 @@ export const updateMateriApi = async (id, payload) => {
         const response = await fetch(API.UPDATE_MATERI.replace('$id', id), {
             method: 'PUT',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
@@ -52,7 +52,7 @@ export const deleteMateriApi = async (id) => {
         const response = await fetch(API.DELETE_MATERI.replace('$id', id), {
             method: 'DELETE',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
             },
         })
 
@@ -67,7 +67,7 @@ export const addMateriApi = async (payload) => {
         const response = await fetch(API.ADD_MATERI, {
             method: 'POST',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)

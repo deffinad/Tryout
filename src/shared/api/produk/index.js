@@ -5,7 +5,7 @@ export const getListProdukApi = async () => {
         const response = await fetch(API.GET_LIST_PRODUK, {
             method: 'GET',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY'
+                'Authorization': 'zitPy6simHZxUDFOXiTZ'
             }
         })
 
@@ -15,12 +15,12 @@ export const getListProdukApi = async () => {
     }
 }
 
-export const getDetailProdukApi = async (id) => {
+export const getDetailProdukApi = async (id, kategori) => {
     try {
-        const response = await fetch(API.GET_DETAIL_PRODUK.replace('$id', id), {
+        const response = await fetch(API.GET_DETAIL_PRODUK.replace('$id', id).replace('$kategori', kategori), {
             method: 'GET',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY'
+                'Authorization': 'zitPy6simHZxUDFOXiTZ'
             }
         })
 
@@ -35,7 +35,7 @@ export const addProdukApi = async (payload) => {
         const response = await fetch(API.ADD_PRODUK, {
             method: 'POST',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
@@ -52,7 +52,7 @@ export const updateProdukApi = async (id, payload) => {
         const response = await fetch(API.UPDATE_PRODUK.replace('$id', id), {
             method: 'PUT',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
@@ -69,7 +69,7 @@ export const deleteProdukApi = async (id) => {
         const response = await fetch(API.DELETE_PRODUK.replace('$id', id), {
             method: 'DELETE',
             headers: {
-                'Authorization': 'iJA81HfgjmqWibwwURLY',
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
             }
         })
 

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearDetailPaket, deleteProduk, getDetailProduk, updateProduk } from '../../../../redux/actions/produk.action';
 import TextInput from '../../../../components/TextInput';
 import TextInputDropdown from '../../../../components/TextInputDropdown';
+import { clearListTryout, getListTryout } from '../../../../redux/actions/tryout.action';
 
 const DataListItem = ({ data, index, setRefresh }) => {
     const dispatch = useDispatch();
@@ -47,9 +48,12 @@ const DataListItem = ({ data, index, setRefresh }) => {
     ]
 
     const { detail } = useSelector(state => state.produk);
+    const { loading } = useSelector(state => state.common);
+    const { list: listTo } = useSelector(state => state.tryout);
 
-    const handleOpenEditModal = (id) => {
-        dispatch(getDetailProduk(id));
+    const handleOpenEditModal = (id, kategori) => {
+        dispatch(getDetailProduk(id, kategori));
+        dispatch(getListTryout(kategori));
         setOpen(true);
     }
 
@@ -84,11 +88,13 @@ const DataListItem = ({ data, index, setRefresh }) => {
     const handleCloseDialog = (status = 0) => {
         if (status === 1) {
             // action
-            dispatch(deleteProduk(data.id, setRefresh));
             setOpenDialog(false);
+            dispatch(clearListTryout());
+            dispatch(deleteProduk(data.id, setRefresh));
         } else {
             // tutup
             setOpenDialog(false);
+            dispatch(clearListTryout());
         }
     }
 
@@ -109,7 +115,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
         if (detail !== null) {
             const arrayIdTo = []
             detail.result.tryout.map(item => {
-                arrayIdTo.push(item.id);
+                return arrayIdTo.push(item.id);
             })
             if (detail.result.jenis === "biasa") {
                 setJenis({
@@ -136,12 +142,16 @@ const DataListItem = ({ data, index, setRefresh }) => {
             setToId(arrayIdTo);
         }
 
-        return () => { }
+        return () => setJenis({
+            biasa: false,
+            paket: false,
+            premium: false
+        })
     }, [detail])
 
     return (
         <Fragment>
-             <tr className='bg-white hover:bg-gray-100 cursor-pointer'>
+            <tr className='bg-white hover:bg-gray-100 cursor-pointer'>
                 <td className="w-[5%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap text-center">{index + 1}.</p>
                 </td>
@@ -168,7 +178,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
                             bgColor="bg-primary"
                             textColor="text-white"
                             bgColorHover='hover:bg-bgHoverPrimary'
-                            onClick={() => handleOpenEditModal(data.id)}
+                            onClick={() => handleOpenEditModal(data.id, data.kategori)}
                         />
                         <Button
                             title="Hapus"
@@ -210,11 +220,16 @@ const DataListItem = ({ data, index, setRefresh }) => {
                         </div>
                         <div className='col-span-2'>
                             <TextInputDropdown
+                                disabled={true}
                                 name='jenis-to'
                                 label="Jenis To"
                                 value={kategori}
                                 options={pilihanKategori}
-                                onChange={(e) => setKategori(e.target.value)}
+                                onChange={(e) => {
+                                    setToId([])
+                                    setKategori(e.target.value)
+                                    dispatch(getListTryout(e.target.value))
+                                }}
                             />
                         </div>
                         <div className='col-span-2'>
@@ -222,7 +237,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
                                 Deskripsi
                             </label>
                             <div className='p-2 border border-gray-300 rounded-md grid grid-rows-3 grid-flow-col gap-4'>
-                                {detail?.result.tryout.map(item => (
+                                {/* {detail?.result.tryout?.map(item => (
                                     <div key={item.id} className='flex items-center gap-2'>
                                         <input
                                             type="checkbox"
@@ -232,7 +247,23 @@ const DataListItem = ({ data, index, setRefresh }) => {
                                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                         <label htmlFor={item.id} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{item.nama}</label>
                                     </div>
-                                ))}
+                                ))} */}
+                                {listTo !== null ? (
+                                    listTo?.result.map(item => (
+                                        <div key={item.id} className='flex items-center gap-2'>
+                                            <input
+                                                type="checkbox"
+                                                checked={toId.includes(item.id)}
+                                                id={item.id}
+                                                onChange={(e) => { handleSetToId(e.target.id) }}
+                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                            <label htmlFor={item.id} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{item.nama}</label>
+                                        </div>
+                                    ))
+                                ) : (
+                                    loading &&
+                                    <p>Loading...</p>
+                                )}
                             </div>
                         </div>
                         <div className="col-span-2">
@@ -247,6 +278,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
                         <div className="col-span-2">
                             <TextInput
                                 name='diskon'
+                                label='Diskon'
                                 value={diskon}
                                 placeholder='Masukkn Harga'
                                 onChange={(e) => setDiskon(e.target.value)}

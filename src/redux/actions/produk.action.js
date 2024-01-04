@@ -1,6 +1,7 @@
 import { addProdukApi, deleteProdukApi, getDetailProdukApi, getListProdukApi, updateProdukApi } from "../../shared/api/produk";
 import { CLEAR_DETAIL_PAKET, GET_DETAIL_PAKET, GET_LIST_PAKET } from "./types";
 import { fetchError, fetchStart, fetchSuccess } from './common.action';
+import { clearListTryout } from "./tryout.action";
 
 export const getListProduk = () => {
     return (dispatch) => {
@@ -61,10 +62,12 @@ export const updateProduk = (id, payload, setRefresh) => {
         updateProdukApi(id, payload)
             .then((res) => {
                 if (res.status === 200) {
-                    dispatch(fetchSuccess('Update Produk Berhasil'))
                     setRefresh(true)
+                    dispatch(fetchSuccess('Update Produk Berhasil'))
+                    dispatch(clearListTryout());
                 } else {
                     dispatch(fetchError(res.messages))
+                    dispatch(clearListTryout());
                 }
             })
             .catch((error) => {
@@ -86,7 +89,7 @@ export const deleteProduk = (id, setRefresh) => {
                 }
             })
             .catch((error) => {
-                dispatch(fetchError(error   ))
+                dispatch(fetchError(error))
             })
     }
 }
