@@ -14,7 +14,7 @@ const ProfileSaya = () => {
             <div className="flex flex-row justify-start gap-8 mb-10">
                 <img className="mb-3 rounded-full shadow-lg w-56 h-56 ring-2 ring-gray-300" src={user?.avatar !== "" ? user?.avatar : '/assets/img/avatar.png'} alt="" />
                 <div className="flex flex-col justify-center items-centers gap-2">
-                    <h1 className="text-3xl font-semibold uppercase">{user?.username}</h1>
+                    <h1 className="text-3xl font-semibold">{user?.username}</h1>
                     <h2 className="text-2xl font-medium uppercase">{user?.asal_sekolah}</h2>
                 </div>
             </div>

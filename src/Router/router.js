@@ -48,10 +48,10 @@ export const router = [
         path: "/list-to/:id",
         element: <DaftarTryOut />,
     },
-    {
-        path: "/pembayaran",
-        element: <Pembayaran />,
-    },
+    // {
+    //     path: "/pembayaran",
+    //     element: <Pembayaran />,
+    // },
     {
         path: "/to-saya/:menu",
         element: <MyTryOut />,

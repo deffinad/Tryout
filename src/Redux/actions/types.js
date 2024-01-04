@@ -23,3 +23,7 @@ export const GET_DETAIL_TRANSAKSI = "get_detail_transaksi";
 export const ADD_TRANSAKSI = "add_transaksi";
 export const GET_STATUS_PAYMENT = 'get_status_payment';
 export const ADD_ANSWER = "add_answer";
+
+// MY PROFILE
+export const GET_RIWAYAT_PEMBELIAN = 'get_riwayat_pembelian';
+export const GET_DETAIL_RIWAYAT_PEMBELIAN = 'get_detail_riwayat_pembelian';

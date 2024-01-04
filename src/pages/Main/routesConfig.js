@@ -71,13 +71,13 @@ export const routesMain = [
                     },
                 ]
             },
-            {
-                id: 'payment',
-                icon: <FaFileInvoice style={{width:'24px', height: '24px'}} className="text-primary"/>,
-                title: 'Payment',
-                type: 'item',
-                pathUrl: '/pembayaran'
-            },
+            // {
+            //     id: 'payment',
+            //     icon: <FaFileInvoice style={{width:'24px', height: '24px'}} className="text-primary"/>,
+            //     title: 'Payment',
+            //     type: 'item',
+            //     pathUrl: '/pembayaran'
+            // },
             {
                 id: 'panduan',
                 icon: <FaCircleInfo style={{width:'24px', height: '24px'}} className="text-primary"/>,
