@@ -46,6 +46,9 @@ const GET_PEMBELIAN = BASE_URL + '/transaksi/all';
 // API TRYOUT
 const GET_LIST_USER = BASE_URL + '/user';
 const GET_DETAIL_USER = BASE_URL + '/user/$id';
+const UPDATE_USER = BASE_URL + '/user/$id';
+const DELETE_USER = BASE_URL + '/user/$id';
+const ADD_USER = BASE_URL + '/user';
 
 export const API = {
     BASE_URL,
@@ -70,5 +73,8 @@ export const API = {
     DELETE_DETAIL_TRYOUT,
     GET_PEMBELIAN,
     GET_LIST_USER,
-    GET_DETAIL_USER
+    GET_DETAIL_USER,
+    UPDATE_USER,
+    DELETE_USER,
+    ADD_USER,
 }

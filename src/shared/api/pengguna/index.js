@@ -30,9 +30,9 @@ export const getDetailUserApi = async (id) => {
     }
 }
 
-export const updateMateriApi = async (id, payload) => {
+export const updateUserApi = async (id, payload) => {
     try {
-        const response = await fetch(API.UPDATE_MATERI.replace('$id', id), {
+        const response = await fetch(API.UPDATE_USER.replace('$id', id), {
             method: 'PUT',
             headers: {
                 'Authorization': 'iJA81HfgjmqWibwwURLY',
@@ -47,9 +47,9 @@ export const updateMateriApi = async (id, payload) => {
     }
 }
 
-export const deleteMateriApi = async (id) => {
+export const deleteUserApi = async (id) => {
     try {
-        const response = await fetch(API.DELETE_MATERI.replace('$id', id), {
+        const response = await fetch(API.DELETE_USER.replace('$id', id), {
             method: 'DELETE',
             headers: {
                 'Authorization': 'iJA81HfgjmqWibwwURLY',
@@ -62,9 +62,9 @@ export const deleteMateriApi = async (id) => {
     }
 }
 
-export const addMateriApi = async (payload) => {
+export const addUserApi = async (payload) => {
     try {
-        const response = await fetch(API.ADD_MATERI, {
+        const response = await fetch(API.ADD_USER, {
             method: 'POST',
             headers: {
                 'Authorization': 'iJA81HfgjmqWibwwURLY',

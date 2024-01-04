@@ -1,12 +1,12 @@
 import React from "react";
 
-const Modal = ({ title = "", children, open, setClose }) => {
+const Modal = ({ title = "", children, open, setClose, style }) => {
     return (
         <>
             {open ? (
                 <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                        <div className="relative w-[450px] my-6 mx-auto max-w-3xl">
+                        <div className={`${style} relative w-[450px] mx-auto max-w-3xl`}>
                             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">

@@ -81,11 +81,11 @@ export const routesMain = [
         type: 'item',
         pathUrl: '/pembelian'
     },
-    {
-        id: 'jadwal-tryout',
-        icon: "FaRegCalendarDays",
-        title: 'Jadwal Tryout',
-        type: 'item',
-        pathUrl: '/jadwal-tryout'
-    },
+    // {
+    //     id: 'jadwal-tryout',
+    //     icon: "FaRegCalendarDays",
+    //     title: 'Jadwal Tryout',
+    //     type: 'item',
+    //     pathUrl: '/jadwal-tryout'
+    // },
 ] 

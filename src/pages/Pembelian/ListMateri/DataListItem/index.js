@@ -38,7 +38,7 @@ const DataListItem = ({ data, index, setRefresh }) => {
                 <td className="w-[20%] px-3 py-3 border-b border-gray-200 text-sm">
                     <div className='flex flex-row justify-start items-center'>
                         <div className={`rounded ${data.status === 'menunggu pembayaran' ? 'bg-yellow-400' : data.status === 'berhasil' ? 'bg-blue-400' : 'bg-red-400'} text-white px-2 flex flex-row items-center`}>
-                            <p className="text-lg whitespace-no-wrap">{data.status}</p>
+                            <p className="text-sm whitespace-no-wrap">{data.status}</p>
                         </div>
                     </div>
                 </td>
