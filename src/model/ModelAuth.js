@@ -45,7 +45,10 @@ class ModelAuth {
           const snapJawaban = await refJawaban.get()
 
           for (const value of snapJawaban.docs) {
-            dikerjakan.push(value.data().id_tryout)
+            let check = dikerjakan.some(val => val.id_tryout === value.data().id_tryout)
+            if(!check){
+              dikerjakan.push(value.data())
+            }
           }
         }
       }
