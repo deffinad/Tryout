@@ -93,7 +93,7 @@ router.delete("/produk/:id", onDeleteProduk);
 
 //TRANSAKSI
 router.get("/transaksi/:kategori", onGetListTransaksi);
-router.get("/transaksi/:id", onGetDetailTransaksi);
+router.get("/transaksi/detail/:id", onGetDetailTransaksi);
 router.post("/transaksi", onAddTransaksi);
 router.put("/transaksi/:id", onUpdateTransaksi);
 router.delete("/transaksi/:id", onDeleteTransaksi);
