@@ -171,7 +171,7 @@ const FormSoal = () => {
         const base64String = await convertImageToBase64(value);
         newSoal[index][key] = base64String
       } catch (error) {
-        console.error('Error converting image to Base64:', error);
+        newSoal[index][key] = ''
       }
     } else {
       newSoal[index][key] = value
