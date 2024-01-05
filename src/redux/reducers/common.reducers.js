@@ -3,7 +3,7 @@ import { FETCH_ERROR, FETCH_START, FETCH_SUCCESS } from "../actions/types"
 const initialState = {
     loading: false,
     message: "",
-    success: ""
+    error: ""
 }
 
 const commonReducers = (state = initialState, action) => {
@@ -12,19 +12,19 @@ const commonReducers = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case FETCH_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                success: action.payload
-            }
+                message: action.payload
+            };
         case FETCH_ERROR:
             return {
                 ...state,
                 loading: false,
-                message: action.payload
-            }
+                error: action.payload
+            };
         default:
             return state
     }
