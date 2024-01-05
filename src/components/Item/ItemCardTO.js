@@ -43,9 +43,9 @@ const ItemCardTO = ({ data }) => {
                                 "bank": paymentType === 'bank_transfer' ? res.va_numbers[0].bank : '',
                                 "qris": paymentType === 'qris' ? `https://api.sandbox.midtrans.com/v2/qris/${res.transaction_id}/qr-code` : '',
                                 "va_number": paymentType === 'bank_transfer' ? res.va_numbers[0].va_number : '',
+                                "transaction_id": res.transaction_id
                             }
                             dispatch(addToMyTransaction(payload))
-                            alert('berhasil melakukan proses pembayaran');
                         },
                         onPending: (res) => {
                             const paymentType = res.payment_type
@@ -57,9 +57,9 @@ const ItemCardTO = ({ data }) => {
                                 "bank": paymentType === 'bank_transfer' ? res.va_numbers[0].bank : '',
                                 "qris": paymentType === 'qris' ? `https://api.sandbox.midtrans.com/v2/qris/${res.transaction_id}/qr-code` : '',
                                 "va_number": paymentType === 'bank_transfer' ? res.va_numbers[0].va_number : '',
+                                "transaction_id": res.transaction_id
                             }
                             dispatch(addToMyTransaction(payload))
-                            alert('menunggu pembayaran');
                         },
                         onError: (error) => {
                             alert('gagal melakukan proses pembayaran');

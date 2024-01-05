@@ -47,6 +47,23 @@ export const addToMyTransactionApi = async (payload) => {
     }
 }
 
+export const updateToMyTransactionApi = async (id, payload) => {
+    try {
+        const response = await fetch(API.UPDATE_TRANSAKSI.replace('$id', id), {
+            method: 'PUT',
+            headers: {
+                'Authorization': localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
 export const getDetailTryoutApi = async (kategori, id) => {
     try {
         const response = await fetch(API.GET_DETAIL_TRYOUT.replace('$id', id).replace('$kategori', kategori), {

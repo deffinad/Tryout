@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa6";
 import { Button } from "../../../../components/Button";
@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailRiwayat } from "../../../../Redux/actions/profile.actions";
 import moment from "moment";
 import { stringToRupiah } from "../../../../shared/appEnums";
+import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/common.actions";
+import { getStatusPaymentApi } from "../../../../shared/api/payment";
+import { updateToMyTransaction } from "../../../../Redux/actions/my-to.actions";
 
 const DetailRiwayatPembelian = () => {
     const { id } = useParams();
@@ -14,11 +17,17 @@ const DetailRiwayatPembelian = () => {
     const { pathname } = useLocation();
     const { detail_pembelian: detail } = useSelector(state => state.profile);
 
+    const today = new Date();
+    const [refresh, setRefresh] = useState(true)
+
     useEffect(() => {
-        if (id !== null && pathname === `/profile-saya/riwayat-pembelian/detail/${id}`) {
+        if ((id !== null && pathname === `/profile-saya/riwayat-pembelian/detail/${id}`) || refresh) {
             dispatch(getDetailRiwayat(id));
+            setTimeout(() => {
+                setRefresh(false);
+            }, 2000)
         }
-    }, [dispatch, pathname])
+    }, [dispatch, pathname, refresh])
 
     const renderStatus = (status) => {
         switch (status) {
@@ -43,6 +52,45 @@ const DetailRiwayatPembelian = () => {
             default:
                 return <></>;
         }
+    }
+
+    const confirmPayment = (e) => {
+        e.preventDefault(e)
+        const {
+            id,
+            bank,
+            qris,
+            id_produk,
+            va_number,
+            tipe_pembayaran,
+            transaction_id,
+        } = detail
+        dispatch(fetchStart());
+        getStatusPaymentApi(transaction_id)
+            .then((res) => {
+                dispatch(fetchSuccess(''));
+                if (res.transaction_status === 'pending') {
+                    alert('Kamu masih belum bayar nih. Mohon segera lakukan pembayaran ya!');
+                }
+                if (res.transaction_status === 'settlement' || res.transaction_status === 'berhasil') {
+                    alert('Yeay, kamu sudah berhasil melakukan pembayaran!');
+                    const payload = {
+                        "id_produk": id_produk,
+                        "tanggal": moment(today).format('DD-MM-YYYY'),
+                        "status": 'berhasil',
+                        "tipe_pembayaran": tipe_pembayaran,
+                        "bank": bank,
+                        "qris": qris,
+                        "va_number": va_number,
+                        "transaction_id": transaction_id
+                    }
+                    dispatch(updateToMyTransaction(id, payload, setRefresh))
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError('Gagal mengambil status'))
+                console.log(error);
+            })
     }
 
     if (detail === null) {
@@ -104,7 +152,7 @@ const DetailRiwayatPembelian = () => {
                             <p className="text-primary font-semibold">Total Bayar</p>
                             <p className="text-black font-semibold">Rp. {stringToRupiah(detail?.result?.produk?.harga)}</p>
                         </div>
-                        <div className="flex flex-col gap-4 justify-center items-center mb-4">
+                        <div className="flex flex-col gap-4 justify-end items-end mb-4">
                             <div className="flex flex-row gap-4 justify-center items-center">
                                 <p className="text-primary font-semibold">Metode Bayar</p>
                                 {/* <img alt="Dana" src="/assets/img/dana.png" /> */}
@@ -115,8 +163,7 @@ const DetailRiwayatPembelian = () => {
                                     <p className="text-[15px]">{detail.result.va_number}</p>
                                     {detail?.result.tipe_pembayaran === 'bank_transfer' &&
                                         <p className="text-[15px] uppercase">
-                                            {detail?.result.bank}
-                                            <span className="ms-2 py-1 px-2 text-sm rounded-full bg-black text-white cursor-pointer">Salin</span>
+                                            {detail?.result.bank} <span className="ms-2 py-1 px-2 text-sm rounded-full bg-black text-white cursor-pointer">Salin</span>
                                         </p>
                                     }
                                 </div>
@@ -129,6 +176,7 @@ const DetailRiwayatPembelian = () => {
                                     title={'Konfirmasi Pembayaran'}
                                     hoverBgColor={"hover:shadow-lg"}
                                     size="sm" textColor={'text-primary'}
+                                    onClick={(e) => confirmPayment(e)}
                                 />
                             </div>
                         }

@@ -1,4 +1,4 @@
-import { addMyToAnswerApi, addToMyTransactionApi, getDetailMyTryoutApi, getDetailTryoutApi, getListMyTransactionApi, getListMyTryoutApi, getListSoalTryoutApi, getMyTryoutAnswerApi } from "../../shared/api/myTo"
+import { addMyToAnswerApi, addToMyTransactionApi, getDetailMyTryoutApi, getDetailTryoutApi, getListMyTransactionApi, getListMyTryoutApi, getListSoalTryoutApi, getMyTryoutAnswerApi, updateToMyTransactionApi } from "../../shared/api/myTo"
 import { fetchStart, fetchSuccess, fetchError } from "./common.actions"
 import { ADD_ANSWER, ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_MY_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_MY_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_MY_TRYOUT_ANSWER } from "./types"
 
@@ -70,6 +70,29 @@ export const addToMyTransaction = (payload) => {
             .catch((error) => {
                 console.log(error)
                 dispatch(fetchError('Gagal memproses pembayaran'))
+            })
+    }
+}
+
+export const updateToMyTransaction = (id, payload, setRefresh = () => {}, navigate) => {
+    return dispatch => {
+        dispatch(fetchStart())
+        updateToMyTransactionApi(id, payload)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(''))
+                    setRefresh(true)
+                    if (navigate) {
+                        navigate('/profile-saya/riwayat-pembelian');
+                    }
+                } else {
+                    console.log(res);
+                    dispatch(fetchError('Gagal memproses konfirmasi'))
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(fetchError('Gagal memproses konfirmasi'))
             })
     }
 }

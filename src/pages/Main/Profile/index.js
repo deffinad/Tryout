@@ -10,6 +10,7 @@ import Pengaturan from "./Pengaturan";
 const ProfilePage = () => {
     const { id } = useParams();
     const { pathname } = useLocation();
+
     return (
         <>
             {pathname === '/profile-saya' &&

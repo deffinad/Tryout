@@ -47,6 +47,7 @@ const GET_MY_TRYOUT_ANSWER = BASE_URL + '/my-to/jawaban/$id_transaksi/$id_tryout
 
 // API TRANSAKSI (MY TO)
 const GET_LIST_TRANSAKSI = BASE_URL + '/transaksi/$kategori';
+const UPDATE_TRANSAKSI = BASE_URL + '/transaksi/$id';
 const GET_DETAIL_TRANSAKSI = BASE_URL + '/transaksi/detail/$id';
 const ADD_TRANSAKSI = BASE_URL + '/transaksi';
 const ADD_ANSWER = BASE_URL + '/jawab';
@@ -84,5 +85,6 @@ export const API = {
     GET_LIST_TRANSAKSI,
     GET_DETAIL_TRANSAKSI,
     ADD_TRANSAKSI,
+    UPDATE_TRANSAKSI,
     ADD_ANSWER
 }

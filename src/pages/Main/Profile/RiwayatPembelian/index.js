@@ -6,6 +6,8 @@ import { getRiwayatPembelian } from "../../../../Redux/actions/profile.actions";
 import ItemCardRiwayatPembayaran from "../../../../components/Item/ItemCardRiwayatPembayaran";
 import { getStatusPaymentApi } from "../../../../shared/api/payment";
 import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/common.actions";
+import { updateToMyTransaction } from "../../../../Redux/actions/my-to.actions";
+import moment from "moment";
 
 const RiwayatPembelian = () => {
     const navigate = useNavigate();
@@ -13,20 +15,25 @@ const RiwayatPembelian = () => {
     const { pathname } = useLocation();
     const { list_pembelian: list } = useSelector(state => state.profile);
 
+    const today = new Date();
     const [data, setData] = useState(null);
+    const [refresh, setRefresh] = useState(true);
     const [filterBy, setFilterBy] = useState('menunggu pembayaran');
 
     useEffect(() => {
-        if (pathname === '/profile-saya/riwayat-pembelian') {
+        if (pathname === '/profile-saya/riwayat-pembelian' || refresh) {
             dispatch(getRiwayatPembelian());
+            setTimeout(() => {
+                setRefresh(false)
+            }, [2000])
         }
-    }, [dispatch, pathname])
+    }, [dispatch, pathname, refresh])
 
     useEffect(() => {
         if (list !== null && list.result.length > 0) {
             const newList = list.result.filter(item => item.status === filterBy);
             setData(newList);
-        }
+        } else setData([]);
     }, [list, filterBy])
 
     const handleFilterBy = (e, param) => {
@@ -35,12 +42,36 @@ const RiwayatPembelian = () => {
     }
 
     const confirmPayment = (param) => {
-        const id = 'id-tryout-' + param
+        const {
+            id,
+            bank,
+            qris,
+            id_produk,
+            va_number,
+            tipe_pembayaran,
+            transaction_id,
+        } = param
         dispatch(fetchStart());
-        getStatusPaymentApi(id)
+        getStatusPaymentApi(transaction_id)
             .then((res) => {
-                console.log(res);
                 dispatch(fetchSuccess(''));
+                if (res.transaction_status === 'pending') {
+                    alert('Kamu masih belum bayar nih. Mohon segera lakukan pembayaran ya!');
+                }
+                if (res.transaction_status === 'settlement' || res.transaction_status === 'berhasil') {
+                    alert('Yeay, kamu sudah berhasil melakukan pembayaran!');
+                    const payload = {
+                        "id_produk": id_produk,
+                        "tanggal": moment(today).format('DD-MM-YYYY'),
+                        "status": 'berhasil',
+                        "tipe_pembayaran": tipe_pembayaran,
+                        "bank": bank,
+                        "qris": qris,
+                        "va_number": va_number,
+                        "transaction_id": transaction_id
+                    }
+                    dispatch(updateToMyTransaction(id, payload, setRefresh))
+                }
             })
             .catch((error) => {
                 dispatch(fetchError('Gagal mengambil status'))
