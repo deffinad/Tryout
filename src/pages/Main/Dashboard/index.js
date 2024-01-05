@@ -48,7 +48,7 @@ const Dashboard = () => {
                   </div>
                   <div className='col-span-1'>
                      <div className='h-[80%] bg-primary text-white flex justify-center items-center text-[100px] rounded-full'>
-                        0
+                        {user?.dashboard?.rataNilai}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata TO</p>
                   </div>
