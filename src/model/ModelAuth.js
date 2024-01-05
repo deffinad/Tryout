@@ -36,6 +36,8 @@ class ModelAuth {
       let idProduk = []
       let terdaftar = []
       const dikerjakan = []
+      let totalNilai = 0
+      let nilaiRata = 0
 
       for (const hasil of snapTransaksi.docs) {
         if (hasil.data().token === data.token && hasil.data().status === 'berhasil') {
@@ -46,6 +48,8 @@ class ModelAuth {
 
           for (const value of snapJawaban.docs) {
             let check = dikerjakan.some(val => val.id_tryout === value.data().id_tryout)
+            totalNilai = totalNilai + value.data().nilai 
+            nilaiRata = totalNilai / snapJawaban.size
             if(!check){
               dikerjakan.push(value.data())
             }
@@ -69,7 +73,9 @@ class ModelAuth {
           dashboard: {
             terdaftar: terdaftar.length,
             sudah_dikerjakan: dikerjakan.length,
-            belum_dikerjakan: terdaftar.length - dikerjakan.length
+            belum_dikerjakan: terdaftar.length - dikerjakan.length,
+            totalNilai: totalNilai,
+            rataNilai: nilaiRata
           }
         }
       };
