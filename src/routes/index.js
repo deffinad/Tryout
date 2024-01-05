@@ -98,7 +98,7 @@ router.post("/transaksi", onAddTransaksi);
 router.put("/transaksi/:id", onUpdateTransaksi);
 router.delete("/transaksi/:id", onDeleteTransaksi);
 router.post("/transaksi/request/token", transaksiReqTokenValidation, onRequestPaymentToken);
-router.post("/transaksi/status/:id", onGetStatusPayment);
+router.get("/transaksi/status/:id", onGetStatusPayment);
 router.post("/jawab", jawabanValidation, onAddJawaban);
 
 module.exports = router;

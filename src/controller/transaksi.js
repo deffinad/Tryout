@@ -175,11 +175,12 @@ const onRequestPaymentToken = async (req, res) => {
 }
 
 const onGetStatusPayment = async (req, res) => {
-    const { id } = req.paramss
+    const { id } = req.params
     try {
         const result = await transaksiModel.getStatusPayment(id);
+        const status_code = parseInt(result.status_code);
         if (result) {
-            res.status(result.status_code).json(result);
+            res.status(status_code).json(result);
         } else {
             res.status(404).json({errors: 'Tidak dapat menemukan data'});
         }
