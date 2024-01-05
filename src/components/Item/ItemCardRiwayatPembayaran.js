@@ -4,7 +4,7 @@ import { Button } from "../Button";
 import { useNavigate } from "react-router-dom";
 import { stringToRupiah } from "../../shared/appEnums";
 
-const ItemCardRiwayatPembayaran = ({item}) => {
+const ItemCardRiwayatPembayaran = ({item, confirmPaymentFunction = () => {}}) => {
     const navigate = useNavigate();
 
     return (
@@ -37,6 +37,7 @@ const ItemCardRiwayatPembayaran = ({item}) => {
                         title={'Konfirmasi Pembayaran'}
                         hoverBgColor={"hover:shadow-lg"}
                         size="sm" textColor={'text-primary'}
+                        onClick={() => confirmPaymentFunction(item?.id)}
                     />
                 </div>
             </div>

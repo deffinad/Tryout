@@ -1,6 +1,7 @@
 import { getDetailMyTransactionApi, getListMyTransactionApi } from "../../shared/api/myTo"
+import { getStatusPaymentApi } from "../../shared/api/payment";
 import { fetchError, fetchStart, fetchSuccess } from "./common.actions"
-import { GET_DETAIL_RIWAYAT_PEMBELIAN, GET_RIWAYAT_PEMBELIAN } from "./types";
+import { GET_DETAIL_RIWAYAT_PEMBELIAN, GET_RIWAYAT_PEMBELIAN, GET_STATUS_PAYMENT } from "./types";
 
 export const getRiwayatPembelian = () => {
     return (dispatch) => {
@@ -9,7 +10,7 @@ export const getRiwayatPembelian = () => {
             .then((res) => {
                 if (res.status === 200) {
                     dispatch(fetchSuccess(''));
-                    dispatch({type: GET_RIWAYAT_PEMBELIAN, payload: res })
+                    dispatch({ type: GET_RIWAYAT_PEMBELIAN, payload: res })
                 } else {
                     console.log(res);
                     dispatch(fetchError('Gagal memuat data'));
@@ -38,6 +39,21 @@ export const getDetailRiwayat = (id) => {
             .catch((error) => {
                 console.log(error);
                 dispatch(fetchError('Gagal memuat detail. Kesalahan Server'))
+            })
+    }
+}
+
+export const getStatusPayment = (id) => {
+    return (dispatch) => {
+        dispatch(fetchStart())
+        getStatusPaymentApi(id)
+            .then((res) => {
+                dispatch(fetchSuccess())
+                dispatch({ type: GET_STATUS_PAYMENT, payload: res })
+            })
+            .catch((error) => {
+                console.log(error)
+                dispatch(fetchError('Gagal memproses!'))
             })
     }
 }

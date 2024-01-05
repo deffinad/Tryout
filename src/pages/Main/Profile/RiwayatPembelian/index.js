@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaBagShopping } from "react-icons/fa6";
 import { getRiwayatPembelian } from "../../../../Redux/actions/profile.actions";
 import ItemCardRiwayatPembayaran from "../../../../components/Item/ItemCardRiwayatPembayaran";
+import { getStatusPaymentApi } from "../../../../shared/api/payment";
+import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/common.actions";
 
 const RiwayatPembelian = () => {
     const navigate = useNavigate();
@@ -30,6 +32,20 @@ const RiwayatPembelian = () => {
     const handleFilterBy = (e, param) => {
         e.preventDefault();
         setFilterBy(param);
+    }
+
+    const confirmPayment = (param) => {
+        const id = 'id-tryout-' + param
+        dispatch(fetchStart());
+        getStatusPaymentApi(id)
+            .then((res) => {
+                console.log(res);
+                dispatch(fetchSuccess(''));
+            })
+            .catch((error) => {
+                dispatch(fetchError('Gagal mengambil status'))
+                console.log(error);
+            })
     }
 
     return (
@@ -63,12 +79,12 @@ const RiwayatPembelian = () => {
                 {data !== null && data.length > 0
                     ? data.map((item) => (
                         <Fragment key={item.id}>
-                            <ItemCardRiwayatPembayaran item={item} />
+                            <ItemCardRiwayatPembayaran item={item} confirmPaymentFunction={confirmPayment} />
                         </Fragment>
-                    )) 
-                    : data!== null && data.length === 0
-                    ? <>Tidak Ada Data</>
-                    : null
+                    ))
+                    : data !== null && data.length === 0
+                        ? <>Tidak Ada Data</>
+                        : null
                 }
             </div>
         </div>

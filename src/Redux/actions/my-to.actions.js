@@ -1,7 +1,6 @@
 import { addMyToAnswerApi, addToMyTransactionApi, getDetailMyTryoutApi, getDetailTryoutApi, getListMyTransactionApi, getListMyTryoutApi, getListSoalTryoutApi, getMyTryoutAnswerApi } from "../../shared/api/myTo"
 import { fetchStart, fetchSuccess, fetchError } from "./common.actions"
-import { ADD_ANSWER, ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_MY_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_MY_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_MY_TRYOUT_ANSWER, GET_STATUS_PAYMENT } from "./types"
-import { getStatusPaymentApi } from "../../shared/api/payment"
+import { ADD_ANSWER, ADD_TRANSAKSI, CLEAR_LIST_SOAL_TRYOUT, GET_DETAIL_MY_TRYOUT, GET_DETAIL_TRANSAKSI, GET_DETAIL_TRYOUT, GET_LIST_MY_TRYOUT, GET_LIST_SOAL_TRYOUT, GET_LIST_TRANSAKSI, GET_MY_TRYOUT_ANSWER } from "./types"
 
 export const getListMyTransaction = (kategori = 'utbk') => {
     return (dispatch) => {
@@ -71,21 +70,6 @@ export const addToMyTransaction = (payload) => {
             .catch((error) => {
                 console.log(error)
                 dispatch(fetchError('Gagal memproses pembayaran'))
-            })
-    }
-}
-
-export const getStatusPayment = (id) => {
-    return (dispatch) => {
-        dispatch(fetchStart())
-        getStatusPaymentApi(id)
-            .then((res) => {
-                dispatch(fetchSuccess())
-                dispatch({ type: GET_STATUS_PAYMENT, payload: res })
-            })
-            .catch((error) => {
-                console.log(error)
-                dispatch(fetchError('Gagal memproses!'))
             })
     }
 }
