@@ -44,7 +44,7 @@ class ModelTransaksi {
             let transaksi = hasil.data()
 
             delete dataProduk.id_tryout
-            delete transaksi.id_produk
+            // delete transaksi.id_produk
 
             data.push({
                 id: hasil.id,
