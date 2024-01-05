@@ -2,7 +2,7 @@ import { GET_DETAIL_RIWAYAT_PEMBELIAN, GET_RIWAYAT_PEMBELIAN } from "../actions/
 
 const initalState = {
     list_pembelian: null,
-    detail_pembelian: null,
+    detail_pembelian: null
 };
 
 const profileReducers = (state = initalState, action) => {

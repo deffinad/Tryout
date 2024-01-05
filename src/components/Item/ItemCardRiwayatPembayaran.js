@@ -4,7 +4,7 @@ import { Button } from "../Button";
 import { useNavigate } from "react-router-dom";
 import { stringToRupiah } from "../../shared/appEnums";
 
-const ItemCardRiwayatPembayaran = ({item}) => {
+const ItemCardRiwayatPembayaran = ({ item, confirmPaymentFunction = () => { } }) => {
     const navigate = useNavigate();
 
     return (
@@ -32,12 +32,15 @@ const ItemCardRiwayatPembayaran = ({item}) => {
                         hoverBgColor={"hover:shadow-lg"}
                         onClick={() => navigate(`/profile-saya/riwayat-pembelian/detail/${item?.id}`)}
                     />
-                    <Button
-                        bgColor={'bg-white shadow-sm'}
-                        title={'Konfirmasi Pembayaran'}
-                        hoverBgColor={"hover:shadow-lg"}
-                        size="sm" textColor={'text-primary'}
-                    />
+                    {item?.status === 'menunggu pembayaran' &&
+                        <Button
+                            bgColor={'bg-white shadow-sm'}
+                            title={'Konfirmasi Pembayaran'}
+                            hoverBgColor={"hover:shadow-lg"}
+                            size="sm" textColor={'text-primary'}
+                            onClick={() => confirmPaymentFunction(item)}
+                        />
+                    }
                 </div>
             </div>
         </div>

@@ -47,13 +47,14 @@ const GET_MY_TRYOUT_ANSWER = BASE_URL + '/my-to/jawaban/$id_transaksi/$id_tryout
 
 // API TRANSAKSI (MY TO)
 const GET_LIST_TRANSAKSI = BASE_URL + '/transaksi/$kategori';
+const UPDATE_TRANSAKSI = BASE_URL + '/transaksi/$id';
 const GET_DETAIL_TRANSAKSI = BASE_URL + '/transaksi/detail/$id';
 const ADD_TRANSAKSI = BASE_URL + '/transaksi';
 const ADD_ANSWER = BASE_URL + '/jawab';
 
 // API PAYMENT
 const GET_TOKEN_SNAP = BASE_URL + '/transaksi/request/token';
-const GET_STATUS_PAYMENT = 'https://api.sandbox.midtrans.com/v2/$order_id/status';
+const GET_STATUS_PAYMENT = BASE_URL + '/transaksi/status/$order_id';
 
 export const API = {
     ID_MERCHANT,
@@ -84,5 +85,6 @@ export const API = {
     GET_LIST_TRANSAKSI,
     GET_DETAIL_TRANSAKSI,
     ADD_TRANSAKSI,
+    UPDATE_TRANSAKSI,
     ADD_ANSWER
 }
