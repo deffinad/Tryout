@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom'
 
 const ItemCardTOSaya = ({ data, menu }) => {
     moment.locale('id');
+    const today  = new Date();
     const navigate = useNavigate();
+    const waktuPengerjaan = moment(data?.jadwal).format('LL');
 
     const handleNavigate = () => {
         navigate(`/to-saya/${menu}/beranda/${data.id_transaksi}/${data.id}`)
@@ -19,20 +21,6 @@ const ItemCardTOSaya = ({ data, menu }) => {
                     <div className='flex-1 flex items-center'>
                         <h1 className='font-bold text-3xl'>{data?.nama}</h1>
                     </div>
-                    {/* {
-                        data?.jenis === 'paket' ? (
-                            <div className='flex-1 flex'>
-                                <div className='grid grid-cols-2 gap-x-6'>
-                                    {data.produk.tryout.length > 0 && data.produk.tryout.map(item => (
-                                        <div className='flex flex-row w-full items-center gap-1'>
-                                            <FaList />
-                                            <p className='text-sm capitalize'>{item.nama}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        ) : null
-                    } */}
                 </div>
                 <div className='w-36 bg-white border-4 rounded-tl-[100px] rounded-tr-[50px] flex flex-col items-center justify-center gap-4'>
                     <img alt='' src={data?.jenis === 'premium' ? '/assets/img/premium.png' : '/assets/img/paket.png'} className='w-24 h-24' />
@@ -41,8 +29,8 @@ const ItemCardTOSaya = ({ data, menu }) => {
             </div>
             <div className='bg-white rounded-b-[50px] px-8 py-4'>
                 <div className='flex flex-col justify-center h-full gap-2'>
-                    <p className='font-semibold'>Pengerjaan dimulai pada {moment(data?.jadwal).format('LL')}</p>
-                    <Button title={'Mulai Mengerjakan'} onClick={() => handleNavigate()} />
+                    <p className='font-semibold'>Pengerjaan dimulai pada {waktuPengerjaan}</p>
+                    <Button disabled={today <= new Date(waktuPengerjaan)} title={'Mulai Mengerjakan'} onClick={() => handleNavigate()} />
                 </div>
             </div>
 
