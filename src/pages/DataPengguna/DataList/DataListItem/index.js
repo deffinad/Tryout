@@ -92,9 +92,11 @@ const DataListItem = ({ user, index, keyItem, setRefresh }) => {
                 <td className="w-[5%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap text-center">{index + 1}.</p>
                 </td>
-                <td className="w-[40%] px-3 py-3 border-b border-gray-200 text-sm flex flex-row gap-2 items-center">
-                    <img src={user.avatar} height={30} width={30} className='rounded-full bg-grey-200' />
-                    <p className="text-gray-900 text-lg whitespace-no-wrap underline cursor-pointer">{user.nama}</p>
+                <td className="w-[40%] px-3 py-3 border-b border-gray-200 text-sm">
+                    <div className='flex-1 flex flex-row gap-2 items-center'>
+                        <img src={user.avatar} height={30} width={30} className='rounded-full bg-grey-200' />
+                        <p className="text-gray-900 text-lg whitespace-no-wrap underline cursor-pointer">{user.nama}</p>
+                    </div>
                 </td>
                 <td className="w-[35%] px-3 py-3 border-b border-gray-200 text-sm">
                     <p className="text-gray-900 text-lg whitespace-no-wrap">{user.email}</p>
@@ -235,21 +237,13 @@ const DataListItem = ({ user, index, keyItem, setRefresh }) => {
                             </div>
                         </div>
 
-                        <div className='grid grid-cols-3 gap-4'>
+                        <div className='grid grid-cols-2 gap-4'>
                             <div>
                                 <label htmlFor="jenis-kelamin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin</label>
                                 <select value={data.jenis_kelamin} onChange={(e) => setData({ ...data, jenis_kelamin: e.target.value })} id="jensi-kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="Laki-Laki">Laki-Laki</option>
                                     <option value="Perempuan">Perempuan</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                                <select value={data.role} onChange={(e) => setData({ ...data, role: e.target.value })} id="role" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option value="">Pilih Role</option>
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                             <div>
