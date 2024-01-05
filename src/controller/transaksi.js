@@ -174,6 +174,25 @@ const onRequestPaymentToken = async (req, res) => {
     }
 }
 
+const onGetStatusPayment = async (req, res) => {
+    const { id } = req.paramss
+    try {
+        const result = await transaksiModel.getStatusPayment(id);
+        if (result) {
+            res.status(result.status_code).json(result);
+        } else {
+            res.status(404).json({errors: 'Tidak dapat menemukan data'});
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            messages:
+                "Server tidak memahami sintak permintaan dari klien",
+            error: error
+        })
+    }
+}
+
 const onAddJawaban = async (req, res) => {
     const errors = validationResult(req)
     try {
@@ -207,4 +226,4 @@ const onAddJawaban = async (req, res) => {
 
 
 
-module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban, onUpdateTransaksi };
+module.exports = { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban, onUpdateTransaksi, onGetStatusPayment };

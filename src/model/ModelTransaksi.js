@@ -4,6 +4,10 @@ const midtransClient = require('midtrans-client');
 const { SERVER_KEY } = require("../midtrans.config");
 
 class ModelTransaksi {
+    snap = new midtransClient.Snap({
+        isProduction: false,
+        serverKey: SERVER_KEY
+    });
     async getListTransaksi(token, kategori) {
         let data = [];
         let role = ''
@@ -183,11 +187,6 @@ class ModelTransaksi {
     }
 
     async requestPaymentToken(data) {
-        let snap = new midtransClient.Snap({
-            isProduction: false,
-            serverKey: SERVER_KEY
-        });
-
         const parameter = {
             transaction_details: {
                 order_id: data.id_produk,
@@ -203,7 +202,7 @@ class ModelTransaksi {
             },
         }
 
-        const token = await snap.createTransactionToken(parameter)
+        const token = await this.snap.createTransactionToken(parameter)
         if (token) {
             return { isSuccess: true, data: token }
         } else {
@@ -248,6 +247,11 @@ class ModelTransaksi {
         } else {
             return false;
         }
+    }
+
+    async getStatusPayment(order_id) {
+        let status = await this.snap.transaction.status(order_id)
+        return status
     }
 }
 
