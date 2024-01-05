@@ -73,21 +73,25 @@ class ModelTryout {
             const refJawaban = await db.collection('transaksi').doc(value.id).collection('jawaban')
             const snapJawaban = await refJawaban.get()
 
-            for (let i = 0; i < data.materi.length; i++) {
-              for (const item of snapJawaban.docs) {
-                const dataJawaban = item.data()
-                if (id === dataJawaban.id_tryout) {
-                  if(data.materi[i].id_materi === dataJawaban.id_materi){
-                    data.materi[i] = {
-                      ...data.materi[i],
-                      sudah_dikerjakan: true
-                    }
-                  }else{
-                    data.materi[i] = {
-                      ...data.materi[i],
-                      sudah_dikerjakan: false
-                    }
+            for (const item of snapJawaban.docs) {
+              const dataJawaban = item.data()
+              if (id === dataJawaban.id_tryout) {
+                const check = data.materi.some(val => val.id_materi === dataJawaban.id_materi)
+                const index = data.materi.findIndex(val => val.id_materi === dataJawaban.id_materi)
+                if (check) {
+                  data.materi[index] = {
+                    ...data.materi[index],
+                    sudah_dikerjakan: true
                   }
+                }
+              }
+            }
+
+            for (let i = 0; i < data.materi.length; i++) {
+              if (data.materi[i].sudah_dikerjakan === undefined) {
+                data.materi[i] = {
+                  ...data.materi[i],
+                  sudah_dikerjakan: false
                 }
               }
             }
