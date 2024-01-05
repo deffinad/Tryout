@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { authRegister, updateProfileApi } from "../../shared/api/auth";
 import { fetchError, fetchStart, fetchSuccess } from "./common.actions";
 
@@ -9,7 +10,10 @@ export const register = (data, navigate) => {
                 if (res.status === 200) {
                     dispatch(fetchSuccess(''))
                     navigate('/masuk')
-                    alert('Berhasil Daftar')
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Berhasil Melakukan Pendaftaran'
+                    })
                 } else {
                     dispatch(fetchError('Gagal Memuat List', res.errors))
                 }

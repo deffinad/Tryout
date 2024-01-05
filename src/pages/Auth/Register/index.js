@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
-import { Navbar } from "../../../components/Navbar";
-import { Footer } from "../../../components/Footer";
+// import { Navbar } from "../../../components/Navbar";
+// import { Footer } from "../../../components/Footer";
 import InlineIconInput from "../../../components/InlineIconInput";
 import PasswordInput from "../../../components/PasswordInput";
 import DropdownInput from "../../../components/DropdownInput";
 import { useDispatch } from "react-redux";
 import { register } from "../../../Redux/actions/auth.action";
+import Swal from 'sweetalert2';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -47,7 +48,11 @@ const RegisterPage = () => {
         }
 
         if (asalKota === '' || asalSekolah === '' || email === '' || jenisKelamin === '' || namaLengkap === '' || password === '' || provinsi === '' || tglLahir === '' || noHp === '' || uname === '') {
-            alert('Mohon Masukan Data Dengan Benar')
+            // alert('Mohon Masukan Data Dengan Benar')
+            Swal.fire({
+                icon: 'error',
+                text: 'Mohon Masukkan Data dengan Benar!'
+            })
         } else {
             dispatch(register(payload, navigate))
         }
