@@ -37,7 +37,6 @@ const useAuth = () => {
             };
         } else {
             dispatch(fetchError(response.message))
-            alert('Gagal Login')
             return {
                 status: 403,
                 role: ''

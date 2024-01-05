@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useRoutes } from 'react-router-dom'
 import { initSidebar } from '../../Redux/actions/sidebar.actions'
 import toast from 'react-hot-toast'
+import { fetchError, fetchSuccess } from '../../Redux/actions/common.actions'
 
 const Layout = () => {
     const dispatch = useDispatch();
@@ -29,12 +30,14 @@ const Layout = () => {
                 duration: 3500,
                 position: 'top-right',
             })
+            dispatch(fetchSuccess(''))
         }
-        if (error) {
+        if (error !== '') {
             toast.error(error, {
                 duration: 3000,
                 position: 'top-right',
             })
+            dispatch(fetchError(''));
         }
     }, [message, error])
 
