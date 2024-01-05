@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaBars, FaXmark } from 'react-icons/fa6'
+import useAuth from "../../shared/hooks";
 
 export const Navbar = ({ toggle = false, setToggle }) => {
+    const { user } = useAuth()
+    
     return (
         <div className='w-full bg-primary h-[90px] flex flex-row items-center justify-between text-textColor px-16 fixed z-10'>
             <div className='flex gap-6 items-center'>
@@ -18,7 +21,7 @@ export const Navbar = ({ toggle = false, setToggle }) => {
             </div>
 
             <div>
-                <img className="w-10 h-10 rounded-full" src="/assets/img/sample-avatar-admin.png" alt="Rounded avatar" />
+                <img className="w-10 h-10 rounded-full" src={user?.avatar} alt="Rounded avatar" />
             </div>
         </div>
     )
