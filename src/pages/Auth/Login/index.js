@@ -37,7 +37,9 @@ const LoginPage = () => {
             })
             handleResetState();
             if (role === 'user') {
-                navigate('/beranda');
+                setTimeout(() => {
+                    navigate('/beranda');
+                }, 2500)
             } else {
                 window.location.href = "https://tryout-admin.vercel.app/";
             }

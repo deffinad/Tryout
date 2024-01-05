@@ -52,7 +52,15 @@ const Layout = () => {
 
     if (pathname === '/' || pathname === '/masuk' || pathname === '/daftar') {
         return (
-            <>{element}</>
+            <>
+                {element}
+                {
+                    loading &&
+                    <div className='absolute w-full top-0 h-[100vh] z-20 flex items-center justify-center'>
+                        <Lottie animationData={Loading} loop={true} style={{ height: 100, width: 100 }} />
+                    </div>
+                }
+            </>
         )
     }
 
