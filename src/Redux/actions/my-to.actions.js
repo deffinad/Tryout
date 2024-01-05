@@ -13,7 +13,7 @@ export const getListMyTransaction = (kategori = 'utbk') => {
 
                     if (res.result.length > 0) {
                         res.result.map((item) => {
-                            if (item.produk.tryout.length > 0)
+                            if (item.produk.tryout.length > 0 && item.status === 'berhasil')
                                 item.produk.tryout.map((child) => {
                                     child['jenis'] = item.produk.jenis
                                     child['id_transaksi'] = item.id
