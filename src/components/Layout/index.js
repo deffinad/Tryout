@@ -42,6 +42,11 @@ const Layout = () => {
         dispatch(initSidebar(param))
     }
 
+    useEffect(() => {
+        const container = document.getElementById('element')
+        container?.scrollTo(0, 0)
+    }, [pathname])
+
     if (pathname === '/' || pathname === '/masuk' || pathname === '/daftar') {
         return (
             <>{element}</>
@@ -51,7 +56,7 @@ const Layout = () => {
     return (
         <section className='overflow-hidden z-0'>
             <Navbar toggle={toggleSidebar} setToggle={() => handleToggleSidebar(!open)} />
-            <div className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'lg:ml-[270px] ml-0' : 'ml-[0]'} mr-0 transition-all duration-500 ${loading ? 'overflow-hidden' : 'overflow-y-auto'} relative `}>
+            <div id='element' className={`pt-[90px] h-[100vh] max-h-[100%] ${toggleSidebar ? 'lg:ml-[270px] ml-0' : 'ml-[0]'} mr-0 transition-all duration-500 ${loading ? 'overflow-hidden' : 'overflow-y-auto'} relative `}>
                 <div className='min-h-[100vh] p-16 bg-gray-100'>
                     {element}
                 </div>

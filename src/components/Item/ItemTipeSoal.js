@@ -8,13 +8,15 @@ const ItemTipeSoal = ({ data, menu, idTransaksi, idTryout, type }) => {
     return (
         <button
             onClick={() => {
-                if(type === undefined){
-                    navigate(`/to-saya/${menu}/${idTransaksi}/${idTryout}/soal/${data.id_materi}`)
-                }else{
+                if (type === undefined) {
+                    if(!data.sudah_dikerjakan){
+                        navigate(`/to-saya/${menu}/${idTransaksi}/${idTryout}/soal/${data.id_materi}`)
+                    }
+                } else {
                     navigate(`/to-saya/${menu}/${idTransaksi}/${idTryout}/pembahasan/${data.id_materi}`)
                 }
             }}
-            className='flex-1 flex flex-col p-6 h-[150px] shadow-lg rounded-3xl bg-white lg:gap-0 gap-2'
+            className={`flex-1 flex flex-col p-6 min-h-[170px] shadow-lg rounded-3xl bg-white lg:gap-2 gap-2 ${type === undefined && data.sudah_dikerjakan ? 'cursor-no-drop' : 'cursor-pointer'}`}
         >
             <div className='flex-1 text-start'>
                 <h1 className='font-bold text-xl'>{data.nama}</h1>
@@ -35,7 +37,13 @@ const ItemTipeSoal = ({ data, menu, idTransaksi, idTryout, type }) => {
                     <FaChevronRight />
                 </div>
             </div>
-        </button>
+
+            <div className='flex items-center gap-2'>
+                <div className={`${data.sudah_dikerjakan ? 'bg-green-300' : 'bg-red-300'} rounded px-2 py-1`}>
+                    <p>{data.sudah_dikerjakan ? 'Sudah Dikerjakan' : 'Belum Dikerjakan'}</p>
+                </div>
+            </div>
+        </button >
     )
 }
 

@@ -51,8 +51,8 @@ const LoginPage = () => {
 
     return (
         <div className="w-full">
-            <Navbar />
-            <div className="w-full pt-[90px] p-10 bg-neutral-200">
+            {/* <Navbar /> */}
+            <div className="w-full p-10 bg-neutral-200">
                 <div className="mt-5 grid grid-cols-2">
                     <div className="p-2">
                         <img alt="" src={'/assets/img/masuk.png'} />
@@ -96,7 +96,7 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

@@ -58,7 +58,7 @@ const ProfileSaya = () => {
                 </div>
             </div>
             {/* setting card */}
-            <div className="bg-white shadow-md hover:shadow-lg rounded-3xl p-5 mb-5 cursor-pointer" onClick={()=>navigate('/profile-saya/pengaturan')}> 
+            {/* <div className="bg-white shadow-md hover:shadow-lg rounded-3xl p-5 mb-5 cursor-pointer" onClick={()=>navigate('/profile-saya/pengaturan')}> 
                 <div className="flex flex-row justify-between items-center mx-2">
                     <div className="flex flex-row gap-3 justify-center items-center">
                         <FaGear size={32} style={{ color: "#F1D64B" }} />
@@ -66,7 +66,7 @@ const ProfileSaya = () => {
                     </div>
                     <FaChevronRight size={22} style={{ color: "#F1D64B", cursor: 'pointer' }} />
                 </div>
-            </div>
+            </div> */}
             {/* keluar card */}
             <div className="bg-white shadow-md hover:shadow-lg rounded-3xl p-5 mb-5 cursor-pointer" onClick={()=>navigate('/masuk')}>
                 <div className="flex flex-row justify-between items-center mx-2">
