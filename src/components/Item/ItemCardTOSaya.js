@@ -30,7 +30,7 @@ const ItemCardTOSaya = ({ data, menu }) => {
             <div className='bg-white rounded-b-[50px] px-8 py-4'>
                 <div className='flex flex-col justify-center h-full gap-2'>
                     <p className='font-semibold'>Pengerjaan dimulai pada {waktuPengerjaan}</p>
-                    <Button disabled={today <= new Date(waktuPengerjaan)} title={'Mulai Mengerjakan'} onClick={() => handleNavigate()} />
+                    <Button disabled={today <= new Date(waktuPengerjaan) || data?.status} title={data?.status ? 'Sudah Dikerjakan' : 'Mulai Mengerjakan'} bgColor={data?.status ? 'bg-green-500' : 'bg-blue-500'} hoverBgColor={data?.status ? 'bg-green-600' : 'bg-blue-600'} onClick={() => handleNavigate()} />
                 </div>
             </div>
 
