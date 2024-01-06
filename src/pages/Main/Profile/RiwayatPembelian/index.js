@@ -9,6 +9,7 @@ import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/
 import { updateToMyTransaction } from "../../../../Redux/actions/my-to.actions";
 import moment from "moment";
 import Swal from "sweetalert2";
+import EmptyData from "../../../../components/EmptyData";
 
 const RiwayatPembelian = () => {
     const navigate = useNavigate();
@@ -123,7 +124,7 @@ const RiwayatPembelian = () => {
                         </Fragment>
                     ))
                     : data !== null && data.length === 0
-                        ? <>Tidak Ada Data</>
+                        ? <EmptyData />
                         : null
                 }
             </div>

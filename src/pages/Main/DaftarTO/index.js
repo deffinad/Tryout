@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import ItemCardTO from '../../../components/Item/ItemCardTO'
 import { getListProduk } from '../../../Redux/actions/daftar-to.actions'
 import { API } from '../../../shared/appEnums'
+import EmptyData from '../../../components/EmptyData'
 
 const DaftarTryOut = () => {
     const { id } = useParams();
@@ -38,15 +39,19 @@ const DaftarTryOut = () => {
         <section className='flex flex-col gap-8'>
             <h1 className='text-2xl font-bold capitalize'>Daftar {id}</h1>
 
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
-                {list !== null ? (
-                    list.map(item => (
-                        <Fragment key={item.id}>
-                            <ItemCardTO data={item} kategori={id}/>
-                        </Fragment>
-                    ))
-                ) : (<>Tidak Ada Data</>)}
-            </div>
+            {
+                list !== null && list.length > 0 ? (
+                    <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
+                        {
+                            list.map(item => (
+                                <Fragment key={item.id}>
+                                    <ItemCardTO data={item} kategori={id} />
+                                </Fragment>
+                            ))
+                        }
+                    </div>
+                ): <EmptyData />
+            }
 
         </section>
     )

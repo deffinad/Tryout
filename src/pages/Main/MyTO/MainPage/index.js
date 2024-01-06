@@ -4,6 +4,7 @@ import { Button } from "../../../../components/Button";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ItemCardTOSaya from "../../../../components/Item/ItemCardTOSaya";
 import { getListMyTransaction } from "../../../../Redux/actions/my-to.actions";
+import EmptyData from "../../../../components/EmptyData";
 
 const MainPage = () => {
     const dispatch = useDispatch();
@@ -20,21 +21,25 @@ const MainPage = () => {
 
     return (
         <section className='flex flex-col gap-8'>
-            <h1 className="text-2xl font-bold">Progress Try Out UTBK - SNBT</h1>
+            <h1 className="text-2xl font-bold capitalize">Progress Try Out {menu}</h1>
 
-            <div className="bg-white w-full h-[500px] rounded-3xl shadow-lg flex items-end p-6">
-                <Button onClick={() => navigate(`/to-saya/${menu}/lihat-nilai-keseluruhan`)} title={'Lihat Nilai Keseluruhan'} />
-            </div>
+            {(list !== null && list.length > 0) ? (
+                <>
+                    <div className="bg-white w-full h-[500px] rounded-3xl shadow-lg flex items-end p-6">
+                        <Button onClick={() => navigate(`/to-saya/${menu}/lihat-nilai-keseluruhan`)} title={'Lihat Nilai Keseluruhan'} />
+                    </div>
 
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                {(list !== null && list.length > 0) ? (
-                    list.map(item => (
-                        <Fragment key={item.id}>
-                            <ItemCardTOSaya data={item} menu={menu} />
-                        </Fragment>
-                    ))
-                ) : <>Tidak Ada Data</>}
-            </div>
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+                        {
+                            list.map(item => (
+                                <Fragment key={item.id}>
+                                    <ItemCardTOSaya data={item} menu={menu} />
+                                </Fragment>
+                            ))
+                        }
+                    </div>
+                </>
+            ) : <EmptyData />}
 
         </section>
     )
