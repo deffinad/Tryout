@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { authRegister, updateProfileApi } from "../../shared/api/auth";
+import { authRegister, getDashboardApi, updateProfileApi } from "../../shared/api/auth";
 import { fetchError, fetchStart, fetchSuccess } from "./common.actions";
 
 export const register = (data, navigate) => {
@@ -32,7 +32,7 @@ export const updateProfileUser = (id, payload, navigate) => {
                 if (res.status === 200) {
                     const currentUser = JSON.parse(localStorage.getItem('user'));
                     const newUserData = { ...payload };
-                    newUserData['dashboard'] = currentUser.dashboard
+                    newUserData['dasboard'] = currentUser.dashboard
                     newUserData['token'] = currentUser.token
                     localStorage.setItem('user', JSON.stringify(newUserData));
 
@@ -48,6 +48,26 @@ export const updateProfileUser = (id, payload, navigate) => {
             .catch((error) => {
                 console.log(error);
                 dispatch(fetchError(error));
+            })
+    }
+}
+
+export const getDashboard = () => {
+    return (dispatch) => {
+        dispatch((fetchStart()))
+        getDashboardApi()
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(''))
+                    const currentUser = JSON.parse(localStorage.getItem('user'));
+                    currentUser['dashboard'] = res.result
+                    localStorage.setItem('user', JSON.stringify(currentUser));
+                } else {
+                    dispatch(fetchError('Gagal Memuat Dashboard', res.errors))
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError(error))
             })
     }
 }

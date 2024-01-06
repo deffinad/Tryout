@@ -1,8 +1,15 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import useAuth from '../../../shared/hooks/useAuth'
+import { useDispatch } from 'react-redux';
+import { getDashboard } from '../../../Redux/actions/auth.action';
 
 const Dashboard = () => {
    const { user } = useAuth();
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      dispatch(getDashboard())
+   }, [])
 
    return (
       <Fragment>
@@ -21,19 +28,19 @@ const Dashboard = () => {
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Terdaftar</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-secondary font-semibold text-white text-[18px]'>
-                              {user?.dashboard?.terdaftar}
+                              {user?.dashboard?.total || 0}
                            </div>
                         </div>
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Sudah Dikerjakan</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-primary font-semibold text-white text-[18px]'>
-                              {user?.dashboard?.sudah_dikerjakan}
+                              {user?.dashboard?.dikerjakan || 0}
                            </div>
                         </div>
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Belum Dikerjakan</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-bgRed font-semibold text-white text-[18px]'>
-                              {user?.dashboard?.belum_dikerjakan}
+                              {user?.dashboard?.belum_dikerjakan || 0}
                            </div>
                         </div>
                      </div>
@@ -42,13 +49,13 @@ const Dashboard = () => {
                <div className='grid grid-rows-1 grid-cols-2 gap-4'>
                   <div className='col-span-1'>
                      <div className='h-[80%] bg-secondary text-white flex justify-center items-center text-[100px] rounded-full'>
-                        0
+                        {user?.dashboard?.ranking || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Ranking</p>
                   </div>
                   <div className='col-span-1'>
                      <div className='h-[80%] bg-primary text-white flex justify-center items-center text-[100px] rounded-full'>
-                        {user?.dashboard?.rataNilai}
+                        {user?.dashboard?.nilai_rata || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata TO</p>
                   </div>

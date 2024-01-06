@@ -36,3 +36,14 @@ export const updateProfileApi = async (id, payload) => {
 
     return response.json();
 }
+
+export const getDashboardApi = async () => {
+    const response = await fetch(API.GET_DASHBOARD, {
+        method: 'GET',
+        headers: {
+            'Authorization': localStorage.getItem('token'),
+        },
+    })
+
+    return response.json();
+}
