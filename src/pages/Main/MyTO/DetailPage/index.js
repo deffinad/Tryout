@@ -5,11 +5,11 @@ import { useParams } from "react-router-dom";
 
 const DetailPage = () => {
     const dispatch = useDispatch()
-    const { id } = useParams()
+    const { id, menu } = useParams()
     const { detail } = useSelector(state => state.myTo)
 
     useEffect(() => {
-        dispatch(getDetailMyTryout(id))
+        dispatch(getDetailMyTryout(id, menu))
     }, [])
 
     return (

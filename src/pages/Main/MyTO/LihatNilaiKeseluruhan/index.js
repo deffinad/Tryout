@@ -10,7 +10,7 @@ const LihatNilaiKeseluruhan = () => {
     const { listNilaiKeseluruhan } = useSelector(state => state.myTo)
 
     useEffect(() => {
-        dispatch(getListMyTryout())
+        dispatch(getListMyTryout(menu))
     }, [])
 
     return (

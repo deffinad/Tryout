@@ -42,8 +42,8 @@ const DELETE_PRODUK = BASE_URL + '/produk/$id';
 const GET_LIST_TRYOUT = BASE_URL + '/list/$kategori';
 const GET_DETAIL_TRYOUT = BASE_URL + '/list/$kategori/$id';
 const GET_LIST_SOAL_TRYOUT = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
-const GET_LIST_MY_TRYOUT = BASE_URL + '/my-to';
-const GET_DETAIL_MY_TRYOUT = BASE_URL + '/my-to/$id';
+const GET_LIST_MY_TRYOUT = BASE_URL + '/my-to/$kategori';
+const GET_DETAIL_MY_TRYOUT = BASE_URL + '/my-to/$kategori/$id';
 const GET_MY_TRYOUT_ANSWER = BASE_URL + '/my-to/jawaban/$id_transaksi/$id_tryout/$id_materi';
 
 // API TRANSAKSI (MY TO)

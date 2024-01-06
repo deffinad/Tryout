@@ -111,9 +111,9 @@ export const addMyToAnswerApi = async (payload) => {
     }
 }
 
-export const getListMyTryoutApi = async () => {
+export const getListMyTryoutApi = async (menu) => {
     try {
-        const response = await fetch(API.GET_LIST_MY_TRYOUT, {
+        const response = await fetch(API.GET_LIST_MY_TRYOUT.replace('$kategori', menu), {
             method: 'GET',
             headers: {
                 'Authorization': localStorage.getItem('token')
@@ -126,9 +126,9 @@ export const getListMyTryoutApi = async () => {
     }
 }
 
-export const getDetailMyTryoutApi = async (id_tryout) => {
+export const getDetailMyTryoutApi = async (id_tryout, menu) => {
     try {
-        const response = await fetch(API.GET_DETAIL_MY_TRYOUT.replace('$id', id_tryout), {
+        const response = await fetch(API.GET_DETAIL_MY_TRYOUT.replace('$id', id_tryout).replace('$kategori',menu), {
             method: 'GET',
             headers: {
                 'Authorization': localStorage.getItem('token')

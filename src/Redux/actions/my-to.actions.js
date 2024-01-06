@@ -74,7 +74,7 @@ export const addToMyTransaction = (payload) => {
     }
 }
 
-export const updateToMyTransaction = (id, payload, setRefresh = () => {}, navigate) => {
+export const updateToMyTransaction = (id, payload, setRefresh = () => { }, navigate) => {
     return dispatch => {
         dispatch(fetchStart())
         updateToMyTransactionApi(id, payload)
@@ -159,17 +159,14 @@ export const addMyToAnswer = (payload) => {
     }
 }
 
-export const getListMyTryout = () => {
+export const getListMyTryout = (menu) => {
     return dispatch => {
         dispatch(fetchStart())
-        getListMyTryoutApi()
+        getListMyTryoutApi(menu)
             .then((res) => {
-                if (res.status === 200) {
-                    dispatch(fetchSuccess(''))
-                    dispatch({ type: GET_LIST_MY_TRYOUT, payload: res.result })
-                } else {
-                    dispatch(fetchError('Gagal memproses list my tryout'))
-                }
+                dispatch(fetchSuccess(''))
+                dispatch({ type: GET_LIST_MY_TRYOUT, payload: res.result })
+
             })
             .catch((error) => {
                 dispatch(fetchError('Gagal memproses list my tryout'))
@@ -177,10 +174,10 @@ export const getListMyTryout = () => {
     }
 }
 
-export const getDetailMyTryout = (id_tryout) => {
+export const getDetailMyTryout = (id_tryout, menu) => {
     return dispatch => {
         dispatch(fetchStart())
-        getDetailMyTryoutApi(id_tryout)
+        getDetailMyTryoutApi(id_tryout, menu)
             .then((res) => {
                 if (res.status === 200) {
                     dispatch(fetchSuccess(''))
