@@ -23,7 +23,7 @@ const ItemCardTO = ({ data, kategori }) => {
         dispatch(fetchStart());
         const today = new Date();
         const payload = {
-            id_produk: "idtryout/" + data.id + '/' + user.token + '/' + new Date(),
+            id_produk: "idtryout-" + data.id + '-' + user.token,
             gross_amount: data.diskon !== 0 ? parseInt(data.diskon) : parseInt(data.harga),
             customer_name: user.nama,
             email: user?.email,

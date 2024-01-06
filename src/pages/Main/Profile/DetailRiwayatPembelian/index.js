@@ -9,6 +9,7 @@ import { stringToRupiah } from "../../../../shared/appEnums";
 import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/common.actions";
 import { getStatusPaymentApi } from "../../../../shared/api/payment";
 import { updateToMyTransaction } from "../../../../Redux/actions/my-to.actions";
+import Swal from "sweetalert2";
 
 const DetailRiwayatPembelian = () => {
     const { id } = useParams();
@@ -64,16 +65,24 @@ const DetailRiwayatPembelian = () => {
             va_number,
             tipe_pembayaran,
             transaction_id,
-        } = detail
+        } = detail.result
         dispatch(fetchStart());
         getStatusPaymentApi(transaction_id)
             .then((res) => {
                 dispatch(fetchSuccess(''));
                 if (res.transaction_status === 'pending') {
-                    alert('Kamu masih belum bayar nih. Mohon segera lakukan pembayaran ya!');
+                    Swal.fire({
+                        timer: 2500,
+                        icon: 'warning',
+                        text: 'Kamu masih belum bayar nih. Mohon segera lakukan pembayaran ya!'
+                    })
                 }
                 if (res.transaction_status === 'settlement' || res.transaction_status === 'berhasil') {
-                    alert('Yeay, kamu sudah berhasil melakukan pembayaran!');
+                    Swal.fire({
+                        timer: 2500,
+                        icon: 'success',
+                        text: 'Yeay, kamu sudah berhasil melakukan pembayaran!'
+                    })
                     const payload = {
                         "id_produk": id_produk,
                         "tanggal": moment(today).format('DD-MM-YYYY'),
