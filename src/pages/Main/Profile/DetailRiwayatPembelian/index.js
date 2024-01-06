@@ -102,6 +102,12 @@ const DetailRiwayatPembelian = () => {
             })
     }
 
+    const handleCopyText = (e, text) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(text);
+        dispatch(fetchSuccess('Berhasil salin text'))
+    }
+
     if (detail === null) {
         return null;
     }
@@ -172,7 +178,7 @@ const DetailRiwayatPembelian = () => {
                                     <p className="text-[15px]">{detail.result.va_number}</p>
                                     {detail?.result.tipe_pembayaran === 'bank_transfer' &&
                                         <p className="text-[15px] uppercase">
-                                            {detail?.result.bank} <span className="ms-2 py-1 px-2 text-sm rounded-full bg-black text-white cursor-pointer">Salin</span>
+                                            {detail?.result.bank} <span className="ms-2 py-1 px-2 text-sm rounded-full bg-black text-white cursor-pointer"  onClick={(e) => handleCopyText(e, detail?.result.bank)}>Salin</span>
                                         </p>
                                     }
                                 </div>
