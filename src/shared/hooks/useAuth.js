@@ -30,7 +30,9 @@ const useAuth = () => {
         const response = await authLogin(payload);
         if (response.status === 200) {
             dispatch(fetchSuccess(''))
-            localStorage.setItem('user', JSON.stringify(response.result));
+            if (response.result.role === 'user') {
+                localStorage.setItem('user', JSON.stringify(response.result));
+            }
             return {
                 status: 200,
                 role: response.result.role

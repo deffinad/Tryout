@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
-import { Navbar } from "../../../components/Navbar";
-import { Footer } from "../../../components/Footer";
 import useAuth from "../../../shared/hooks/useAuth";
 import PasswordInput from "../../../components/PasswordInput";
 import { FaRegEnvelope, FaUnlockKeyhole } from "react-icons/fa6";
@@ -24,8 +22,8 @@ const LoginPage = () => {
 
     const handleLogin = async () => {
         const payload = {
-            'username': uname,
-            'password': password
+            'username': uname.trim(),
+            'password': password.trim()
         }
 
         const { status, role } = await login(payload);
@@ -39,15 +37,16 @@ const LoginPage = () => {
             if (role === 'user') {
                 setTimeout(() => {
                     navigate('/beranda');
-                }, 2500)
+                }, 3000)
             } else {
                 window.location.href = "https://tryout-admin.vercel.app/";
             }
         } else {
             Swal.fire({
                 icon: 'error',
-                timer: 1500,
-                text: 'Gagal Login!'
+                timer: 3000,
+                title: 'Gagal Login!',
+                text: 'Coba periksa lagi username dan password kamu'
             })
             handleResetState();
         }
