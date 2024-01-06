@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 const cors = require("cors");
-const { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, onUpdateUser, onDeleteUser } = require("../controller/auth.js");
+const { login, onCheckToken, logout, onGetListUser, onGetDetailUser, onAddUser, onUpdateUser, onDeleteUser, onGetDashboard } = require("../controller/auth.js");
 const { onGetListTryOut, onGetDetailTryout, onAddList, onUpdateList, onDeleteList, onAddMateriForList, onAddSoal, onGetListSoalTryOut, onUpdateSoal, onDeleteDetailMateri, onGetListJadwalTryOut, onGetListMyTryout, onGetDetailMyTryout, onGetMyTryoutAnswer } = require("../controller/tryout.js");
 const { loggedInUsers } = require("../config/session.js");
 const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDeleteMateri } = require("../controller/materi.js");
@@ -61,6 +61,7 @@ router.get("/user/:id", onGetDetailUser);
 router.post("/user", registerValidation, onAddUser);
 router.put("/user/:id", registerValidation, onUpdateUser);
 router.delete("/user/:id", onDeleteUser);
+router.get("/dashboard", onGetDashboard);
 
 //LIST
 router.get("/list/:kategori", onGetListTryOut);
