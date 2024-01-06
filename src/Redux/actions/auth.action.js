@@ -62,7 +62,6 @@ export const getDashboard = () => {
                     dispatch(fetchSuccess(''))
                     dispatch({ type: GET_DASHBOARD, payload: res.result })
                 } else {
-                    dispatch(fetchError('Gagal Memuat Dashboard', res.errors))
                     dispatch({ type: GET_DASHBOARD, payload: res.result })
                 }
             })
