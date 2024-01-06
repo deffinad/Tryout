@@ -48,6 +48,7 @@ const useAuth = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setAuthenticated(false);
+        dispatch(fetchSuccess('Logout Berhasil'))
     };
 
     return {
