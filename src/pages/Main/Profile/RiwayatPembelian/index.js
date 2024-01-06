@@ -8,6 +8,7 @@ import { getStatusPaymentApi } from "../../../../shared/api/payment";
 import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/common.actions";
 import { updateToMyTransaction } from "../../../../Redux/actions/my-to.actions";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const RiwayatPembelian = () => {
     const navigate = useNavigate();
@@ -56,10 +57,18 @@ const RiwayatPembelian = () => {
             .then((res) => {
                 dispatch(fetchSuccess(''));
                 if (res.transaction_status === 'pending') {
-                    alert('Kamu masih belum bayar nih. Mohon segera lakukan pembayaran ya!');
+                    Swal.fire({
+                        timer: 2500,
+                        icon: 'warning',
+                        text: 'Kamu masih belum bayar nih. Mohon segera lakukan pembayaran ya!'
+                    })
                 }
                 if (res.transaction_status === 'settlement' || res.transaction_status === 'berhasil') {
-                    alert('Yeay, kamu sudah berhasil melakukan pembayaran!');
+                    Swal.fire({
+                        timer: 2500,
+                        icon: 'success',
+                        text: 'Yeay, kamu sudah berhasil melakukan pembayaran!'
+                    })
                     const payload = {
                         "id_produk": id_produk,
                         "tanggal": moment(today).format('DD-MM-YYYY'),

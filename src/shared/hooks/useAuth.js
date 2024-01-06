@@ -29,15 +29,14 @@ const useAuth = () => {
         dispatch(fetchStart())
         const response = await authLogin(payload);
         if (response.status === 200) {
-            dispatch(fetchSuccess('Login Berhasil'))
+            dispatch(fetchSuccess(''))
             localStorage.setItem('user', JSON.stringify(response.result));
             return {
                 status: 200,
                 role: response.result.role
             };
         } else {
-            dispatch(fetchError(response.message))
-            alert('Gagal Login')
+            dispatch(fetchError(''))
             return {
                 status: 403,
                 role: ''

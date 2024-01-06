@@ -7,6 +7,7 @@ import useAuth from "../../../shared/hooks/useAuth";
 import PasswordInput from "../../../components/PasswordInput";
 import { FaRegEnvelope, FaUnlockKeyhole } from "react-icons/fa6";
 import InlineIconInput from "../../../components/InlineIconInput";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
     const { login } = useAuth();
@@ -29,13 +30,25 @@ const LoginPage = () => {
 
         const { status, role } = await login(payload);
         if (status === 200) {
+            Swal.fire({
+                icon: 'success',
+                timer: 2000,
+                text: 'Berhasil Login'
+            })
             handleResetState();
             if (role === 'user') {
-                navigate('/beranda');
+                setTimeout(() => {
+                    navigate('/beranda');
+                }, 2500)
             } else {
                 window.location.href = "https://tryout-admin.vercel.app/";
             }
         } else {
+            Swal.fire({
+                icon: 'error',
+                timer: 1500,
+                text: 'Gagal Login!'
+            })
             handleResetState();
         }
     }

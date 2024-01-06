@@ -7,14 +7,15 @@ export const Navbar = ({ toggle = false, setToggle }) => {
     const navigation = useNavigate()
     const { user, logout } = useAuth()
     const { pathname } = useLocation()
+    const currentUserData = JSON.parse(localStorage.getItem('user'));
 
     const renderAvatar = useCallback(() => {
-        if (user){
-            if (user.avatar !== '') return user.avatar;
+        if (currentUserData){
+            if (currentUserData.avatar !== '') return currentUserData?.avatar;
             return '/assets/img/avatar.png'
         }
         
-    }, [user])
+    }, [currentUserData])
 
     return (
         <div className='w-full bg-primary h-[90px] flex flex-row items-center justify-between text-textColor md:px-16 px-8 fixed z-10'>
