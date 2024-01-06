@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react'
 import { FaBars, FaXmark } from 'react-icons/fa6'
 import useAuth from "../../shared/hooks";
+import { useNavigate } from 'react-router';
 
 export const Navbar = ({ toggle = false, setToggle }) => {
-    const { user } = useAuth()
+    const navigate = useNavigate();
+    const { user, logout } = useAuth()
     const currentUserData = JSON.parse(localStorage.getItem('user'));
 
     const renderAvatar = useCallback(() => {
         if (currentUserData) {
             if (currentUserData.avatar !== '') return currentUserData?.avatar;
-            return '/assets/img/avatar.png'
+            return '/assets/img/sample-avatar-admin.png'
         }
 
     }, [currentUserData])
@@ -29,8 +31,14 @@ export const Navbar = ({ toggle = false, setToggle }) => {
                 <h1 className='font-bold text-lg'>LOGONAMAWEB</h1>
             </div>
 
-            <div>
+            <div className='flex flex-row gap-4'>
                 <img className="w-10 h-10 rounded-full" src={renderAvatar()} alt="Rounded avatar" />
+                <button onClick={() => {
+                    logout()
+                    window.location.href = 'https://tryout-dev.vercel.app/masuk'
+                }}>
+                    Logout
+                </button>
             </div>
         </div>
     )
