@@ -26,7 +26,7 @@ const MainPage = () => {
                 <Button onClick={() => navigate(`/to-saya/${menu}/lihat-nilai-keseluruhan`)} title={'Lihat Nilai Keseluruhan'} />
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                 {(list !== null && list.length > 0) ? (
                     list.map(item => (
                         <Fragment key={item.id}>

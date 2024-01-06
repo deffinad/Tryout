@@ -105,19 +105,21 @@ const ItemCardTO = ({ data }) => {
                 </div>
             </div>
             <div className='bg-white rounded-b-[50px] px-8 py-4'>
-                <div className='flex items-center justify-between h-full'>
-                    <div className='flex flex-col justify-center'>
+                <div className='flex items-center h-full'>
+                    <div className='flex flex-1 flex-col justify-center'>
                         <p className='font-bold'>Harga Paket</p>
                         <p className='text-2xl font-semibold text-textColorRed'>
                             {handleDisplayHarga(data)}
                         </p>
                     </div>
 
-                    <Button
-                        title={data.status ? 'Sudah Dibeli' : 'Beli'}
-                        onClick={() => handlePaymentItem(data)}
-                        disabled={data.status}
-                    />
+                    <div className='flex flex-1 flex-row items-center justify-end'>
+                        <Button
+                            title={data.status ? 'Sudah Dibeli' : 'Beli'}
+                            onClick={() => handlePaymentItem(data)}
+                            disabled={data.status}
+                        />
+                    </div>
 
                 </div>
             </div>
