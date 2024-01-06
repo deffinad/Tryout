@@ -7,11 +7,11 @@ export const Navbar = ({ toggle = false, setToggle }) => {
     const currentUserData = JSON.parse(localStorage.getItem('user'));
 
     const renderAvatar = useCallback(() => {
-        if (currentUserData){
+        if (currentUserData) {
             if (currentUserData.avatar !== '') return currentUserData?.avatar;
             return '/assets/img/sample-avatar-admin.png'
         }
-        
+
     }, [currentUserData])
 
     useEffect(() => {
