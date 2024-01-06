@@ -53,7 +53,7 @@ class ModelTransaksi {
                 if (countMateriDikerjakan === dataMateri.length) {
                     status = true
                 }
-                dataTryout.push({ id: snapTryout.id, materi: dataMateri, status: status, ...snapTryout.data() })
+                dataTryout.push({ id: snapTryout.id, status: status, ...snapTryout.data() })
             }))
 
             const custRef = await db.collection("users").doc(hasil.data().token)
