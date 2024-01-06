@@ -37,8 +37,7 @@ export const Navbar = ({ toggle = false, setToggle }) => {
                 <img className="w-10 h-10 rounded-full" src={renderAvatar()} alt="Rounded avatar" />
                 <button onClick={() => {
                     logout()
-                    // window.location.href = "https://tryout-dev.vercel.app/masuk"
-                    window.location.href = "http://localhost:3000/masuk"
+                    window.location.href = "https://tryout-dev.vercel.app/masuk"
                 }}>
                     Logout
                 </button>
