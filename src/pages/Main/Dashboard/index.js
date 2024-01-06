@@ -1,23 +1,18 @@
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import useAuth from '../../../shared/hooks/useAuth'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDashboard } from '../../../Redux/actions/auth.action';
 
 const Dashboard = () => {
    const { user } = useAuth();
    const dispatch = useDispatch()
+   const { dashboard } = useSelector(state => state.profile)
 
    useEffect(() => {
-      dispatch(getDashboard())
+      const dataDashboard = dispatch(getDashboard())
    }, [])
 
-   var currentData = JSON.parse(localStorage.getItem('user'));
 
-   const renderDashboard = useCallback(() => {
-      return currentData.dashboard
-   }, [currentData])
-
-   console.log(renderDashboard())
    return (
       <Fragment>
          {/* Greetings */}
@@ -35,19 +30,19 @@ const Dashboard = () => {
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Terdaftar</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-secondary font-semibold text-white text-[18px]'>
-                              {renderDashboard()?.total || 0}
+                              {dashboard?.total || 0}
                            </div>
                         </div>
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Sudah Dikerjakan</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-primary font-semibold text-white text-[18px]'>
-                              {renderDashboard()?.dikerjakan || 0}
+                              {dashboard?.dikerjakan || 0}
                            </div>
                         </div>
                         <div className='grid grid-rows-1 grid-cols-4 items-center'>
                            <p className='col-span-2'>Belum Dikerjakan</p>
                            <div className='p-1 w-[35px] text-center rounded-full col-span-1 bg-bgRed font-semibold text-white text-[18px]'>
-                              {renderDashboard()?.belum_dikerjakan || 0}
+                              {dashboard?.belum_dikerjakan || 0}
                            </div>
                         </div>
                      </div>
@@ -56,13 +51,13 @@ const Dashboard = () => {
                <div className='grid grid-rows-1 grid-cols-2 gap-4'>
                   <div className='col-span-1'>
                      <div className='h-[80%] bg-secondary text-white flex justify-center items-center text-[100px] rounded-full'>
-                        {renderDashboard()?.ranking || 0}
+                        {dashboard?.ranking || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Ranking</p>
                   </div>
                   <div className='col-span-1'>
                      <div className='h-[80%] bg-primary text-white flex justify-center items-center text-[100px] rounded-full'>
-                        {renderDashboard()?.nilai_rata || 0}
+                        {dashboard?.nilai_rata || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata TO</p>
                   </div>

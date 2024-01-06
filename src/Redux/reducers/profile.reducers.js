@@ -1,8 +1,9 @@
-import { GET_DETAIL_RIWAYAT_PEMBELIAN, GET_RIWAYAT_PEMBELIAN } from "../actions/types";
+import { GET_DASHBOARD, GET_DETAIL_RIWAYAT_PEMBELIAN, GET_RIWAYAT_PEMBELIAN } from "../actions/types";
 
 const initalState = {
     list_pembelian: null,
-    detail_pembelian: null
+    detail_pembelian: null,
+    dashboard: null
 };
 
 const profileReducers = (state = initalState, action) => {
@@ -16,6 +17,11 @@ const profileReducers = (state = initalState, action) => {
             return {
                 ...state,
                 detail_pembelian: action.payload
+            }
+        case GET_DASHBOARD:
+            return {
+                ...state,
+                dashboard: action.payload
             }
         default:
             return state

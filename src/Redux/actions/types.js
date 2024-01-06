@@ -27,3 +27,4 @@ export const ADD_ANSWER = "add_answer";
 // MY PROFILE
 export const GET_RIWAYAT_PEMBELIAN = 'get_riwayat_pembelian';
 export const GET_DETAIL_RIWAYAT_PEMBELIAN = 'get_detail_riwayat_pembelian';
+export const GET_DASHBOARD = 'get_dashboard';

@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { authRegister, getDashboardApi, updateProfileApi } from "../../shared/api/auth";
 import { fetchError, fetchStart, fetchSuccess } from "./common.actions";
+import { GET_DASHBOARD } from "./types";
 
 export const register = (data, navigate) => {
     return (dispatch) => {
@@ -59,11 +60,10 @@ export const getDashboard = () => {
             .then((res) => {
                 if (res.status === 200) {
                     dispatch(fetchSuccess(''))
-                    const currentUser = JSON.parse(localStorage.getItem('user'));
-                    currentUser['dashboard'] = res.result
-                    localStorage.setItem('user', JSON.stringify(currentUser));
+                    dispatch({ type: GET_DASHBOARD, payload: res.result })
                 } else {
                     dispatch(fetchError('Gagal Memuat Dashboard', res.errors))
+                    dispatch({ type: GET_DASHBOARD, payload: res.result })
                 }
             })
             .catch((error) => {
