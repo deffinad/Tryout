@@ -33,7 +33,27 @@ class ModelTransaksi {
                 const tryoutRef = await db.collection("list_tryout").doc(item)
                 const snapTryout = await tryoutRef.get()
 
-                dataTryout.push({ id: snapTryout.id, ...snapTryout.data() })
+                const materiRef = await db.collection("list_tryout").doc(item).collection('materi')
+                const snapMateri = await materiRef.get()
+
+                const refJawaban = await db.collection('transaksi').doc(hasil.id).collection('jawaban')
+                const snapJawaban = await refJawaban.get()
+
+                let dataMateri = []
+                let countMateriDikerjakan = 0
+                let status = false
+                for (const val of snapMateri.docs) {
+                    dataMateri.push(val.data())
+                    for (const itemJawaban of snapJawaban.docs) {
+                        if (itemJawaban.data().id_transaksi === hasil.id && itemJawaban.data().id_materi === val.data().id_materi && item === itemJawaban.data().id_tryout) {
+                            countMateriDikerjakan = countMateriDikerjakan + 1
+                        }
+                    }
+                }
+                if (countMateriDikerjakan === dataMateri.length) {
+                    status = true
+                }
+                dataTryout.push({ id: snapTryout.id, materi: dataMateri, status: status, ...snapTryout.data() })
             }))
 
             const custRef = await db.collection("users").doc(hasil.data().token)
