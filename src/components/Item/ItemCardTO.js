@@ -62,7 +62,7 @@ const ItemCardTO = ({ data }) => {
                             dispatch(addToMyTransaction(payload))
                         },
                         onError: (error) => {
-                            alert('gagal melakukan proses pembayaran');
+                            dispatch(fetchError('Gagal Melakukan Proses Pembayaran'));
                             console.log(error);
                         }
                     });
@@ -73,7 +73,6 @@ const ItemCardTO = ({ data }) => {
             })
             .catch((error) => {
                 dispatch(fetchError('Gagal Melakukan Pembelian'));
-                alert('Gagal Melakukan Pembelian', error);
             })
     }
 
