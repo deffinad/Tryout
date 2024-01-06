@@ -42,7 +42,7 @@ const DaftarTryOut = () => {
                 {list !== null ? (
                     list.map(item => (
                         <Fragment key={item.id}>
-                            <ItemCardTO data={item} />
+                            <ItemCardTO data={item} kategori={id}/>
                         </Fragment>
                     ))
                 ) : (<>Tidak Ada Data</>)}

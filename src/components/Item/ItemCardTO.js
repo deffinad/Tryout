@@ -8,8 +8,9 @@ import { fetchError, fetchStart, fetchSuccess } from '../../Redux/actions/common
 import { useDispatch } from 'react-redux'
 import { addToMyTransaction } from '../../Redux/actions/my-to.actions'
 import moment from 'moment'
+import { getListProduk } from '../../Redux/actions/daftar-to.actions'
 
-const ItemCardTO = ({ data }) => {
+const ItemCardTO = ({ data, kategori }) => {
     const { user } = useAuth()
     const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const ItemCardTO = ({ data }) => {
         dispatch(fetchStart());
         const today = new Date();
         const payload = {
-            id_produk: "id-tryout-" + data.id,
+            id_produk: "id-tryout-" + data.id + '-' + user.token,
             gross_amount: data.diskon !== 0 ? parseInt(data.diskon) : parseInt(data.harga),
             customer_name: user.nama,
             email: user?.email,
@@ -46,6 +47,7 @@ const ItemCardTO = ({ data }) => {
                                 "transaction_id": res.transaction_id
                             }
                             dispatch(addToMyTransaction(payload))
+                            dispatch(getListProduk(kategori));
                         },
                         onPending: (res) => {
                             const paymentType = res.payment_type
