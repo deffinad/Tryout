@@ -294,8 +294,10 @@ const onGetListJadwalTryOut = async (req, res) => {
 
 const onGetListMyTryout = async (req, res) => {
     const token = req.headers.authorization
+    const {kategori} = req.params
+
     try {
-        const result = await tryoutModel.getListMyTryout(token);
+        const result = await tryoutModel.getListMyTryout(token, kategori);
 
         if (result.isTrue) {
             res.status(200).json({

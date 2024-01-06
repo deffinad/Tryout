@@ -74,8 +74,8 @@ router.get("/list/:kategori/:id/soal/:id_materi", onGetListSoalTryOut);
 router.post("/list/:kategori/:id/soal", soalTryoutValidation, onAddSoal);
 router.put("/list/:kategori/:id/soal/:id_materi", soalTryoutValidation, onUpdateSoal);
 router.get("/jadwal", onGetListJadwalTryOut);
-router.get("/my-to", onGetListMyTryout);
-router.get("/my-to/:id", onGetDetailMyTryout);
+router.get("/my-to/:kategori", onGetListMyTryout);
+router.get("/my-to/:kategori/:id", onGetDetailMyTryout);
 router.get("/my-to/jawaban/:id_transaksi/:id_tryout/:id_materi", onGetMyTryoutAnswer);
 
 //MATERI

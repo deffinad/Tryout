@@ -326,7 +326,7 @@ class ModelTryout {
     }
   }
 
-  async getListMyTryout(token) {
+  async getListMyTryout(token, kategori) {
     let data = []
     const ref = await db.collection("transaksi");
     const snapshot = await ref.get();
@@ -355,18 +355,20 @@ class ModelTryout {
             data[index].total_nilai = data[index].total_nilai + valJawaban.data().nilai
             data[index].rata_nilai = data[index].total_nilai / data[index].materi.length
           } else {
-            data.push({
-              id_tryout: valJawaban.data().id_tryout,
-              id_transaksi: valJawaban.data().id_transaksi,
-              ...snapTryout.data(),
-              materi: [{
-                id_materi: valJawaban.data().id_materi,
-                ...snapMateri.data(),
-                nilai: valJawaban.data().nilai
-              }],
-              total_nilai: valJawaban.data().nilai,
-              rata_nilai: valJawaban.data().nilai / 1
-            })
+            if(snapTryout.data().kategori === kategori){
+              data.push({
+                id_tryout: valJawaban.data().id_tryout,
+                id_transaksi: valJawaban.data().id_transaksi,
+                ...snapTryout.data(),
+                materi: [{
+                  id_materi: valJawaban.data().id_materi,
+                  ...snapMateri.data(),
+                  nilai: valJawaban.data().nilai
+                }],
+                total_nilai: valJawaban.data().nilai,
+                rata_nilai: valJawaban.data().nilai / 1
+              })
+            }
           }
         }
       }
