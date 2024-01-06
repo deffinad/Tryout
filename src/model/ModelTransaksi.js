@@ -50,7 +50,7 @@ class ModelTransaksi {
                         }
                     }
                 }
-                if (countMateriDikerjakan === dataMateri.length) {
+                if (countMateriDikerjakan === dataMateri.length && dataMateri.length > 0) {
                     status = true
                 }
                 dataTryout.push({ id: snapTryout.id, status: status, ...snapTryout.data() })
