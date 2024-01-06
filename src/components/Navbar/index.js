@@ -1,11 +1,9 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { FaBars, FaXmark } from 'react-icons/fa6'
 import useAuth from "../../shared/hooks";
-import { useNavigate } from 'react-router';
 
 export const Navbar = ({ toggle = false, setToggle }) => {
-    const navigate = useNavigate();
-    const { user, logout } = useAuth()
+    const { logout } = useAuth()
     const currentUserData = JSON.parse(localStorage.getItem('user'));
 
     const renderAvatar = useCallback(() => {
@@ -15,6 +13,10 @@ export const Navbar = ({ toggle = false, setToggle }) => {
         }
         
     }, [currentUserData])
+
+    useEffect(() => {
+        console.log('');
+    }, [])
     
     return (
         <div className='w-full bg-primary h-[90px] flex flex-row items-center justify-between text-textColor px-16 fixed z-10'>
@@ -35,7 +37,8 @@ export const Navbar = ({ toggle = false, setToggle }) => {
                 <img className="w-10 h-10 rounded-full" src={renderAvatar()} alt="Rounded avatar" />
                 <button onClick={() => {
                     logout()
-                    navigate('https://tryout-dev.vercel.app/masuk')
+                    // window.location.href = "https://tryout-dev.vercel.app/masuk"
+                    window.location.href = "http://localhost:3000/masuk"
                 }}>
                     Logout
                 </button>
