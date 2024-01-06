@@ -58,12 +58,8 @@ export const getDashboard = () => {
         dispatch((fetchStart()))
         getDashboardApi()
             .then((res) => {
-                if (res.status === 200) {
-                    dispatch(fetchSuccess(''))
-                    dispatch({ type: GET_DASHBOARD, payload: res.result })
-                } else {
-                    dispatch({ type: GET_DASHBOARD, payload: res.result })
-                }
+                dispatch(fetchSuccess(''))
+                dispatch({ type: GET_DASHBOARD, payload: res.result })
             })
             .catch((error) => {
                 dispatch(fetchError(error))
