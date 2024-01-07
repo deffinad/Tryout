@@ -310,7 +310,7 @@ const onGetListMyTryout = async (req, res) => {
                 status: 200,
                 messages: "Data My Tryout Tidak Ditemukan",
                 result: result.data
-            });
+            })
         }
     } catch (err) {
         res.status(400).json({
