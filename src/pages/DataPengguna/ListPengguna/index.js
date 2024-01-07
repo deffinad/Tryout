@@ -143,7 +143,7 @@ const ListPengguna = () => {
                             </div>
 
                             <div>
-                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                 <input
                                     type="password"
                                     value={data.password}

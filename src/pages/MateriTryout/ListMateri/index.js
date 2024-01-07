@@ -33,6 +33,7 @@ const ListMateri = () => {
 
     const handleOpenTambahModal = () => {
         setOpen(true);
+        setNamaMateri('')
     }
 
     const handleTambah = () => {
