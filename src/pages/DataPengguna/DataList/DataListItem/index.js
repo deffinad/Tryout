@@ -86,6 +86,10 @@ const DataListItem = ({ user, index, keyItem, setRefresh }) => {
         });
     };
 
+    const handleNavigateToDetail = (id) => {
+        navigate(`/user/detail/${id}`);
+    }
+
     return (
         <Fragment>
             <tr key={keyItem} className='bg-white hover:bg-gray-100 cursor-pointer'>
@@ -95,7 +99,7 @@ const DataListItem = ({ user, index, keyItem, setRefresh }) => {
                 <td className="w-[40%] px-3 py-3 border-b border-gray-200 text-sm">
                     <div className='flex-1 flex flex-row gap-2 items-center'>
                         <img src={user.avatar} height={30} width={30} className='rounded-full bg-grey-200' />
-                        <p className="text-gray-900 text-lg whitespace-no-wrap underline cursor-pointer">{user.nama}</p>
+                        <p onClick={() => handleNavigateToDetail(user.id)} className="text-gray-900 text-lg whitespace-no-wrap underline cursor-pointer">{user.nama}</p>
                     </div>
                 </td>
                 <td className="w-[35%] px-3 py-3 border-b border-gray-200 text-sm">
