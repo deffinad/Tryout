@@ -90,3 +90,18 @@ export const addUserApi = async (payload) => {
         return error;
     }
 }
+
+export const getListTryoutUserApi = async (id, kategori) => {
+    try {
+        const response = await fetch(API.GET_LIST_TRYOUT_USER.replace('$kategori', kategori), {
+            method: 'GET',
+            headers: {
+                'Authorization': id
+            }
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}

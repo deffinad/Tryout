@@ -8,6 +8,9 @@ export const FETCH_ERROR = 'fetch_error';
 // DATA PENGGUNA
 export const GET_DATA_PENGGUNA = 'get_data_pengguna';
 export const GET_DETAIL_PENGGUNA = 'get_detail_pengguna';
+export const GET_TRYOUT_USER = 'get_tryout_user';
+export const CLEAR_DETAIL_PENGGUNA ='clear_detail_pengguna';
+export const CLEAR_TRYOUT_USER = 'clear_tryout-user';
 
 // MATERI TRYOUT
 export const GET_LIST_MATERI = 'get_list_materi';

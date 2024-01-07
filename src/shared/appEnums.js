@@ -50,6 +50,7 @@ const GET_DETAIL_USER = BASE_URL + '/user/$id';
 const UPDATE_USER = BASE_URL + '/user/$id';
 const DELETE_USER = BASE_URL + '/user/$id';
 const ADD_USER = BASE_URL + '/user';
+const GET_LIST_TRYOUT_USER = BASE_URL + '/my-to/$kategori';
 
 export const API = {
     BASE_URL,
@@ -79,4 +80,5 @@ export const API = {
     UPDATE_USER,
     DELETE_USER,
     ADD_USER,
+    GET_LIST_TRYOUT_USER
 }

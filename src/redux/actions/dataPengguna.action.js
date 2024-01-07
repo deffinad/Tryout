@@ -1,5 +1,5 @@
-import { addUserApi, deleteUserApi, getDetailUserApi, getListUserApi, updateUserApi } from "../../shared/api/pengguna";
-import { GET_DATA_PENGGUNA, GET_DETAIL_PENGGUNA } from "./types";
+import { addUserApi, deleteUserApi, getDetailUserApi, getListTryoutUserApi, getListUserApi, updateUserApi } from "../../shared/api/pengguna";
+import { GET_DATA_PENGGUNA, GET_DETAIL_PENGGUNA, GET_TRYOUT_USER, CLEAR_DETAIL_PENGGUNA, CLEAR_TRYOUT_USER } from "./types";
 import { fetchError, fetchStart, fetchSuccess } from './common.action';
 
 export const getDataPengguna = () => {
@@ -89,5 +89,34 @@ export const addPengguna = (payload, setRefresh) => {
             .catch((error) => {
                 dispatch(fetchError(error))
             })
+    }
+}
+
+export const getListTryoutPengguna = (id, kategori) => {
+    return (dispatch) => {
+        getListTryoutUserApi(id, kategori)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch({ type: GET_TRYOUT_USER, payload: res });
+                } else {
+                    dispatch(fetchError('Gagal memuat data!'));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(fetchError('Gagal memuat data!'));
+            })
+    }
+}
+
+export const clearDetailPengguna = () => {
+    return (dispatch) => {
+        dispatch({ type: CLEAR_DETAIL_PENGGUNA })
+    }
+}
+
+export const clearTryoutPengguna = () => {
+    return (dispatch) => {
+        dispatch({ type: CLEAR_TRYOUT_USER })
     }
 }
