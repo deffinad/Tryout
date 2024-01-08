@@ -299,16 +299,16 @@ const FormSoal = () => {
   };
 
   const handleAddOpsi = (indexSoal) => {
-    let newSoal = [...data.soal]
-    newSoal[indexSoal]['opsi'].push({
-      id: newSoal[indexSoal]['opsi'].length + 1,
-      value: ''
-    })
+    // let newSoal = [...data.soal]
+    // newSoal[indexSoal]['opsi'].push({
+    //   id: newSoal[indexSoal]['opsi'].length + 1,
+    //   value: ''
+    // })
 
-    setData({
-      ...data,
-      soal: newSoal
-    })
+    // setData({
+    //   ...data,
+    //   soal: newSoal
+    // })
   }
 
   const handleDeleteOpsi = (indexSoal, indexOpsi) => {
