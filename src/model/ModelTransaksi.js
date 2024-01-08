@@ -270,9 +270,9 @@ class ModelTransaksi {
             ...data,
             nilai: nilai
         }).then(function () {
-            isSuccess = true
+            isSuccess = true;
         }).catch(err => {
-            isSuccess = false
+            isSuccess = false;
         });
 
         if (isSuccess) {
