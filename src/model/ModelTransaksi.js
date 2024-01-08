@@ -246,21 +246,36 @@ class ModelTransaksi {
         })
 
         data.jawaban.map(item => {
-            let check = dataSoal.some(val => val.id === item.id_soal && item.value === val.jawaban)
+            if (typeof (item.value) === 'string') {
+                let check = dataSoal.some(val => val.id === item.id_soal && item.value.toLowerCase() === val.jawaban.toLowerCase())
 
-            if (check) {
-                nilai = nilai + point
+                if (check) {
+                    nilai = nilai + point
+                }
+            } else {
+                let index = dataSoal.findIndex(val => val.id === item.id_soal)
+                let nilaiPilihan = 0
+                item.value.map(val => {
+                    let check = dataSoal[index].jawaban.some(x => x.id === val.id && val.value === x.value)
+                    if(check){
+                        nilaiPilihan = nilaiPilihan + point
+                    }
+                })
+                nilaiPilihan = nilaiPilihan / item.value.length
+                nilai = nilai + nilaiPilihan
             }
         })
 
-        await db.collection('transaksi').doc(data.id_transaksi).collection('jawaban').doc().set({
-            ...data,
-            nilai: nilai
-        }).then(function () {
-            isSuccess = true
-        }).catch(err => {
-            isSuccess = false
-        });
+        console.log(nilai)
+
+        // await db.collection('transaksi').doc(data.id_transaksi).collection('jawaban').doc().set({
+        //     ...data,
+        //     nilai: nilai
+        // }).then(function () {
+        //     isSuccess = true
+        // }).catch(err => {
+        //     isSuccess = false
+        // });
 
         if (isSuccess) {
             return true;
