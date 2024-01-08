@@ -58,10 +58,10 @@ export const SoalTryOut = () => {
 
     useEffect(() => {
         if (state.hours === 0 && state.minutes === 0 && state.seconds === 0) {
-            // setToggleSelesai({
-            //     toggle: true,
-            //     id: 'timeout'
-            // })
+            setToggleSelesai({
+                toggle: true,
+                id: 'timeout'
+            })
         }
     }, [state])
 
@@ -122,15 +122,14 @@ export const SoalTryOut = () => {
                 id_materi: id_materi,
                 jawaban: payloadJawaban
             }
-            // dispatch(addMyToAnswer(payload, navigate))
-            // setToggleSelesai({
-            //     toggle: false,
-            //     id: ''
-            // })
-            // setTimeout(() => {
-            //     navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
-            // }, 3000)
-            console.log(payload)
+            dispatch(addMyToAnswer(payload, navigate))
+            setToggleSelesai({
+                toggle: false,
+                id: ''
+            })
+            setTimeout(() => {
+                navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
+            }, 3000)
         } else {
             setToggleSelesai({
                 toggle: false,
