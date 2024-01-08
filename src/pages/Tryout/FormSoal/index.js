@@ -9,6 +9,7 @@ import { addSoalTryout, clearDetailSoal, clearDetailTryout, getDetailSoal, getDe
 import { getListMateri } from '../../../redux/actions/materiTryout.action'
 import Button from '../../../components/Button'
 import { FaPlus, FaXmark } from 'react-icons/fa6'
+import { fetchError } from '../../../redux/actions/common.action'
 
 const FormSoal = () => {
   const { jenis, id, id_materi } = useParams()
@@ -17,6 +18,24 @@ const FormSoal = () => {
   const { detail, soal } = useSelector(state => state.tryout)
   const { list: listMateri } = useSelector(state => state.materi)
   const [pilihanMateri, setPilihanMateri] = useState([])
+  const pilihanTipe = [
+    {
+      name: 'Masukan Tipe Pilihan',
+      value: ''
+    },
+    {
+      name: 'Pilihan Ganda',
+      value: 'pilihan_ganda'
+    },
+    {
+      name: 'Essay',
+      value: 'essay'
+    },
+    {
+      name: 'Pilihan',
+      value: 'pilihan'
+    },
+  ]
   const [data, setData] = useState({
     nama: '',
     id_materi: '',
@@ -73,11 +92,12 @@ const FormSoal = () => {
 
   const addSoal = () => {
     let indexPrevSoal = data.soal.length - 1
+
     if (indexPrevSoal >= 0) {
       let dataSoal = data.soal[indexPrevSoal]
       let checkValidation = false
 
-      if (dataSoal.nama === '' || dataSoal.pembahasan === '' || dataSoal.jawaban === '') {
+      if (dataSoal.nama === '' || dataSoal.pembahasan === '' || dataSoal.jawaban === null || dataSoal.tipe_pilihan === '') {
         checkValidation = true
       }
 
@@ -88,36 +108,15 @@ const FormSoal = () => {
       })
 
       if (checkValidation) {
-        alert(`Masukan Data Soal ${indexPrevSoal + 1} Dengan Benar`)
+        dispatch(fetchError(`Masukan Data Soal ${indexPrevSoal + 1} Dengan Benar`))
       } else {
         setData({
           ...data, soal: [...data.soal, {
             nama: '',
             gambar: '',
             pembahasan: '',
-            opsi: [
-              {
-                id: 'A',
-                value: ''
-              },
-              {
-                id: 'B',
-                value: ''
-              },
-              {
-                id: 'C',
-                value: ''
-              },
-              {
-                id: 'D',
-                value: ''
-              },
-              {
-                id: 'E',
-                value: ''
-              },
-            ],
-            jawaban: '',
+            tipe_pilihan: '',
+            jawaban: null,
           }]
         })
       }
@@ -127,29 +126,8 @@ const FormSoal = () => {
           nama: '',
           gambar: '',
           pembahasan: '',
-          opsi: [
-            {
-              id: 'A',
-              value: ''
-            },
-            {
-              id: 'B',
-              value: ''
-            },
-            {
-              id: 'C',
-              value: ''
-            },
-            {
-              id: 'D',
-              value: ''
-            },
-            {
-              id: 'E',
-              value: ''
-            },
-          ],
-          jawaban: '',
+          tipe_pilihan: '',
+          jawaban: null,
         }]
       })
     }
@@ -173,6 +151,48 @@ const FormSoal = () => {
       } catch (error) {
         newSoal[index][key] = ''
       }
+    } else if (key === 'tipe_pilihan') {
+      newSoal[index][key] = value
+      let opsi = null
+      let jawaban = null
+      if (value === 'pilihan_ganda') {
+        opsi = [
+          {
+            id: 'A',
+            value: ''
+          },
+          {
+            id: 'B',
+            value: ''
+          },
+          {
+            id: 'C',
+            value: ''
+          },
+          {
+            id: 'D',
+            value: ''
+          },
+          {
+            id: 'E',
+            value: ''
+          },
+        ]
+        jawaban = ''
+      } else if (value === 'pilihan') {
+        opsi = [
+          {
+            id: 1,
+            value: ''
+          }
+        ]
+        jawaban = []
+      } else {
+        opsi = []
+        jawaban = ''
+      }
+      newSoal[index]['opsi'] = opsi
+      newSoal[index]['jawaban'] = jawaban
     } else {
       newSoal[index][key] = value
     }
@@ -180,11 +200,49 @@ const FormSoal = () => {
       ...data,
       soal: newSoal
     })
+    //   {
+    //     id: 'A',
+    //     value: ''
+    //   },
+    //   {
+    //     id: 'B',
+    //     value: ''
+    //   },
+    //   {
+    //     id: 'C',
+    //     value: ''
+    //   },
+    //   {
+    //     id: 'D',
+    //     value: ''
+    //   },
+    //   {
+    //     id: 'E',
+    //     value: ''
+    //   },
+    // ],
   }
 
   const handleInputOpsi = (indexSoal, indexOpsi, key, value) => {
     let newSoal = [...data.soal]
-    newSoal[indexSoal]['opsi'][indexOpsi][key] = value
+    if (key === 'jawaban') {
+      let newJawaban = newSoal[indexSoal][key]
+      let check = newJawaban.hasOwnProperty(indexOpsi)
+      if (!check) {
+        newJawaban.push({
+          id: indexOpsi + 1,
+          value: value
+        })
+      } else {
+        newJawaban[indexOpsi] = {
+          id: indexOpsi + 1,
+          value: value
+        }
+      }
+      newSoal[indexSoal][key] = newJawaban
+    } else {
+      newSoal[indexSoal]['opsi'][indexOpsi][key] = value
+    }
 
     setData({
       ...data,
@@ -206,7 +264,7 @@ const FormSoal = () => {
     const checkValidation = handleValidation()
 
     if (checkValidation) {
-      alert('Mohon Masukan Data Soal Dengan Benar')
+      dispatch(fetchError(`Mohon Masukan Data Soal Dengan Benar`))
     } else {
       const payload = {
         id_materi: data.id_materi,
@@ -239,6 +297,43 @@ const FormSoal = () => {
       reader.readAsDataURL(image);
     });
   };
+
+  const handleAddOpsi = (indexSoal) => {
+    let newSoal = [...data.soal]
+    newSoal[indexSoal]['opsi'].push({
+      id: newSoal[indexSoal]['opsi'].length + 1,
+      value: ''
+    })
+
+    setData({
+      ...data,
+      soal: newSoal
+    })
+  }
+
+  const handleDeleteOpsi = (indexSoal, indexOpsi) => {
+    let newSoal = [...data.soal]
+    newSoal[indexSoal]['opsi'].splice(indexOpsi, 1)
+    let newOpsi = []
+    newSoal[indexSoal]['opsi'].map((item, index) => {
+      newOpsi.push({
+        id: index + 1,
+        value: item.value
+      })
+    })
+    newSoal[indexSoal]['opsi'] = newOpsi
+    if (newSoal[indexSoal]['jawaban'].length === 1) {
+      newSoal[indexSoal]['jawaban'] = []
+    } else {
+      newSoal[indexSoal]['jawaban'].splice(indexOpsi, 1)
+    }
+
+    setData({
+      ...data,
+      soal: newSoal
+    })
+  }
+
   return (
     <Fragment>
       <Card
@@ -300,15 +395,6 @@ const FormSoal = () => {
                   </div>
                   <div className='flex flex-col gap-6 '>
                     <div>
-                      <TextInput
-                        name="image"
-                        label="Gambar"
-                        type='file'
-                        onChange={(e) => handleInputSoal(index, 'gambar', e.target.files[0])}
-                      />
-                    </div>
-
-                    <div>
                       <TextInputArea
                         name="soal"
                         label="Soal"
@@ -328,30 +414,104 @@ const FormSoal = () => {
                       />
                     </div>
 
-                    <div className='grid grid-cols-3 gap-6'>
-                      {
-                        item.opsi.map((opsi, i) => (
-                          <div key={`soal ${index} opsi ${i}`}>
-                            <TextInput
-                              name={`opsi${i}`}
-                              label={`Opsi ${opsi.id}`}
-                              value={opsi.value}
-                              placeholder={`Masukan Opsi ${opsi.id}`}
-                              onChange={(e) => handleInputOpsi(index, i, 'value', e.target.value)}
-                            />
-                          </div>
-                        ))
-                      }
-                      <div>
+                    <div className='flex flex-row gap-6'>
+                      <div className='flex-1'>
                         <TextInput
-                          name="jawaban"
-                          label={`Jawaban`}
-                          value={item.jawaban}
-                          placeholder={`Masukan Jawaban (A/B/C/D/E)`}
-                          onChange={(e) => handleInputSoal(index, 'jawaban', e.target.value)}
+                          name="image"
+                          label="Gambar"
+                          type='file'
+                          onChange={(e) => handleInputSoal(index, 'gambar', e.target.files[0])}
+                        />
+                      </div>
+
+                      <div className='flex-1'>
+                        <TextInputDropdown
+                          name="tipe_pilihan"
+                          label="Tipe Pilihan"
+                          value={item.tipe_pilihan}
+                          options={pilihanTipe}
+                          onChange={(e) => handleInputSoal(index, 'tipe_pilihan', e.target.value)}
                         />
                       </div>
                     </div>
+
+                    {
+                      item.tipe_pilihan !== '' ? (
+                        item.tipe_pilihan === 'pilihan_ganda' ? (
+                          <div className='grid grid-cols-3 gap-6'>
+                            {
+                              item.opsi.map((opsi, i) => (
+                                <div key={`soal ${index} opsi ${i}`}>
+                                  <TextInput
+                                    name={`opsi${i}`}
+                                    label={`Opsi ${opsi.id}`}
+                                    value={opsi.value}
+                                    placeholder={`Masukan Opsi ${opsi.id}`}
+                                    onChange={(e) => handleInputOpsi(index, i, 'value', e.target.value)}
+                                  />
+                                </div>
+                              ))
+                            }
+                            <div>
+                              <TextInput
+                                name="jawaban"
+                                label={`Jawaban`}
+                                value={item.jawaban}
+                                placeholder={`Masukan Jawaban (A/B/C/D/E)`}
+                                onChange={(e) => handleInputSoal(index, 'jawaban', e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        ) : item.tipe_pilihan === 'pilihan' ? (
+                          <>
+                            {
+                              item.opsi.map((opsi, i) => (
+                                <div key={`soal ${index} opsi ${i}`} className='flex flex-row gap-6'>
+                                  <div className='flex-1'>
+                                    <TextInput
+                                      name={`opsi${i}`}
+                                      label={`Opsi ${i + 1}`}
+                                      value={opsi.value}
+                                      placeholder={`Masukan Opsi ${i + 1}`}
+                                      onChange={(e) => handleInputOpsi(index, i, 'value', e.target.value)}
+                                    />
+                                  </div>
+
+                                  <div className='w-60'>
+                                    <TextInput
+                                      name={`jawaban${i + 1}`}
+                                      label={`Jawaban`}
+                                      value={item.jawaban[i]?.value}
+                                      placeholder={`Jawaban Opsi ${i + 1} (Benar/Salah)`}
+                                      onChange={(e) => handleInputOpsi(index, i, 'jawaban', e.target.value)}
+                                    />
+                                  </div>
+
+                                  <div className='w-6 flex flex-row items-center justify-end pt-6'>
+                                    <button className='dark:text-white' onClick={() => handleDeleteOpsi(index, i)}>
+                                      <FaXmark size={24} />
+                                    </button>
+                                  </div>
+                                </div>
+                              ))
+                            }
+                            <div>
+                              <button className='dark:text-white' onClick={() => handleAddOpsi(index)}>+ Tambah Opsi</button>
+                            </div>
+                          </>
+                        ) : (
+                          <div>
+                            <TextInputArea
+                              name="jawaban"
+                              label="Jawaban"
+                              value={item.jawaban}
+                              placeholder="Masukkan Jawaban"
+                              onChange={(e) => handleInputSoal(index, 'jawaban', e.target.value)}
+                            />
+                          </div>
+                        )
+                      ) : null
+                    }
                   </div>
                 </div>
               ))
@@ -370,8 +530,8 @@ const FormSoal = () => {
             </div>
           </div>
         </div>
-      </Card>
-    </Fragment>
+      </Card >
+    </Fragment >
   )
 }
 
