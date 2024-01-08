@@ -7,6 +7,7 @@ import { useParams } from 'react-router'
 import { addMyToAnswer, clearListTryout, getListSoalTryout } from "../../../../Redux/actions/my-to.actions";
 import DialogModal from '../../../../components/DialogModal'
 import { useNavigate } from 'react-router-dom'
+import InlineIconInput from '../../../../components/InlineIconInput'
 
 export const SoalTryOut = () => {
     const { menu, id_transaksi, id_tryout, id_materi } = useParams()
@@ -57,18 +58,49 @@ export const SoalTryOut = () => {
 
     useEffect(() => {
         if (state.hours === 0 && state.minutes === 0 && state.seconds === 0) {
-            setToggleSelesai({
-                toggle: true,
-                id: 'timeout'
-            })
+            // setToggleSelesai({
+            //     toggle: true,
+            //     id: 'timeout'
+            // })
         }
     }, [state])
 
-    const handleJawaban = (id_soal, id) => {
-        setJawaban((prevAnswers) => ({
-            ...jawaban,
-            [id_soal]: id,
-        }));
+    const handleJawaban = (id_soal, id, type = '', value = '') => {
+        if (type === 'pilihan') {
+            let check = jawaban.hasOwnProperty(id_soal)
+            let newJawaban = []
+            if (check) {
+                newJawaban = jawaban[id_soal]
+                let checkJawaban = newJawaban.some(item => item.id === id)
+                if (checkJawaban) {
+                    let index = newJawaban.findIndex(item => item.id === id)
+                    newJawaban[index] = {
+                        id: id,
+                        value: value
+                    }
+                } else {
+                    newJawaban[newJawaban.length] = {
+                        id: id,
+                        value: value
+                    }
+                }
+            } else {
+                newJawaban = jawaban[id_soal]
+                newJawaban = [{
+                    id: id,
+                    value: value
+                }]
+            }
+            setJawaban((prevAnswers) => ({
+                ...jawaban,
+                [id_soal]: newJawaban,
+            }));
+        } else {
+            setJawaban((prevAnswers) => ({
+                ...jawaban,
+                [id_soal]: id,
+            }));
+        }
     }
 
     const handleFinishSoal = (status) => {
@@ -90,14 +122,15 @@ export const SoalTryOut = () => {
                 id_materi: id_materi,
                 jawaban: payloadJawaban
             }
-            dispatch(addMyToAnswer(payload, navigate))
-            setToggleSelesai({
-                toggle: false,
-                id: ''
-            })
-            setTimeout(() => {
-                navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
-            }, 3000)
+            // dispatch(addMyToAnswer(payload, navigate))
+            // setToggleSelesai({
+            //     toggle: false,
+            //     id: ''
+            // })
+            // setTimeout(() => {
+            //     navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
+            // }, 3000)
+            console.log(payload)
         } else {
             setToggleSelesai({
                 toggle: false,
@@ -195,20 +228,46 @@ export const SoalTryOut = () => {
                                         <p>{value.nama}</p>
                                     </div>
 
-                                    <div className='flex flex-col'>
+                                    <div className='flex flex-col flex-1'>
                                         {
-                                            value.opsi.map((item, index) => (
-                                                <div key={`soal${i} -${index}`}>
-                                                    <RadioButton
-                                                        id={`soal${i} -${index} `}
-                                                        name={`soal${i} `}
-                                                        value={item.id}
-                                                        title={item.value}
-                                                        checked={jawaban[value.id] === item.id}
-                                                        onChange={() => handleJawaban(value.id, item.id)}
-                                                    />
-                                                </div>
-                                            ))
+                                            value.tipe_pilihan === 'pilihan_ganda' ? (
+                                                value.opsi.map((item, index) => (
+                                                    <div key={`soal${i} -${index}`}>
+                                                        <RadioButton
+                                                            id={`soal${i} -${index} `}
+                                                            name={`soal${i}`}
+                                                            value={item.id}
+                                                            title={item.value}
+                                                            checked={jawaban[value.id] === item.id}
+                                                            onChange={() => handleJawaban(value.id, item.id)}
+                                                        />
+                                                    </div>
+                                                ))
+                                            ) : value.tipe_pilihan === 'pilihan' ? (
+                                                value.opsi.map((item, index) => (
+                                                    <div className='flex flex-row'>
+                                                        <div className='flex-1'>
+                                                            <InlineIconInput
+                                                                value={item.value}
+                                                                disabled={true}
+                                                            />
+                                                        </div>
+                                                        <div className='w-60 p-2'>
+                                                            <input
+                                                                id={`soal${i} -${index} `}
+                                                                name={`soal${i} -${index} `}
+                                                                type={'text'}
+                                                                value={jawaban.hasOwnProperty(value.id) ? jawaban[value.id][index]?.value : ''}
+                                                                onChange={(e) => handleJawaban(value.id, item.id, 'pilihan', e.target.value)}
+                                                                placeholder='(Benar/Salah)'
+                                                                className={`peer relative h-10 w-full rounded-md p-4 bg-gray-50 drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:ring-2 focus:ring-blue-400 focus:drop-shadow-lg`}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <textarea id={'jawaban'} onChange={(e) => handleJawaban(value.id, e.target.value)} rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder={'Masukan Jawaban'}>{jawaban[value.id]}</textarea>
+                                            )
                                         }
                                     </div>
                                     <div className='flex justify-between items-center'>
