@@ -38,4 +38,4 @@ const DataTryoutItem = ({ item, index, key }) => {
     )
 }
 
-export default DataTryoutItem;
+export default DataTryoutItem
