@@ -126,7 +126,7 @@ export const SoalTryOut = () => {
             setToggleSelesai({
                 toggle: false,
                 id: ''
-            })
+            });
             setTimeout(() => {
                 navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
             }, 3000)
