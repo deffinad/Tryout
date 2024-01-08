@@ -61,7 +61,7 @@ export const SoalTryOut = () => {
             setToggleSelesai({
                 toggle: true,
                 id: 'timeout'
-            })
+            });
         }
     }, [state])
 
