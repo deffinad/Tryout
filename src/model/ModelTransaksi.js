@@ -266,16 +266,14 @@ class ModelTransaksi {
             }
         })
 
-        console.log(nilai)
-
-        // await db.collection('transaksi').doc(data.id_transaksi).collection('jawaban').doc().set({
-        //     ...data,
-        //     nilai: nilai
-        // }).then(function () {
-        //     isSuccess = true
-        // }).catch(err => {
-        //     isSuccess = false
-        // });
+        await db.collection('transaksi').doc(data.id_transaksi).collection('jawaban').doc().set({
+            ...data,
+            nilai: nilai
+        }).then(function () {
+            isSuccess = true
+        }).catch(err => {
+            isSuccess = false
+        });
 
         if (isSuccess) {
             return true;
