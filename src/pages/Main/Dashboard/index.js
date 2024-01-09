@@ -13,10 +13,11 @@ const Dashboard = () => {
    }, [])
 
    const formattedNilai = (nilai) => {
+      console.log(nilai);
       if (Number.isInteger(nilai)) {
          return nilai; 
       } else {
-         return nilai.toFixed(2);
+         return nilai?.toFixed(2);
       }
    }
 
