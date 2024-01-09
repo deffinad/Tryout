@@ -16,7 +16,7 @@ const DetailPage = () => {
         if (Number.isInteger(nilai)) {
            return nilai; 
         } else {
-           return nilai.toFixed(2);
+           return nilai?.toFixed(2);
         }
      }
 
@@ -43,10 +43,10 @@ const DetailPage = () => {
                         <div className="grid grid-cols-12 mb-2 gap-3">
                             <div className="col-span-6 flex flex-row items-center gap-3">
                                 <img alt="" src="/assets/img/light-bulb-1.png" />
-                                <p className="font-semibold text-lg">{item.nama}</p>
+                                <p className="font-semibold text-lg">{item?.nama}</p>
                             </div>
                             <div className="col-span-4 flex justify-start items-center">
-                                <p className="text-textColorRed text-lg font-semibold">{formattedNilai(item.nilai)}</p>
+                                <p className="text-textColorRed text-lg font-semibold">{formattedNilai(item?.nilai)}</p>
                             </div>
                         </div>
                     ))
