@@ -22,7 +22,7 @@ export const RadioButton = ({ id, value, title, onChange, name, checked, disable
         }
     }
     return (
-        <div className={`flex items-center ps-4 rounded ${backgroundColor} cursor-pointer`} key={id}>
+        <div className={`flex items-center px-4 rounded ${backgroundColor} cursor-pointer`} key={id}>
             <input
                 type="radio"
                 id={id}

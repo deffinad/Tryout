@@ -168,6 +168,23 @@ export const SoalTryOut = () => {
         }
     }
 
+    const handleCheckedPilihan = (id_soal, id_opsi, value) => {
+        let check = jawaban.hasOwnProperty(id_soal)
+        let checked = false
+        if(check){
+            let index = jawaban[id_soal].findIndex(x => x.id === id_opsi)
+            if(jawaban[id_soal][index]?.value === value){
+                checked = true
+            }else{
+                checked = false
+            }
+        }else{
+            checked = false
+        }
+
+        return checked
+    }
+
     return (
         <section className='flex flex-col gap-8'>
             <div className='grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-4'>
@@ -233,7 +250,7 @@ export const SoalTryOut = () => {
                                                 value.opsi.map((item, index) => (
                                                     <div key={`soal${i} -${index}`}>
                                                         <RadioButton
-                                                            id={`soal${i} -${index} `}
+                                                            id={`soal${i}-index${index} `}
                                                             name={`soal${i}`}
                                                             value={item.id}
                                                             title={item.value}
@@ -244,22 +261,26 @@ export const SoalTryOut = () => {
                                                 ))
                                             ) : value.tipe_pilihan === 'pilihan' ? (
                                                 value.opsi.map((item, index) => (
-                                                    <div className='flex flex-row'>
-                                                        <div className='flex-1'>
-                                                            <InlineIconInput
-                                                                value={item.value}
-                                                                disabled={true}
-                                                            />
+                                                    <div className='flex flex-row mb-4'>
+                                                        <div className='flex-1 flex items-center'>
+                                                            <p>{item.value}</p>
                                                         </div>
-                                                        <div className='w-60 p-2'>
-                                                            <input
-                                                                id={`soal${i} -${index} `}
-                                                                name={`soal${i} -${index} `}
-                                                                type={'text'}
-                                                                value={jawaban.hasOwnProperty(value.id) ? jawaban[value.id][index]?.value : ''}
-                                                                onChange={(e) => handleJawaban(value.id, item.id, 'pilihan', e.target.value)}
-                                                                placeholder='(Benar/Salah)'
-                                                                className={`peer relative h-10 w-full rounded-md p-4 bg-gray-50 drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:ring-2 focus:ring-blue-400 focus:drop-shadow-lg`}
+                                                        <div className='w-60 p-2 flex flex-row gap-4 items-center'>
+                                                            <RadioButton
+                                                                id={`soal${i}-index${index} `}
+                                                                name={`soal${i}-index${index}`}
+                                                                value={'Benar'}
+                                                                title={'Benar'}
+                                                                checked={handleCheckedPilihan(value.id, item.id, 'Benar')}
+                                                                onChange={() => handleJawaban(value.id, item.id, 'pilihan', 'Benar')}
+                                                            />
+                                                            <RadioButton
+                                                                id={`soal${i}-index${index} `}
+                                                                name={`soal${i}-index${index}`}
+                                                                value={'Salah'}
+                                                                title={'Salah'}
+                                                                checked={handleCheckedPilihan(value.id, item.id, 'Salah')}
+                                                                onChange={() => handleJawaban(value.id, item.id, 'pilihan', 'Salah')}
                                                             />
                                                         </div>
                                                     </div>

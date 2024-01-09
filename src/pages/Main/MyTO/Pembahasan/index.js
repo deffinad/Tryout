@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaFile } from 'react-icons/fa6'
+import { FaCheck, FaFile, FaXmark } from 'react-icons/fa6'
 import { Button } from '../../../../components/Button'
 import { RadioButton } from '../../../../components/RadioButton'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,7 @@ const Pembahasan = () => {
     const renderNoSoal = (length) => {
         let arr = []
         for (let i = 0; i < length; i++) {
-            let item = <button key={i} onClick={() => setActiveSoalIndex(i)} className={`rounded-full w-12 h-12 ${activeSoalIndex === i ? 'bg-secondary' : jawaban[soal[i]?.id] === soal[i]?.jawaban ? 'bg-green-400' : 'bg-red-400'} flex items-center justify-center text-white text-lg transition-all duration-300`}>
+            let item = <button key={i} onClick={() => setActiveSoalIndex(i)} className={`rounded-full w-12 h-12 ${activeSoalIndex === i ? 'bg-secondary' : handleCheckJawaban(soal[i]?.tipe_pilihan, jawaban[soal[i]?.id], soal[i]?.jawaban) ? 'bg-green-400' : 'bg-red-400'} flex items-center justify-center text-white text-lg transition-all duration-300`}>
                 <p>{i + 1}</p>
             </button>;
 
@@ -48,6 +48,67 @@ const Pembahasan = () => {
             setJawaban(answer)
         }
     }, [myAnswer])
+
+    const handleCheckedPilihan = (id_soal, id_opsi, value) => {
+        let check = jawaban.hasOwnProperty(id_soal)
+        let checked = false
+        if (check) {
+            let index = jawaban[id_soal].findIndex(x => x.id === id_opsi)
+            if (jawaban[id_soal][index]?.value === value) {
+                checked = true
+            } else {
+                checked = false
+            }
+        } else {
+            checked = false
+        }
+
+        return checked
+    }
+
+    const handleAnswerPilihan = (id_soal, id_opsi, dataJawaban) => {
+        let check = jawaban.hasOwnProperty(id_soal)
+        let checked = false
+        if (check) {
+            let index = jawaban[id_soal].findIndex(x => x.id === id_opsi)
+            let indexJawaban = dataJawaban.findIndex(x => x.id === id_opsi)
+            if (jawaban[id_soal][index]?.value === dataJawaban[indexJawaban]?.value) {
+                checked = true
+            } else {
+                checked = false
+            }
+        } else {
+            checked = false
+        }
+
+        return checked
+    }
+
+    const handleCheckJawaban = (type, dataJawaban, dataSoal) => {
+        let check = false
+        if (type === 'pilihan_ganda') {
+            if (dataJawaban === dataSoal) {
+                check = true
+            }
+        } else if (type === 'pilihan') {
+            let answer = 0
+            dataJawaban?.map((item) => {
+                let tempCheck = dataSoal.some(x => x.id === item.id && item.value === x.value)
+                if (tempCheck) {
+                    answer += 1
+                }
+            })
+            if (answer === dataSoal.length) {
+                check = true
+            }
+        } else {
+            if (dataJawaban?.toLowerCase() === dataSoal?.toLowerCase()) {
+                check = true
+            }
+        }
+
+        return check
+    }
 
     return (
         <section className='flex flex-col gap-8'>
@@ -89,23 +150,74 @@ const Pembahasan = () => {
                                             <p>{value.nama}</p>
                                         </div>
 
-                                        <div className='flex flex-col'>
+                                        <div className='flex flex-col flex-1'>
                                             {
-                                                value.opsi.map((item, index) => (
-                                                    <div key={`soal${i} -${index}`}>
-                                                        <RadioButton
-                                                            id={`soal${i} -${index} `}
-                                                            name={`soal${i} `}
-                                                            value={item.id}
-                                                            title={item.value}
-                                                            disabled={true}
-                                                            checked={jawaban[value.id] === item.id}
-                                                            answer={value.jawaban === item.id}
-                                                            type='pembahasan'
-                                                        // onChange={() => handleJawaban(value.id, item.id)}
-                                                        />
+                                                value.tipe_pilihan === 'pilihan_ganda' ? (
+                                                    value.opsi.map((item, index) => (
+                                                        <div key={`soal${i} -${index}`}>
+                                                            <RadioButton
+                                                                id={`soal${i} -${index} `}
+                                                                name={`soal${i} `}
+                                                                value={item.id}
+                                                                title={item.value}
+                                                                disabled={true}
+                                                                checked={jawaban[value.id] === item.id}
+                                                                answer={value.jawaban === item.id}
+                                                                type='pembahasan'
+                                                            // onChange={() => handleJawaban(value.id, item.id)}
+                                                            />
+                                                        </div>
+                                                    ))
+                                                ) : value.tipe_pilihan === 'pilihan' ? (
+                                                    value.opsi.map((item, index) => (
+                                                        <div className='flex flex-row mb-4'>
+                                                            <div className='flex-1 flex items-center'>
+                                                                <p>{item.value}</p>
+                                                            </div>
+                                                            <div className='w-60 p-2 flex flex-row gap-4 items-center'>
+                                                                <RadioButton
+                                                                    id={`soal${i}-index${index} `}
+                                                                    name={`soal${i}-index${index}`}
+                                                                    value={'Benar'}
+                                                                    title={'Benar'}
+                                                                    checked={handleCheckedPilihan(value.id, item.id, 'Benar')}
+                                                                    answer={handleAnswerPilihan(value.id, item.id, value.jawaban)}
+                                                                    disabled={true}
+                                                                    type='pembahasan'
+                                                                // onChange={() => handleJawaban(value.id, item.id, 'pilihan', 'Benar')}
+                                                                />
+                                                                <RadioButton
+                                                                    id={`soal${i}-index${index} `}
+                                                                    name={`soal${i}-index${index}`}
+                                                                    value={'Salah'}
+                                                                    title={'Salah'}
+                                                                    checked={handleCheckedPilihan(value.id, item.id, 'Salah')}
+                                                                    answerd={handleAnswerPilihan(value.id, item.id, value.jawaban)}
+                                                                    disabled={true}
+                                                                    type='pembahasan'
+                                                                // onChange={() => handleJawaban(value.id, item.id, 'pilihan', 'Salah')}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <div className='flex flex-col gap-4'>
+                                                        {
+                                                            jawaban[value.id]?.toLowerCase() === value?.jawaban?.toLowerCase() ? (
+                                                                <div className='bg-green-400 rounded p-2 flex flex-row gap-2 items-center text-white text-lg'>
+                                                                    <FaCheck />
+                                                                    <p>Benar</p>
+                                                                </div>
+                                                            ) : (
+                                                                <div className='bg-red-400 rounded p-2 flex flex-row gap-2 items-center text-white text-lg'>
+                                                                    <FaXmark />
+                                                                    <p>Salah</p>
+                                                                </div>
+                                                            )
+                                                        }
+                                                        <textarea id={'jawaban'} rows="4" disabled={true} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 " placeholder={'Masukan Jawaban'}>{jawaban[value.id]}</textarea>
                                                     </div>
-                                                ))
+                                                )
                                             }
                                         </div>
                                         <div className='flex justify-between items-center'>
