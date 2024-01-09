@@ -58,13 +58,13 @@ const Dashboard = () => {
                </div>
                <div className='grid grid-rows-1 grid-cols-2 gap-4'>
                   <div className='col-span-1'>
-                     <div className='h-[80%] bg-secondary text-white flex justify-center items-center text-[100px] rounded-full'>
+                     <div className='h-[70%] bg-secondary text-white flex justify-center items-center text-[70px] p-2 rounded-full'>
                         {dashboard?.ranking || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Ranking</p>
                   </div>
                   <div className='col-span-1'>
-                     <div className='h-[80%] bg-primary text-white flex justify-center items-center text-[100px] rounded-full'>
+                     <div className='h-[70%] bg-primary text-white flex justify-center items-center text-[70px] p-2 rounded-full'>
                         {formattedNilai(dashboard?.nilai_rata ) || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata TO</p>
