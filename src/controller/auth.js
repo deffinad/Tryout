@@ -197,7 +197,7 @@ const onDeleteUser = async (req, res) => {
 };
 
 const onGetDashboard = async (req, res) => {
-  const token = req.headers.authorization
+  const token = req.headers.authorization;
   try {
     const result = await authModel.getDashboardUser(token);
 
