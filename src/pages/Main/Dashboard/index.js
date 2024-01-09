@@ -12,6 +12,13 @@ const Dashboard = () => {
       const dataDashboard = dispatch(getDashboard())
    }, [])
 
+   const formattedNilai = (nilai) => {
+      if (Number.isInteger(nilai)) {
+         return nilai; 
+      } else {
+         return nilai.toFixed(2);
+      }
+   }
 
    return (
       <Fragment>
@@ -57,7 +64,7 @@ const Dashboard = () => {
                   </div>
                   <div className='col-span-1'>
                      <div className='h-[80%] bg-primary text-white flex justify-center items-center text-[100px] rounded-full'>
-                        {dashboard?.nilai_rata || 0}
+                        {formattedNilai(dashboard?.nilai_rata ) || 0}
                      </div>
                      <p className='mt-2 font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata TO</p>
                   </div>

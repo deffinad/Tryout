@@ -5,6 +5,14 @@ import { useNavigate } from 'react-router-dom';
 const ItemNilaiKeseluruhan = ({ menu, data, key }) => {
     const navigate = useNavigate();
 
+    const formattedNilai = (nilai) => {
+        if (Number.isInteger(nilai)) {
+           return nilai; 
+        } else {
+           return nilai.toFixed(2);
+        }
+     }
+
     return (
         <div className="grid grid-cols-2 grid-rows-1 gap-4 py-5 border-b-4 border-blue-200">
             <div className='grid grid-cols-4 grid-rows-1 gap-5'>
@@ -23,7 +31,7 @@ const ItemNilaiKeseluruhan = ({ menu, data, key }) => {
                 <div className='col-span-1 flex flex-col justify-center items-center gap-2'>
                     <p className='font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata</p>
                     <div className='px-4 py-2 w-[120px] h-auto bg-secondary text-white flex justify-center items-center text-4xl font-semibold rounded-full'>
-                        {data.rata_nilai}
+                        {formattedNilai(data.rata_nilai)}
                     </div>
                 </div>
                 <div className='col-span-1'>

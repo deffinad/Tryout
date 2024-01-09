@@ -12,6 +12,14 @@ const DetailPage = () => {
         dispatch(getDetailMyTryout(id, menu))
     }, [])
 
+    const formattedNilai = (nilai) => {
+        if (Number.isInteger(nilai)) {
+           return nilai; 
+        } else {
+           return nilai.toFixed(2);
+        }
+     }
+
     return (
         <>
             {/* header */}
@@ -23,7 +31,7 @@ const DetailPage = () => {
                     <div className='flex flex-col justify-end items-center gap-2'>
                         <p className='font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata</p>
                         <div className='px-4 py-2 w-[120px] h-auto bg-secondary text-white flex justify-center items-center text-4xl font-semibold rounded-full'>
-                            {detail?.rata_nilai}
+                            {formattedNilai(detail?.rata_nilai)}
                         </div>
                     </div>
                 </div>
@@ -38,7 +46,7 @@ const DetailPage = () => {
                                 <p className="font-semibold text-lg">{item.nama}</p>
                             </div>
                             <div className="col-span-4 flex justify-start items-center">
-                                <p className="text-textColorRed text-lg font-semibold">{item.nilai}</p>
+                                <p className="text-textColorRed text-lg font-semibold">{formattedNilai(item.nilai)}</p>
                             </div>
                         </div>
                     ))
