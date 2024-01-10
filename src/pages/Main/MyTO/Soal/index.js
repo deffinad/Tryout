@@ -248,12 +248,13 @@ export const SoalTryOut = () => {
                                         {
                                             value.tipe_pilihan === 'pilihan_ganda' ? (
                                                 value.opsi.map((item, index) => (
-                                                    <div key={`soal${i} -${index}`}>
+                                                    <div key={`soal${i} -${index}`} className='mb-6'>
                                                         <RadioButton
                                                             id={`soal${i}-index${index} `}
                                                             name={`soal${i}`}
                                                             value={item.id}
                                                             title={item.value}
+                                                            image={item.gambar}
                                                             checked={jawaban[value.id] === item.id}
                                                             onChange={() => handleJawaban(value.id, item.id)}
                                                         />

@@ -141,7 +141,7 @@ const Pembahasan = () => {
                                         {
                                             value.gambar !== '' ? (
                                                 <div className='py-2'>
-                                                    <img src={value.gambar} className='w-full' />
+                                                    <img src={value.gambar} className='w-full' alt={`Soal ${i + 1}`} />
                                                 </div>
                                             ) : null
                                         }
@@ -154,13 +154,14 @@ const Pembahasan = () => {
                                             {
                                                 value.tipe_pilihan === 'pilihan_ganda' ? (
                                                     value.opsi.map((item, index) => (
-                                                        <div key={`soal${i} -${index}`}>
+                                                        <div key={`soal${i} -${index}`} className='mb-6'>
                                                             <RadioButton
                                                                 id={`soal${i} -${index} `}
                                                                 name={`soal${i} `}
                                                                 value={item.id}
                                                                 title={item.value}
                                                                 disabled={true}
+                                                                image={item.gambar}
                                                                 checked={jawaban[value.id] === item.id}
                                                                 answer={value.jawaban === item.id}
                                                                 type='pembahasan'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const RadioButton = ({ id, value, title, onChange, name, checked, disabled = false, answer = false, type = 'soal' }) => {
+export const RadioButton = ({ id, value, title, image = '', onChange, name, checked, disabled = false, answer = false, type = 'soal' }) => {
     let backgroundColor = ''
     if (type === 'pembahasan') {
         if (checked) {
@@ -22,7 +22,7 @@ export const RadioButton = ({ id, value, title, onChange, name, checked, disable
         }
     }
     return (
-        <div className={`flex items-center px-4 rounded ${backgroundColor} cursor-pointer`} key={id}>
+        <div className={`flex items-center px-4 rounded ${backgroundColor} cursor-pointer ${image !== '' ? 'gap-4' : 'gap-0'}`} key={id}>
             <input
                 type="radio"
                 id={id}
@@ -31,10 +31,22 @@ export const RadioButton = ({ id, value, title, onChange, name, checked, disable
                 checked={checked}
                 onChange={onChange}
                 disabled={disabled}
-                className="w-5 h-5 text-primary bg-gray-100 border-gray-300" />
-            <label htmlFor={id} className="w-full py-4 ms-2 text-base font-medium">
-                {title}
-            </label>
+                className="w-5 h-5 text-primary bg-gray-100 border-gray-300"
+            />
+            <div className='flex flex-col'>
+                {
+                    image !== '' ? (
+                        <img src={image} className='w-full' alt={title} />
+                    ) : null
+                }
+                {
+                    title !== '' ? (
+                        <label htmlFor={id} className="w-full py-4 ms-2 text-base font-medium">
+                            {title}
+                        </label>
+                    ) : null
+                }
+            </div>
         </div>
     )
 }
