@@ -3,6 +3,12 @@ import React from 'react';
 
 const DataTryoutItem = ({ item, index, key }) => {
 
+    const formattedNilai = (nilai) => {
+        if (Number.isInteger(nilai)) {
+            return nilai;
+        } else return nilai.toFixed(2);
+    }
+
     return (
         <tr key={key} className='bg-white hover:bg-gray-100 cursor-pointer'>
             <td className="w-[5%] px-3 py-3 border-b border-gray-200 text-sm">
@@ -15,7 +21,7 @@ const DataTryoutItem = ({ item, index, key }) => {
                 <p className="text-gray-900 text-lg whitespace-no-wrap">{item.jadwal}</p>
             </td>
             <td className="w-[25%] px-3 py-3 border-b border-gray-200 text-sm">
-                <p className="text-gray-900 text-lg whitespace-no-wrap">{item.nilai}</p>
+                <p className="text-gray-900 text-lg whitespace-no-wrap">{formattedNilai(item?.rata_nilai)}</p>
             </td>
             {/* <td className="w-[20%] px-3 py-3 border-b border-gray-200 text-sm">
                 <div className="flex flex-row gap-x-3 gap-y-0">
