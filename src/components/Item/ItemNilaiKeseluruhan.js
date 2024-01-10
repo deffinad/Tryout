@@ -30,7 +30,7 @@ const ItemNilaiKeseluruhan = ({ menu, data, key }) => {
             <div className='grid grid-rows-1 grid-cols-2 gap-5'>
                 <div className='col-span-1 flex flex-col justify-center items-center gap-2'>
                     <p className='font-bold text-center text-[1rem] uppercase'>Nilai Rata-Rata</p>
-                    <div className='px-4 py-2 w-[120px] h-auto bg-secondary text-white flex justify-center items-center text-4xl font-semibold rounded-full'>
+                    <div className='px-4 py-2 min-w-[120px] h-auto bg-secondary text-white flex justify-center items-center text-4xl font-semibold rounded-full'>
                         {formattedNilai(data.rata_nilai)}
                     </div>
                 </div>
