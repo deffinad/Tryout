@@ -223,7 +223,7 @@ const FormSoal = () => {
     // ],
   }
 
-  const handleInputOpsi = (indexSoal, indexOpsi, key, value) => {
+  const handleInputOpsi = async (indexSoal, indexOpsi, key, value) => {
     let newSoal = [...data.soal]
     if (key === 'jawaban') {
       let newJawaban = newSoal[indexSoal][key]
@@ -241,7 +241,20 @@ const FormSoal = () => {
       }
       newSoal[indexSoal][key] = newJawaban
     } else {
-      newSoal[indexSoal]['opsi'][indexOpsi][key] = value
+      if (key === 'gambar') {
+        try {
+          const base64String = await convertImageToBase64(value);
+          newSoal[indexSoal]['opsi'][indexOpsi][key] = base64String
+        } catch (error) {
+          newSoal[indexSoal]['opsi'][indexOpsi][key] = ''
+        }
+      }else{
+        if(newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] !== '' || newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] === undefined){
+          newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] = ''
+        }
+        newSoal[indexSoal]['opsi'][indexOpsi][key] = value
+        
+      }
     }
 
     setData({
@@ -438,17 +451,32 @@ const FormSoal = () => {
                     {
                       item.tipe_pilihan !== '' ? (
                         item.tipe_pilihan === 'pilihan_ganda' ? (
-                          <div className='grid grid-cols-3 gap-6'>
+                          <div className='grid grid-cols-1 gap-6'>
                             {
                               item.opsi.map((opsi, i) => (
                                 <div key={`soal ${index} opsi ${i}`}>
-                                  <TextInput
-                                    name={`opsi${i}`}
-                                    label={`Opsi ${opsi.id}`}
-                                    value={opsi.value}
-                                    placeholder={`Masukan Opsi ${opsi.id}`}
-                                    onChange={(e) => handleInputOpsi(index, i, 'value', e.target.value)}
-                                  />
+                                  <label className="block text-sm font-medium text-gray-900 dark:text-white">{`Opsi ${opsi.id}`}</label>
+
+                                  <div className='grid grid-cols-12 gap-4'>
+                                    <div className='col-span-8'>
+                                      <TextInput
+                                        name={`opsiText${i}`}
+                                        // label={`Opsi ${opsi.id}`}
+                                        value={opsi.value}
+                                        placeholder={`Masukan Opsi ${opsi.id}`}
+                                        onChange={(e) => handleInputOpsi(index, i, 'value', e.target.value)}
+                                      />
+                                    </div>
+
+                                    <div className='col-span-4'>
+                                      <TextInput
+                                        name={`opsiGambar${i}`}
+                                        type='file'
+                                        onChange={(e) => handleInputOpsi(index, i, 'gambar', e.target.files[0])}
+                                      />
+                                    </div>
+
+                                  </div>
                                 </div>
                               ))
                             }
