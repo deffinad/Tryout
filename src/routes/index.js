@@ -8,6 +8,8 @@ const { onGetListMateri, onGetDetailMateri, onAddMateri, onUpdateMateri, onDelet
 const { materiValidation, listValidation, soalTryoutValidation, produkValidation, transaksiValidation, registerValidation, transaksiReqTokenValidation, jawabanValidation } = require("../controller/validation.js");
 const { onGetListProduk, onGetDetailProduk, onAddProduk, onUpdateProduk, onDeleteProduk } = require("../controller/produk.js");
 const { onGetListTransaksi, onGetDetailTransaksi, onAddTransaksi, onDeleteTransaksi, onRequestPaymentToken, onAddJawaban, onUpdateTransaksi, onGetStatusPayment } = require("../controller/transaksi.js");
+const multer = require("multer");
+const { onUploadFile } = require("../controller/upload.js");
 
 var router = express.Router();
 router.use(bodyParser.json());
@@ -52,6 +54,8 @@ router.get("/", function (req, res, next) {
         .status(200)
         .json({ message: "Welcome to Express API Tryout" });
 });
+
+const upload = multer({ dest: '/' })
 
 //AUTH
 router.post("/login", login);
@@ -101,5 +105,8 @@ router.delete("/transaksi/:id", onDeleteTransaksi);
 router.post("/transaksi/request/token", transaksiReqTokenValidation, onRequestPaymentToken);
 router.get("/transaksi/status/:id", onGetStatusPayment);
 router.post("/jawab", jawabanValidation, onAddJawaban);
+
+//UPLOAD IMAGE
+router.post('/upload/:type', upload.single('file'), onUploadFile)
 
 module.exports = router;
