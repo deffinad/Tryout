@@ -114,6 +114,7 @@ const FormSoal = () => {
           ...data, soal: [...data.soal, {
             nama: '',
             gambar: '',
+            gambar_pembahasan: '',
             pembahasan: '',
             tipe_pilihan: '',
             jawaban: null,
@@ -125,6 +126,7 @@ const FormSoal = () => {
         ...data, soal: [...data.soal, {
           nama: '',
           gambar: '',
+          gambar_pembahasan: '',
           pembahasan: '',
           tipe_pilihan: '',
           jawaban: null,
@@ -144,7 +146,7 @@ const FormSoal = () => {
 
   const handleInputSoal = async (index, key, value) => {
     let newSoal = [...data.soal]
-    if (key === 'gambar') {
+    if (key === 'gambar' || key === 'gambar_pembahasan') {
       try {
         const base64String = await convertImageToBase64(value);
         newSoal[index][key] = base64String
@@ -248,12 +250,12 @@ const FormSoal = () => {
         } catch (error) {
           newSoal[indexSoal]['opsi'][indexOpsi][key] = ''
         }
-      }else{
-        if(newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] !== '' || newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] === undefined){
+      } else {
+        if (newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] !== '' || newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] === undefined) {
           newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] = ''
         }
         newSoal[indexSoal]['opsi'][indexOpsi][key] = value
-        
+
       }
     }
 
@@ -418,13 +420,26 @@ const FormSoal = () => {
                     </div>
 
                     <div>
-                      <TextInputArea
-                        name="pembahasan"
-                        label="Pembahasan"
-                        value={item.pembahasan}
-                        placeholder="Masukkan Pembahasan Soal"
-                        onChange={(e) => handleInputSoal(index, 'pembahasan', e.target.value)}
-                      />
+                      <label className="block text-sm font-medium text-gray-900 dark:text-white">Pembahasan</label>
+                      <div className='flex flex-col gap-2'>
+                        <div>
+                          <TextInput
+                            name="image_gambar"
+                            // label="Gambar"
+                            type='file'
+                            onChange={(e) => handleInputSoal(index, 'gambar_pembahasan', e.target.files[0])}
+                          />
+                        </div>
+                        <div>
+                          <TextInputArea
+                            name="pembahasan"
+                            // label="Pembahasan"
+                            value={item.pembahasan}
+                            placeholder="Masukkan Pembahasan Soal"
+                            onChange={(e) => handleInputSoal(index, 'pembahasan', e.target.value)}
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     <div className='flex flex-row gap-6'>
