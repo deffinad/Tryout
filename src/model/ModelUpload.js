@@ -13,7 +13,7 @@ class ModelUpload {
         }
 
         try {
-            const destination = `${type}/${file.originalname}`
+            const destination = `tmp/${type}/${file.originalname}`
             await storage.upload(file.path, {
                 destination: destination,
                 metadata: {

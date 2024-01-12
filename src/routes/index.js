@@ -55,7 +55,7 @@ router.get("/", function (req, res, next) {
         .json({ message: "Welcome to Express API Tryout" });
 });
 
-const upload = multer({ dest: '/' })
+const upload = multer({ dest: '/tmp' })
 
 //AUTH
 router.post("/login", login);
