@@ -239,7 +239,14 @@ const Pembahasan = () => {
                                         <div className='absolute top-0 left-0 py-1 w-40 flex items-center justify-center text-white rounded-tl-3xl rounded-br-lg bg-primary'>
                                             <p>Pembahasan</p>
                                         </div>
-                                        <div className='bg-gray-100 py-2'>
+                                        {
+                                            value.gambar_pembahasan !== '' ? (
+                                                <div className='py-2'>
+                                                    <img src={value.gambar_pembahasan} className='w-full' alt={`Pembahasan`} />
+                                                </div>
+                                            ) : null
+                                        }
+                                        <div className={`bg-gray-100 rounded ${value.gambar_pembahasan === '' ? 'py-2' : 'py-0'}`}>
                                             <p>{value.pembahasan}</p>
                                         </div>
                                     </div>
