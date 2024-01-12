@@ -8,6 +8,7 @@ import { initSidebar } from '../../redux/actions/sidebar.action';
 import Lottie from 'lottie-react';
 import Loading from './Loading.json'
 import toast from 'react-hot-toast';
+import { fetchError, fetchSuccess } from '../../redux/actions/common.action';
 
 const Layout = () => {
     const dispatch = useDispatch();
@@ -31,12 +32,14 @@ const Layout = () => {
                 duration: 3500,
                 position: 'top-right',
             })
+            dispatch(fetchSuccess(''))
         }
-        if (error) {
+        if (error !== '') {
             toast.error(error, {
                 duration: 3000,
                 position: 'top-right',
             })
+            dispatch(fetchError(''))
         }
     }, [message, error])
 
