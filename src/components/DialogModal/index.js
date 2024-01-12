@@ -29,7 +29,8 @@ const DialogModal = ({ open, title, content, handleClose, labelButton = 'Hapus',
 
                 <Button
                     title={labelButton}
-                    bgColor='bg-bgDanger'
+                    bgColor='bg-bgRed'
+                    hoverBgColor="hover:bg-red-900"
                     onClick={() => handleClose(1)}
                 />
             </div>

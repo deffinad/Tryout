@@ -47,3 +47,22 @@ export const getDashboardApi = async () => {
 
     return response.json();
 }
+
+export const uploadImageProfile = async (file, type) => {
+    try {
+        var formdata = new FormData();
+        formdata.append("file", file);
+
+        const response = await fetch(API.UPLOAD_IMAGE.replace('$type', type), {
+            method: 'POST',
+            headers: {
+                'Authorization': localStorage.getItem('token'),
+            },
+            body: formdata
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}

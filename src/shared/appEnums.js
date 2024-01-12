@@ -57,6 +57,9 @@ const ADD_ANSWER = BASE_URL + '/jawab';
 const GET_TOKEN_SNAP = BASE_URL + '/transaksi/request/token';
 const GET_STATUS_PAYMENT = BASE_URL + '/transaksi/status/$order_id';
 
+// API UPLOAD
+const UPLOAD_IMAGE = BASE_URL + '/upload/$type'; // tipe avatar
+
 export const API = {
     ID_MERCHANT,
     CLIENT_KEY,
@@ -88,5 +91,6 @@ export const API = {
     GET_DETAIL_TRANSAKSI,
     ADD_TRANSAKSI,
     UPDATE_TRANSAKSI,
-    ADD_ANSWER
+    ADD_ANSWER,
+    UPLOAD_IMAGE
 }
