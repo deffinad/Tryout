@@ -17,7 +17,7 @@ class ModelUpload {
             await storage.upload(file.path, {
                 destination: destination,
                 metadata: {
-                    metadata: { firebaseStorageDownloadTokens: uuid },
+                    // metadata: { firebaseStorageDownloadTokens: uuid },
                     contentType: file.mimetype
                 }
             });
