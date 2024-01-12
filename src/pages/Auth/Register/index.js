@@ -9,6 +9,8 @@ import DropdownInput from "../../../components/DropdownInput";
 import { useDispatch } from "react-redux";
 import { register } from "../../../Redux/actions/auth.action";
 import Swal from 'sweetalert2';
+import { uploadImageProfile } from "../../../shared/api/auth";
+import { fetchError, fetchStart, fetchSuccess } from "../../../Redux/actions/common.actions";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -160,14 +162,25 @@ const RegisterPage = () => {
                                     type="file"
                                     name="avatar"
                                     onchange={(e) => {
-                                        var reader = new FileReader();
+                                        // var reader = new FileReader();
 
-                                        reader.onload = function (e) {
-                                            var imageBase64 = e.target.result;
-                                            setAvatar(imageBase64)
-                                        };
+                                        // reader.onload = function (e) {
+                                        //     var imageBase64 = e.target.result;
+                                        //     setAvatar(imageBase64)
+                                        // };
 
-                                        reader.readAsDataURL(e.target.files[0]);
+                                        // reader.readAsDataURL(e.target.files[0]);
+                                        dispatch(fetchStart());
+                                        uploadImageProfile(e.target.files[0])
+                                            .then((res) => {
+                                                if (res.status === 200) {
+                                                    dispatch(fetchSuccess('Berhasil Upload Image'));
+                                                    setAvatar(res.result.url);
+                                                }
+                                            })
+                                            .catch((error) => {
+                                                dispatch(fetchError('Gagal Upload Image'));
+                                            })
                                     }}
                                 />
                                 <InlineIconInput

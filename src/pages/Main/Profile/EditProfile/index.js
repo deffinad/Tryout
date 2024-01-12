@@ -7,6 +7,8 @@ import { FaPen } from "react-icons/fa6";
 import useAuth from "../../../../shared/hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { updateProfileUser } from "../../../../Redux/actions/auth.action";
+import { fetchError, fetchStart, fetchSuccess } from "../../../../Redux/actions/common.actions";
+import { uploadImageProfile } from "../../../../shared/api/auth";
 
 const EditProfile = () => {
     const { user } = useAuth();
@@ -129,26 +131,17 @@ const EditProfile = () => {
     }
 
     const handleChangeAvatar = async (file) => {
-        const base64Avatar = await convertImageToBase64(file);
-        setAvatar(base64Avatar);
+        dispatch(fetchStart());
+        uploadImageProfile(file, 'avatar')
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess('Behasil Upload Avatar'));
+                    setAvatar(res.result.url);
+                } else {
+                    dispatch(fetchError('Gagal Upload Avatar'));
+                }
+            })
     }
-
-    const convertImageToBase64 = (image) => {
-        return new Promise((resolve, reject) => {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                var imageBase64 = e.target.result;
-                resolve(imageBase64);
-            };
-
-            reader.onerror = function (error) {
-                reject(error);
-            };
-
-            reader.readAsDataURL(image);
-        });
-    };
 
     return (
         <div className="flex flex-col">
