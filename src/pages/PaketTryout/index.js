@@ -40,12 +40,8 @@ const PaketTryout = () => {
             value: 'poltekes'
         },
         {
-            name: 'Kedinasan - polri',
-            value: 'polri'
-        },
-        {
-            name: 'Kedinasan - IPDN',
-            value: 'ipdn'
+            name: 'Kedinasan',
+            value: 'kedinasan'
         }
     ]
 
