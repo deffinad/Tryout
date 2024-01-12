@@ -20,7 +20,7 @@ class ModelUpload {
                     metadata: { firebaseStorageDownloadTokens: uuid },
                     contentType: file.mimetype
                 }
-            })
+            });
 
             const fileRef = storage.file(destination);
             const downloadURL = await getDownloadURL(fileRef);
