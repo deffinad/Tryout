@@ -39,6 +39,7 @@ const ADD_SOAL = BASE_URL + '/list/$kategori/$id/soal';
 const UPDATE_SOAL = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 const GET_DETAIL_SOAL = BASE_URL + '/list/$kategori/$id/soal/$id_materi';
 const DELETE_DETAIL_TRYOUT = BASE_URL + '/list/$jenis/$id/$id_materi';
+const UPLOAD_FILE = BASE_URL + '/upload/$type';
 
 //API PEMBELIAN
 const GET_PEMBELIAN = BASE_URL + '/transaksi/all';
@@ -73,6 +74,7 @@ export const API = {
     UPDATE_SOAL,
     GET_DETAIL_SOAL,
     DELETE_DETAIL_TRYOUT,
+    UPLOAD_FILE,
     GET_PEMBELIAN,
     GET_LIST_USER,
     AUTH_LOGIN,

@@ -142,3 +142,22 @@ export const getDetailSoalApi = async (id, kategori, id_materi) => {
         return error;
     }
 }
+
+export const uploadFileApi = async (file, type) => {
+    try {
+        var formdata = new FormData();
+        formdata.append("file", file);
+
+        const response = await fetch(API.UPLOAD_FILE.replace('$type', type), {
+            method: 'POST',
+            headers: {
+                'Authorization': 'zitPy6simHZxUDFOXiTZ',
+            },
+            body: formdata
+        })
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}

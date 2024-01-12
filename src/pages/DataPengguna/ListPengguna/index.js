@@ -6,6 +6,8 @@ import { addPengguna, getDataPengguna } from "../../../redux/actions/dataPenggun
 import Button from "../../../components/Button";
 import { FaPlus } from "react-icons/fa6";
 import Modal from "../../../components/Modal";
+import { uploadFileApi } from "../../../shared/api/tryout";
+import { fetchError, fetchStart, fetchSuccess } from "../../../redux/actions/common.action";
 
 const ListPengguna = () => {
     const { list } = useSelector(state => state.users);
@@ -225,9 +227,22 @@ const ListPengguna = () => {
                                 <label htmlFor="avatar" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avatar</label>
                                 <input
                                     type="file"
+                                    accept="image/png, image/jpeg, image/jpg"
                                     onChange={async (e) => {
-                                        const base64String = await convertImageToBase64(e.target.files[0]);
-                                        setData({ ...data, avatar: base64String })
+                                        dispatch(fetchStart())
+                                        uploadFileApi(e.target.files[0], 'avatar')
+                                            .then((res) => {
+                                                if (res.status === 200) {
+                                                    dispatch(fetchSuccess(`Upload File Berhasil`))
+                                                    setData({ ...data, avatar: res.result.url })
+                                                } else {
+                                                    dispatch(fetchError(`Upload File Gagal`))
+                                                    setData({ ...data, avatar: '' })
+                                                }
+                                            })
+                                            .catch((error) => {
+                                                dispatch(fetchError(error))
+                                            })
                                     }}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />

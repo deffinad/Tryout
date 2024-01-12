@@ -5,17 +5,18 @@ import TextInputDropdown from '../../../components/TextInputDropdown'
 import TextInputArea from '../../../components/TextInputArea'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addSoalTryout, clearDetailSoal, clearDetailTryout, getDetailSoal, getDetailTryout, updateSoalTryout } from '../../../redux/actions/tryout.action'
+import { addSoalTryout, clearDetailSoal, clearDetailTryout, getDetailSoal, getDetailTryout, updateSoalTryout, uploadFile } from '../../../redux/actions/tryout.action'
 import { getListMateri } from '../../../redux/actions/materiTryout.action'
 import Button from '../../../components/Button'
 import { FaPlus, FaXmark } from 'react-icons/fa6'
-import { fetchError } from '../../../redux/actions/common.action'
+import { fetchError, fetchStart, fetchSuccess } from '../../../redux/actions/common.action'
+import { uploadFileApi } from '../../../shared/api/tryout'
 
 const FormSoal = () => {
   const { jenis, id, id_materi } = useParams()
   const dispatch = useDispatch()
   const navigation = useNavigate()
-  const { detail, soal } = useSelector(state => state.tryout)
+  const { detail, soal, file } = useSelector(state => state.tryout)
   const { list: listMateri } = useSelector(state => state.materi)
   const [pilihanMateri, setPilihanMateri] = useState([])
   const pilihanTipe = [
@@ -147,12 +148,20 @@ const FormSoal = () => {
   const handleInputSoal = async (index, key, value) => {
     let newSoal = [...data.soal]
     if (key === 'gambar' || key === 'gambar_pembahasan') {
-      try {
-        const base64String = await convertImageToBase64(value);
-        newSoal[index][key] = base64String
-      } catch (error) {
-        newSoal[index][key] = ''
-      }
+      dispatch(fetchStart())
+      uploadFileApi(value, key === 'gambar' ? 'soal' : 'pembahasan')
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(fetchSuccess(`Upload File Berhasil`))
+            newSoal[index][key] = res.result.url
+          } else {
+            dispatch(fetchError(`Upload File Gagal`))
+            newSoal[index][key] = ''
+          }
+        })
+        .catch((error) => {
+          dispatch(fetchError(error))
+        })
     } else if (key === 'tipe_pilihan') {
       newSoal[index][key] = value
       let opsi = null
@@ -244,12 +253,20 @@ const FormSoal = () => {
       newSoal[indexSoal][key] = newJawaban
     } else {
       if (key === 'gambar') {
-        try {
-          const base64String = await convertImageToBase64(value);
-          newSoal[indexSoal]['opsi'][indexOpsi][key] = base64String
-        } catch (error) {
-          newSoal[indexSoal]['opsi'][indexOpsi][key] = ''
-        }
+        dispatch(fetchStart())
+        uploadFileApi(value,'opsi')
+          .then((res) => {
+            if (res.status === 200) {
+              dispatch(fetchSuccess(`Upload File Berhasil`))
+              newSoal[indexSoal]['opsi'][indexOpsi][key] = res.result.url
+            } else {
+              dispatch(fetchError(`Upload File Gagal`))
+              newSoal[indexSoal]['opsi'][indexOpsi][key] = ''
+            }
+          })
+          .catch((error) => {
+            dispatch(fetchError(error))
+          })
       } else {
         if (newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] !== '' || newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] === undefined) {
           newSoal[indexSoal]['opsi'][indexOpsi]['gambar'] = ''
@@ -295,23 +312,6 @@ const FormSoal = () => {
       }
     }
   }
-
-  const convertImageToBase64 = (image) => {
-    return new Promise((resolve, reject) => {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        var imageBase64 = e.target.result;
-        resolve(imageBase64);
-      };
-
-      reader.onerror = function (error) {
-        reject(error);
-      };
-
-      reader.readAsDataURL(image);
-    });
-  };
 
   const handleAddOpsi = (indexSoal) => {
     let newSoal = [...data.soal]

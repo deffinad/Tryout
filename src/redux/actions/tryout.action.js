@@ -1,6 +1,6 @@
-import { addSoalApi, addTryoutApi, deleteDetailTryoutApi, deleteTryoutApi, getDetailSoalApi, getDetailTryoutApi, getListTryoutApi, updateSoalApi, updateTryoutApi } from "../../shared/api/tryout"
+import { addSoalApi, addTryoutApi, deleteDetailTryoutApi, deleteTryoutApi, getDetailSoalApi, getDetailTryoutApi, getListTryoutApi, updateSoalApi, updateTryoutApi, uploadFileApi } from "../../shared/api/tryout"
 import { fetchError, fetchStart, fetchSuccess } from "./common.action"
-import { ADD_SOAL, ADD_TRYOUT, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_DETAIL_TRYOUT, DELETE_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_SOAL, UPDATE_TRYOUT } from "./types"
+import { ADD_SOAL, ADD_TRYOUT, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_DETAIL_TRYOUT, DELETE_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_SOAL, UPDATE_TRYOUT, UPLOAD_FILE } from "./types"
 
 export const clearListTryout = () => {
     return (dispatch) => {
@@ -175,6 +175,24 @@ export const getDetailSoal = (id, kategori, id_materi) => {
                     dispatch({ type: GET_DETAIL_SOAL, payload: res })
                 } else {
                     dispatch(fetchError(res.messages))
+                }
+            })
+            .catch((error) => {
+                dispatch(fetchError(error))
+            })
+    }
+}
+
+export const uploadFile = (file, type) => {
+    return (dispatch) => {
+        dispatch(fetchStart())
+        uploadFileApi(file, type)
+            .then((res) => {
+                if (res.status === 200) {
+                    dispatch(fetchSuccess(`Upload File ${type} Berhasil`))
+                    dispatch({ type: UPLOAD_FILE, payload: res.result })
+                } else {
+                    dispatch(fetchError(`Upload File ${type} Gagal`))
                 }
             })
             .catch((error) => {

@@ -1,9 +1,10 @@
-import { ADD_SOAL, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_DETAIL_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_SOAL, UPDATE_TRYOUT } from "../actions/types";
+import { ADD_SOAL, CLEAR_DETAIL_SOAL, CLEAR_DETAIL_TRYOUT, CLEAR_LIST_TRYOUT, DELETE_DETAIL_TRYOUT, GET_DETAIL_SOAL, GET_DETAIL_TRYOUT, GET_LIST_TRYOUT, UPDATE_SOAL, UPDATE_TRYOUT, UPLOAD_FILE } from "../actions/types";
 
 const initialState = {
     list: null,
     detail: null,
-    soal: null
+    soal: null,
+    file: null
 }
 
 const tryoutReducers = (state = initialState, action) => {
@@ -53,6 +54,11 @@ const tryoutReducers = (state = initialState, action) => {
         case DELETE_DETAIL_TRYOUT:
             return {
                 ...state,
+            }
+        case UPLOAD_FILE:
+            return {
+                ...state,
+                file: action.payload.url,
             }
         default:
             return state;
