@@ -96,18 +96,56 @@ class ModelAuth {
   }
 
   async addUser(data) {
-    let isSuccess = false
-    await db.collection('users').doc().set(data).then(function () {
-      isSuccess = true
-    }).catch(err => {
-      isSuccess = false
-    });
-
-    if (isSuccess) {
-      return true;
-    } else {
-      return false;
+    let check = {
+      isError: false,
+      message: ''
     }
+    const userRef = await db.collection('users')
+    const snapUser = await userRef.get()
+
+    snapUser.forEach(hasil => {
+      let item = hasil.data()
+      if (item.email === data.email) {
+        check = {
+          isError: true,
+          message: 'Email Sudah Terdaftar'
+        }
+      } else if (item.username === data.username) {
+        check = {
+          isError: true,
+          message: 'Username Sudah Terdaftar'
+        }
+      }
+    })
+
+    if (check.isError) {
+      return {
+        isSuccess: false,
+        message: check.message
+      }
+    } else {
+      let isSuccess = false
+      await db.collection('users').doc().set(data).then(function () {
+        isSuccess = true
+      }).catch(err => {
+        isSuccess = false
+      });
+
+      if (isSuccess) {
+        return {
+          isSuccess: true,
+          message: ''
+        }
+      } else {
+        return {
+          isSuccess: false,
+          message: 'Data User Gagal Ditambahkan'
+        }
+      }
+    }
+
+
+
   }
 
   async updateUser(data, id) {

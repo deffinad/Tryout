@@ -112,7 +112,7 @@ const onAddUser = async (req, res) => {
       return res.status(422).json({ errors: errors.array() });
     } else {
       const result = await authModel.addUser(req.body);
-      if (result) {
+      if (result.isSuccess) {
         res.status(200).json({
           status: 200,
           messages: "Data User Berhasil Ditambahkan",
@@ -121,7 +121,7 @@ const onAddUser = async (req, res) => {
       } else {
         res.status(403).json({
           status: 403,
-          messages: "Data User Gagal Ditambahkan",
+          messages: result.message,
           result: null
         });
       }
