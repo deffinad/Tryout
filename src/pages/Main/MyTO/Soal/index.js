@@ -41,17 +41,30 @@ export const SoalTryOut = () => {
     }
 
     useEffect(() => {
+        const jawaban_user = JSON.parse(window.localStorage.getItem(`${'jawaban_' + id_transaksi + '_' + id_tryout + '_' + id_materi}`))
+        if (jawaban_user) {
+            setJawaban(jawaban_user)
+        }
+
         dispatch(clearListTryout())
         dispatch(getListSoalTryout(menu, id_tryout, id_materi))
     }, [])
 
     useEffect(() => {
-        if (listSoal !== null) {
+        if (listSoal !== null && window.location.pathname === `/to-saya/${menu}/${id_transaksi}/${id_tryout}/soal/${id_materi}`) {
+            const countdown_user = JSON.parse(window.localStorage.getItem(`${'countdown_' + id_transaksi + '_' + id_tryout + '_' + id_materi}`))
+            let countdown = 0
+            if (countdown_user) {
+                countdown = parseInt((countdown_user.hours * 60)) + parseInt(countdown_user.minutes)
+            } else {
+                countdown = parseInt(listSoal.materi.waktu_mengerjakan)
+            }
             setSoal(listSoal.soal)
             const dateNow = new Date()
-            dateNow.setMinutes(dateNow.getMinutes() + parseInt(listSoal.materi.waktu_mengerjakan))
+            dateNow.setMinutes(dateNow.getMinutes() + countdown)
             const newDate = dateNow.getTime()
-            setInterval(() => setNewTime(newDate), 1000);
+            const interval = setInterval(() => setNewTime(newDate), 1000);
+            return () => clearInterval(interval);
         }
     }, [listSoal])
 
@@ -63,13 +76,6 @@ export const SoalTryOut = () => {
             });
         }
     }, [state])
-
-    useEffect(() => {
-        const jawaban_user = JSON.parse(localStorage.getItem('jawaban'))
-        if (jawaban_user) {
-            setJawaban(jawaban_user)
-        }
-    }, [])
 
     const handleJawaban = (id_soal, id, type = '', value = '') => {
         if (type === 'pilihan') {
@@ -109,7 +115,7 @@ export const SoalTryOut = () => {
             }
 
             setJawaban(newJawaban);
-            localStorage.setItem('jawaban', JSON.stringify(newJawaban))
+            window.localStorage.setItem(`${'jawaban_' + id_transaksi + '_' + id_tryout + '_' + id_materi}`, JSON.stringify(newJawaban))
         }
     }
 
@@ -138,6 +144,8 @@ export const SoalTryOut = () => {
                 id: ''
             });
             setTimeout(() => {
+                window.localStorage.removeItem(`${'jawaban_' + id_transaksi + '_' + id_tryout + '_' + id_materi}`)
+                window.localStorage.removeItem(`${'countdown_' + id_transaksi + '_' + id_tryout + '_' + id_materi}`)
                 navigate(`/to-saya/${menu}/beranda/${id_transaksi}/${id_tryout}`)
             }, 3000)
         } else {
@@ -150,31 +158,33 @@ export const SoalTryOut = () => {
 
     const setNewTime = (countdownDate) => {
         const currentTime = new Date().getTime();
-        if (countdownDate >= currentTime) {
+        if (window.location.pathname === `/to-saya/${menu}/${id_transaksi}/${id_tryout}/soal/${id_materi}`) {
+            if (countdownDate >= currentTime) {
+                const distanceToDate = countdownDate - currentTime;
 
-            const distanceToDate = countdownDate - currentTime;
+                let days = Math.floor(distanceToDate / (1000 * 60 * 60 * 24));
+                let hours = Math.floor(
+                    (distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                );
+                let minutes = Math.floor(
+                    (distanceToDate % (1000 * 60 * 60)) / (1000 * 60),
+                );
+                let seconds = Math.floor((distanceToDate % (1000 * 60)) / 1000);
 
-            let days = Math.floor(distanceToDate / (1000 * 60 * 60 * 24));
-            let hours = Math.floor(
-                (distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-            );
-            let minutes = Math.floor(
-                (distanceToDate % (1000 * 60 * 60)) / (1000 * 60),
-            );
-            let seconds = Math.floor((distanceToDate % (1000 * 60)) / 1000);
+                const numbersToAddZeroTo = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-            const numbersToAddZeroTo = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                days = `${days}`;
+                if (numbersToAddZeroTo.includes(hours)) {
+                    hours = `0${hours}`;
+                } else if (numbersToAddZeroTo.includes(minutes)) {
+                    minutes = `0${minutes}`;
+                } else if (numbersToAddZeroTo.includes(seconds)) {
+                    seconds = `0${seconds}`;
+                }
 
-            days = `${days}`;
-            if (numbersToAddZeroTo.includes(hours)) {
-                hours = `0${hours}`;
-            } else if (numbersToAddZeroTo.includes(minutes)) {
-                minutes = `0${minutes}`;
-            } else if (numbersToAddZeroTo.includes(seconds)) {
-                seconds = `0${seconds}`;
+                setState({ days: days, hours: hours, minutes, seconds });
+                window.localStorage.setItem(`${'countdown_' + id_transaksi + '_' + id_tryout + '_' + id_materi}`, JSON.stringify({ days: days, hours: hours, minutes: parseInt(minutes), seconds: parseInt(seconds) }))
             }
-
-            setState({ days: days, hours: hours, minutes, seconds });
         }
     }
 
