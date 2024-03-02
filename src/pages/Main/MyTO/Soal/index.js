@@ -7,7 +7,6 @@ import { useParams } from 'react-router'
 import { addMyToAnswer, clearListTryout, getListSoalTryout } from "../../../../Redux/actions/my-to.actions";
 import DialogModal from '../../../../components/DialogModal'
 import { useNavigate } from 'react-router-dom'
-import InlineIconInput from '../../../../components/InlineIconInput'
 
 export const SoalTryOut = () => {
     const { menu, id_transaksi, id_tryout, id_materi } = useParams()
@@ -65,6 +64,13 @@ export const SoalTryOut = () => {
         }
     }, [state])
 
+    useEffect(() => {
+        const jawaban_user = JSON.parse(localStorage.getItem('jawaban'))
+        if (jawaban_user) {
+            setJawaban(jawaban_user)
+        }
+    }, [])
+
     const handleJawaban = (id_soal, id, type = '', value = '') => {
         if (type === 'pilihan') {
             let check = jawaban.hasOwnProperty(id_soal)
@@ -96,10 +102,14 @@ export const SoalTryOut = () => {
                 [id_soal]: newJawaban,
             }));
         } else {
-            setJawaban((prevAnswers) => ({
-                ...jawaban,
-                [id_soal]: id,
-            }));
+            const OldJawaban = { ...jawaban }
+            const newJawaban = {
+                ...OldJawaban,
+                [id_soal]: id
+            }
+
+            setJawaban(newJawaban);
+            localStorage.setItem('jawaban', JSON.stringify(newJawaban))
         }
     }
 
@@ -171,14 +181,14 @@ export const SoalTryOut = () => {
     const handleCheckedPilihan = (id_soal, id_opsi, value) => {
         let check = jawaban.hasOwnProperty(id_soal)
         let checked = false
-        if(check){
+        if (check) {
             let index = jawaban[id_soal].findIndex(x => x.id === id_opsi)
-            if(jawaban[id_soal][index]?.value === value){
+            if (jawaban[id_soal][index]?.value === value) {
                 checked = true
-            }else{
+            } else {
                 checked = false
             }
-        }else{
+        } else {
             checked = false
         }
 
@@ -235,7 +245,7 @@ export const SoalTryOut = () => {
                                     {
                                         value.gambar !== '' ? (
                                             <div className='py-2'>
-                                                <img src={value.gambar} className='w-full' />
+                                                <img alt="" src={value.gambar} className='w-full' />
                                             </div>
                                         ) : null
                                     }
@@ -287,7 +297,15 @@ export const SoalTryOut = () => {
                                                     </div>
                                                 ))
                                             ) : (
-                                                <textarea id={'jawaban'} onChange={(e) => handleJawaban(value.id, e.target.value)} rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder={'Masukan Jawaban'}>{jawaban[value.id]}</textarea>
+                                                <textarea
+                                                    rows="4"
+                                                    id={'jawaban'}
+                                                    placeholder={'Masukan Jawaban'}
+                                                    onChange={(e) => handleJawaban(value.id, e.target.value)}
+                                                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                                >
+                                                    {jawaban[value.id]}
+                                                </textarea>
                                             )
                                         }
                                     </div>
